@@ -1,5 +1,7 @@
 package cas.XB3.earthquake.collection;
 
+import java.util.Iterator;
+
 public class TestC {
     public static void main(String[] args){
         EarthquakeBag <EarthquakeT> bag = new EarthquakeBag<EarthquakeT>();
@@ -21,6 +23,15 @@ public class TestC {
         bag.add(m6);
         bag.add(m7);
         bag.add(m8);
+
+        Iterator iterator = bag.iterator(EarthquakeT.ColorRating.BLUE);
+
+        while (iterator.hasNext()){
+            EarthquakeT i = (EarthquakeT) iterator.next();
+            System.out.print(i.getEarthquakePlace() + " ");
+        }
+
+        System.out.println();
 
         System.out.println(bag.size());
 
