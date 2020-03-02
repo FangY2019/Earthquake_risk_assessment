@@ -27,13 +27,13 @@ public class EarthquakeT {
     }
 
     /*
-    ColorRating is assign based on 6 earthquake magnitude classes; Magnitude is in brackets below:
+    ColorRating is assigned based on 6 earthquake magnitude classes; The magnitude is in brackets below:
     RED: Great (8 or more)
-    Major (7 - 7.9)
-    Strong (6 - 6.9)
-    Moderate (5 - 5.9)
-    Light (4 - 4.9)
-    Minor (3 - 3.9)
+         Major (7 - 7.9)
+         Strong (6 - 6.9)
+         Moderate (5 - 5.9)
+         Light (4 - 4.9)
+    PURPLE: Minor (3 - 3.9)
     */
     enum ColorRating{
         PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED
