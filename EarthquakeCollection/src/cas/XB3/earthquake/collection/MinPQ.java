@@ -264,7 +264,7 @@ public class MinPQ<Key> implements Iterable<Key> {
      * Unit tests the {@code MinPQ} data type.
      *
      * @param args the command-line arguments
-     */
+
     public static void main(String[] args) {
         MinPQ<String> pq = new MinPQ<String>();
         while (!StdIn.isEmpty()) {
@@ -274,5 +274,6 @@ public class MinPQ<Key> implements Iterable<Key> {
         }
         StdOut.println("(" + pq.size() + " left on pq)");
     }
+    */
 
 }
