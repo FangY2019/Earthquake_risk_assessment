@@ -22,7 +22,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../untitled" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager" selected="Application.CSVreader">
     <configuration name="CSVreader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -88,21 +88,21 @@
       <screen x="0" y="0" width="1360" height="728" />
     </state>
     <state x="460" y="120" key="FileChooserDialogImpl/0.0.1360.728@0.0.1360.728" timestamp="1583235458917" />
-    <state width="1317" height="117" key="GridCell.Tab.0.bottom" timestamp="1583238706390">
+    <state width="1317" height="117" key="GridCell.Tab.0.bottom" timestamp="1583273361609">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1317" height="117" key="GridCell.Tab.0.bottom/0.0.1360.728@0.0.1360.728" timestamp="1583238706390" />
-    <state width="1317" height="117" key="GridCell.Tab.0.center" timestamp="1583238706390">
+    <state width="1317" height="117" key="GridCell.Tab.0.bottom/0.0.1360.728@0.0.1360.728" timestamp="1583273361609" />
+    <state width="1317" height="117" key="GridCell.Tab.0.center" timestamp="1583273361609">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1317" height="117" key="GridCell.Tab.0.center/0.0.1360.728@0.0.1360.728" timestamp="1583238706390" />
-    <state width="1317" height="117" key="GridCell.Tab.0.left" timestamp="1583238706390">
+    <state width="1317" height="117" key="GridCell.Tab.0.center/0.0.1360.728@0.0.1360.728" timestamp="1583273361609" />
+    <state width="1317" height="117" key="GridCell.Tab.0.left" timestamp="1583273361609">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1317" height="117" key="GridCell.Tab.0.left/0.0.1360.728@0.0.1360.728" timestamp="1583238706390" />
-    <state width="1317" height="117" key="GridCell.Tab.0.right" timestamp="1583238706390">
+    <state width="1317" height="117" key="GridCell.Tab.0.left/0.0.1360.728@0.0.1360.728" timestamp="1583273361609" />
+    <state width="1317" height="117" key="GridCell.Tab.0.right" timestamp="1583273361609">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1317" height="117" key="GridCell.Tab.0.right/0.0.1360.728@0.0.1360.728" timestamp="1583238706390" />
+    <state width="1317" height="117" key="GridCell.Tab.0.right/0.0.1360.728@0.0.1360.728" timestamp="1583273361609" />
   </component>
 </project>

@@ -1,25 +1,43 @@
 package cas.XB3.earthquake.collection;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class EarthquakeT {
     private String earthquakePlace;
-    private Date date;
+    private LocalDateTime date;
     private double lat;
     private double lng;
-    private double depth;
-    private double magnitude;
-    private ColorRating color;
+    private double dph;
+    private double mag;
     private MagType magnitudeType;
+    private ColorRating color;
 
-    public EarthquakeT(String place, ColorRating color, double magnitude){
+    public EarthquakeT(String place, LocalDateTime date, double lat, double lng, double dph, double mag, MagType mgT, ColorRating color){
         this.earthquakePlace = place;
+        this.date = date;
+        this.lat = lat;
+        this.lng = lng;
+        this.dph = dph;
+        this.mag = mag;
+        this.magnitudeType = mgT;
         this.color = color;
-        this.magnitude = magnitude;
     }
 
     public String getEarthquakePlace() {
         return earthquakePlace;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public double getMag() {
+        return mag;
     }
 
     public ColorRating getColor(){
@@ -36,9 +54,9 @@ public class EarthquakeT {
     PURPLE: Minor (3 - 3.9)
     */
     enum ColorRating{
-        PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED
+        NOCOLOR, ZERO, PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED
     }
     enum MagType{
-        M5, MB, MC, ML, MLSn, MN, MS, Mw, BLANK
+        M5, mb, MB, Mb, MC, Mc, mc, ML, MLSn, MN, MS, MW, Ms, Mw, BLANK
     }
 }
