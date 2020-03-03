@@ -22,9 +22,22 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../untitled" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.CSVreader">
+    <configuration name="CSVreader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cas.XB3.earthquake.collection.CSVreader" />
+      <module name="EarthquakeCollection" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cas.XB3.earthquake.collection.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestC" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cas.XB3.earthquake.collection.TestC" />
       <module name="EarthquakeCollection" />
@@ -40,6 +53,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CSVreader" />
         <item itemvalue="Application.TestC" />
       </list>
     </recent_temporary>
@@ -70,21 +84,25 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1317" height="117" key="GridCell.Tab.0.bottom" timestamp="1583151315905">
+    <state x="460" y="120" key="FileChooserDialogImpl" timestamp="1583235458917">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1317" height="117" key="GridCell.Tab.0.bottom/0.0.1360.728@0.0.1360.728" timestamp="1583151315905" />
-    <state width="1317" height="117" key="GridCell.Tab.0.center" timestamp="1583151315905">
+    <state x="460" y="120" key="FileChooserDialogImpl/0.0.1360.728@0.0.1360.728" timestamp="1583235458917" />
+    <state width="1317" height="117" key="GridCell.Tab.0.bottom" timestamp="1583238706390">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1317" height="117" key="GridCell.Tab.0.center/0.0.1360.728@0.0.1360.728" timestamp="1583151315905" />
-    <state width="1317" height="117" key="GridCell.Tab.0.left" timestamp="1583151315905">
+    <state width="1317" height="117" key="GridCell.Tab.0.bottom/0.0.1360.728@0.0.1360.728" timestamp="1583238706390" />
+    <state width="1317" height="117" key="GridCell.Tab.0.center" timestamp="1583238706390">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1317" height="117" key="GridCell.Tab.0.left/0.0.1360.728@0.0.1360.728" timestamp="1583151315905" />
-    <state width="1317" height="117" key="GridCell.Tab.0.right" timestamp="1583151315905">
+    <state width="1317" height="117" key="GridCell.Tab.0.center/0.0.1360.728@0.0.1360.728" timestamp="1583238706390" />
+    <state width="1317" height="117" key="GridCell.Tab.0.left" timestamp="1583238706390">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1317" height="117" key="GridCell.Tab.0.right/0.0.1360.728@0.0.1360.728" timestamp="1583151315905" />
+    <state width="1317" height="117" key="GridCell.Tab.0.left/0.0.1360.728@0.0.1360.728" timestamp="1583238706390" />
+    <state width="1317" height="117" key="GridCell.Tab.0.right" timestamp="1583238706390">
+      <screen x="0" y="0" width="1360" height="728" />
+    </state>
+    <state width="1317" height="117" key="GridCell.Tab.0.right/0.0.1360.728@0.0.1360.728" timestamp="1583238706390" />
   </component>
 </project>
