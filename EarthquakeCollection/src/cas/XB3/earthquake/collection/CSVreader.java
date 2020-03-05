@@ -24,7 +24,7 @@ public class CSVreader {
                 double cell3 = Double.parseDouble(cell[3]);
                 double cell4 = Double.parseDouble(cell[4]);
                 MagType cell5 = MagType.BLANK;
-                if (!cell[5].equals(""))
+                if (!cell[5].isEmpty())
                     cell5 = MagType.valueOf(cell[5]);
 
                 ColorRating clRating = generateColorRating(cell4);
@@ -35,6 +35,40 @@ public class CSVreader {
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+    
+    public static void readPopulation(String filename, GeoCollection<GeoLoc> geoCollec){
+        String singleL;
+        try {
+            BufferedReader bufferedR = new BufferedReader(new FileReader(filename));
+            String columnN = bufferedR.readLine();
+
+            while ((singleL = bufferedR.readLine()) != null){
+                String[] cell = singleL.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                cell[0] = rmFirstLastQuote(cell[0]);
+                cell[1] = rmFirstLastQuote(cell[1]);
+                cell[3] = rmFirstLastQuote(cell[3]);
+                cell[5] = rmFirstLastQuote(cell[5]);
+
+                int cell10 = 0;
+                if (!cell[10].isEmpty())
+                    cell10 = Integer.parseInt(cell[10]);
+
+                GeoLoc loc = new GeoLoc(cell[0], cell[1], cell[3], cell[5], cell10);
+                geoCollec.add(loc);
+            }
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static String rmFirstLastQuote(String cell){
+        String cellq = cell;
+        if (cell.startsWith("\"") && cell.endsWith("\""))
+            cellq = cellq.substring(1, cellq.length()-1);
+        return cellq;
     }
 
     private static ColorRating generateColorRating(double cell4) {
@@ -58,15 +92,26 @@ public class CSVreader {
     }
 
     public static void main(String[] args){
-        EarthquakeBag <EarthquakeT> bag2 = new EarthquakeBag<EarthquakeT>();
+        EarthquakeBag<EarthquakeT> bag2 = new EarthquakeBag<EarthquakeT>();
         readEarthquakes("./eqarchive-en.csv", bag2);
         Iterator iterator = bag2.iterator();
 
+        /*
         while (iterator.hasNext()){
             EarthquakeT i = (EarthquakeT) iterator.next();
             System.out.println(i.getEarthquakePlace());
         }
 
         System.out.println(bag2.size());
+
+         */
+
+        GeoCollection<GeoLoc> collec = new GeoCollection<GeoLoc>();
+
+        readPopulation("./T301EN.CSV", collec);
+
+        for (GeoLoc g : collec)
+            System.out.println(g.getGeoname());
+        
     }
 }
