@@ -92,26 +92,18 @@ public class CSVreader {
     }
 
     public static void main(String[] args){
-        EarthquakeBag<EarthquakeT> bag2 = new EarthquakeBag<EarthquakeT>();
-        readEarthquakes("./eqarchive-en.csv", bag2);
-        Iterator iterator = bag2.iterator();
 
-        /*
-        while (iterator.hasNext()){
-            EarthquakeT i = (EarthquakeT) iterator.next();
-            System.out.println(i.getEarthquakePlace());
+        Database.init();
+
+        for(GeoLoc g: Database.GeoCollection){
+            System.out.println(g.getGeoname());
         }
 
-        System.out.println(bag2.size());
+        Iterator iterator = Database.EarthquakeBag.iterator();
+        while (iterator.hasNext()){
+            EarthquakeT i = (EarthquakeT) iterator.next();
+            //System.out.println(i.getEarthquakePlace());
+        }
 
-         */
-
-        GeoCollection<GeoLoc> collec = new GeoCollection<GeoLoc>();
-
-        readPopulation("./T301EN.CSV", collec);
-
-        for (GeoLoc g : collec)
-            System.out.println(g.getGeoname());
-        
     }
 }
