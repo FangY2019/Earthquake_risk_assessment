@@ -4,20 +4,17 @@ import java.util.ArrayList;
 
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.collection.CSVreader;
+import cas.XB3.earthquake.collection.Database;
 import cas.XB3.earthquake.collection.EarthquakeBag;
 import cas.XB3.earthquake.collection.EarthquakeT;
 
 public class SearchEarthquakeInCircle {
-
-	
-	//load the earthquake database
-	static EarthquakeBag <EarthquakeT> Earthquakebag = new EarthquakeBag<EarthquakeT>();
-	//readEarthquakes("./eqarchive-en.csv", Earthquakebag);	
 	
 	//get the list of earthquake which are in the circle of the given PointT and radius
 	public static ArrayList<EarthquakeT> searchEarthquakeInCircle(PointT location, double radius){
+		Database.init(); //load the earthquake database
 		ArrayList<EarthquakeT> earthquakeList = new ArrayList<>();
-		for(EarthquakeT earthquake: Earthquakebag) {
+		for(EarthquakeT earthquake: Database.EarthquakeBag) {
 			if(location.distanceTo(earthquake.getPointT()) <= radius) {
 				earthquakeList.add(earthquake);
 			}
