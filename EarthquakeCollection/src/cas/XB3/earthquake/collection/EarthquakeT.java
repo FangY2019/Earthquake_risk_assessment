@@ -1,11 +1,11 @@
 package cas.XB3.earthquake.collection;
 
+import cas.XB3.earthquake.ADT.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class EarthquakeT {
-    private String earthquakePlace;
     private LocalDateTime date;
+    private String place;
     private double lat;
     private double lng;
     private double dph;
@@ -14,30 +14,38 @@ public class EarthquakeT {
     private ColorRating color;
 
     public EarthquakeT(String place, LocalDateTime date, double lat, double lng, double dph, double mag, MagType mgT, ColorRating color){
-        this.earthquakePlace = place;
-        this.date = date;
-        this.lat = lat;
-        this.lng = lng;
+    	this.lat = lat;
+    	this.lng = lng;
+    	this.place = place;
+    	this.date = date;
         this.dph = dph;
         this.mag = mag;
         this.magnitudeType = mgT;
         this.color = color;
     }
 
-    public String getEarthquakePlace() {
-        return earthquakePlace;
+    public String getPlace() {
+        return place;
     }
 
-    public double getLat() {
-        return lat;
-    }
-
-    public double getLng() {
-        return lng;
+    public PointT getPointT() {
+    	return new PointT(lat, lng);
     }
 
     public double getMag() {
         return mag;
+    }
+    
+    public double dph() {
+    	return dph;
+    }
+    
+    public MagType getMagitudeType() {
+    	return magnitudeType;
+    }
+    
+    public LocalDateTime getDate() {
+    	return date;
     }
 
     public ColorRating getColor(){
