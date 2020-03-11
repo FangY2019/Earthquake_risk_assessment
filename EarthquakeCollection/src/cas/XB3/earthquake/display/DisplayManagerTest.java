@@ -29,21 +29,7 @@ public class DisplayManagerTest {
 				displaymanager.display(new DisplayByDistance());
 			}
 			
-		}while(choice != 0);		
-
-
-//		while(choice !=3){
-//			if(choice == 1) {
-//				displaymanager.display(new DispalyByMagnitude());
-//				System.out.println("Display by Magnitude, choose 1; Display by time, choose 2, exist, choose 3");
-//				choice = input.nextInt();
-//			}
-//			else if (choice == 2){
-//				displaymanager.display(new DisplayByDistance());
-//				System.out.println("Display by Magnitude, choose 1; Display by time, choose 2, exist, choose 3");
-//				choice = input.nextInt();
-//			}			
-//		}		
+		}while(choice != 0);			
 
 		input.close();
 	}
