@@ -3,7 +3,7 @@ package cas.XB3.earthquake.collection;
 import cas.XB3.earthquake.ADT.*;
 import java.time.LocalDateTime;
 
-public class EarthquakeT {
+public class EarthquakeT implements Comparable<EarthquakeT>{
     private LocalDateTime date;
     private String place;
     private double lat;
@@ -50,6 +50,14 @@ public class EarthquakeT {
 
     public ColorRating getColor(){
         return color;
+    }
+    
+    public int compareTo(EarthquakeT eq) {
+    	if(this.getMag() < eq.getMag()) return -1;
+    	else if(this.getMag() > eq.getMag()) return 1;
+    	else return 0;
+
+    	
     }
 
     /*
