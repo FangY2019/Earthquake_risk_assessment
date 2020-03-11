@@ -40,7 +40,7 @@ public class RiskAssessment {
 		
 		int populationdensity  = getPopulation(cityName);
 		
-		rating = (int) Math.round(0.5 * (frequency1 + Math.pow(averagerMag1, 2)) + 0.3 * (frequency2 + Math.pow(averagerMag2, 2)) + 2 * populationdensity/ 1000)
+		rating = (int) Math.round(0.5 * (frequency1 + Math.pow(averagerMag1, 2)) + 0.3 * (frequency2 + Math.pow(averagerMag2, 2)) + 2 * populationdensity/ 1000);
 		
 		
 	}
@@ -50,8 +50,8 @@ public class RiskAssessment {
 		double minDistance = Double.MAX_VALUE;
 		EarthquakeT nearestEarthquake;
 		for(EarthquakeT earthquake: earthquakeList ) {
-			if(location.distanceTo(earthquake.getPoint()) < minDistance) {
-				minDistance = location.distanceTo(earthquake.getPoint();
+			if(location.distanceTo(earthquake.getPointT()) < minDistance) {
+				minDistance = location.distanceTo(earthquake.getPointT());
 				nearestEarthquake = earthquake;
 				
 			}

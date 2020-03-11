@@ -12,7 +12,7 @@ public class DispalyByMagnitude implements DisplayInterface{
 		ArrayList<EarthquakeT> earthquakeList = new SearchEarthquakeInCircle().searchEarthquakeInCircle(location, radius);
 		SortEarthquakeListByMagnitude.sort(earthquakeList);
 		for(EarthquakeT eq: earthquakeList) {
-			System.out.println("" + eq.getEarthquakePlace() + eq.getMag());
+			System.out.println("" + eq.getPlace() + eq.getMag());
 		}
 		
 		
