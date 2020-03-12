@@ -4,35 +4,21 @@ import java.util.ArrayList;
 
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.collection.EarthquakeT;
-import cas.XB3.earthquake.search.Search;
+import cas.XB3.earthquake.sort.Sort;
+
 
 public class DisplayByDistance implements DisplayInterface {
 
 	@Override
-	public void display(PointT location, double radius) {
-		ArrayList<EarthquakeT> earthquakeList = Search.searchEarthquakeInCircle(location, radius);
-		sortByDistance(location, earthquakeList);
+	public void display(ArrayList<EarthquakeT> earthquakeList, PointT location) {
+		Sort.sortByDistance(location, earthquakeList);
+		System.out.println("Distance     Magnitude         Date                 City");
 		for(EarthquakeT eq: earthquakeList) {
-			System.out.println("" + location.distanceTo(eq.getPointT()) +", "+ eq.getMag() +", "+ eq.getDate() +", " +eq.getPlace());
+			System.out.println("" + Math.round(location.distanceTo(eq.getPointT())* 10)/10.0 +", "+ eq.getMag() +", "+ eq.getDate().getYear() +", " +eq.getPlace());
 		}		
 		
 	}
 	
-	private void sortByDistance(PointT location, ArrayList<EarthquakeT> earthquakeList) {
-//		double distance= location.distanceTo(earthquakeList.get(0).getPointT());
-		for(int i = 0 ; i < earthquakeList.size(); i++) {
-			for(int j = i; j > 0; j -- ) {
-				if(location.distanceTo(earthquakeList.get(j - 1).getPointT()) < location.distanceTo(earthquakeList.get(j).getPointT())) {
-					swap(earthquakeList, j, j - 1);
-				}
-			}
-		}		
-	}
 	
-	private static void swap(ArrayList<EarthquakeT> eqList, int i, int j) {
-		EarthquakeT temp = eqList.get(i);
-		eqList.set(i,  eqList.get(j));
-		eqList.set(j, temp);
-	}	
 
 }

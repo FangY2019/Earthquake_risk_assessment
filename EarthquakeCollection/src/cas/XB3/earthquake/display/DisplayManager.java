@@ -1,19 +1,24 @@
 package cas.XB3.earthquake.display;
 
+import java.util.ArrayList;
+
 import cas.XB3.earthquake.ADT.PointT;
+import cas.XB3.earthquake.collection.EarthquakeT;
+import cas.XB3.earthquake.riskAssessment.RiskAssessment;
 
 //manage the display option
 public class DisplayManager {
 	PointT location;
-	double radius;
+	ArrayList<EarthquakeT> earthquakeList;
+
 	
-	public DisplayManager(PointT location, double radius) {
+	public DisplayManager(ArrayList<EarthquakeT> earthquakeList, PointT location) {
 		this.location = location;
-		this.radius = radius;
+		this.earthquakeList = earthquakeList;
 	}
 	
 	public void display(DisplayInterface dispalyByOption) {		
-		dispalyByOption.display(location, radius);
+		dispalyByOption.display(earthquakeList, location);
 	}
 
 }
