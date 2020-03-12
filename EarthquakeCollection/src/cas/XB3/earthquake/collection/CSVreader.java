@@ -37,7 +37,7 @@ public class CSVreader {
         }
     }
     
-    public static void readPopulation(String filename, GeoCollection<GeoLoc> geoCollec){
+    public static void readPopulation(String filename, GeoCollection geoCollec){
         String singleL;
         try {
             BufferedReader bufferedR = new BufferedReader(new FileReader(filename));
@@ -55,8 +55,8 @@ public class CSVreader {
                 if (!cell[10].isEmpty())
                     cell10 = Integer.parseInt(cell[10]);
 
-                GeoLoc loc = new GeoLoc(cell[0], cell[1], cell[3], cell[5], cell10);
-                geoCollec.add(loc);
+                //GeoLoc loc = new GeoLoc(cell[0], cell[1], cell[3], cell[5], cell10);
+                //geoCollec.add(loc);
             }
 
         } catch (IOException e){
@@ -89,21 +89,5 @@ public class CSVreader {
             clRating = ColorRating.RED;
 
         return clRating;
-    }
-
-    public static void main(String[] args){
-
-        Database.init();
-
-        for(GeoLoc g: Database.GeoCollection){
-            System.out.println(g.getGeoname());
-        }
-
-        Iterator iterator = Database.EarthquakeBag.iterator();
-        while (iterator.hasNext()){
-            EarthquakeT i = (EarthquakeT) iterator.next();
-            //System.out.println(i.getEarthquakePlace());
-        }
-
     }
 }
