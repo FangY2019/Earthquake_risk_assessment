@@ -1,40 +1,35 @@
 package cas.XB3.earthquake.collection;
 
-import java.util.Iterator;
+import cas.XB3.earthquake.ADT.*;
 
-public class GeoCollection<Item> implements Iterable<Item>{
-    private Item[] itemArray;
-    private int size;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-    public GeoCollection(){
-        itemArray = (Item[]) new Object[5162];
-    }
+public class GeoCollection {
+	private HashMap<String, ArrayList<CityT>> cityHashMap = new HashMap<>();
 
-    public void add(Item item){
-        itemArray[size++] = item;
+    public void add(String province, CityT city){
+    	ArrayList<CityT> temp = new ArrayList<>();
+    	if(cityHashMap.get(province) == null) {
+    		temp.add(city);
+    		cityHashMap.put(province, temp);
+    	}else {
+    		temp = (ArrayList<CityT>) cityHashMap.get(province).clone();
+    		temp.remove(city); // avoid potential duplicated cites
+    		temp.add(city);
+    		cityHashMap.put(province, temp);
+    	}
     }
 
     public boolean isEmpty(){
-        return size == 0;
+        return cityHashMap.isEmpty();
     }
-
-    public int size() {
-        return size;
+    
+    public ArrayList<CityT> getCityArrayList(String province) {
+    	return cityHashMap.get(province);
     }
-
-    public Iterator<Item> iterator() {
-        return new ListIterator();
-    }
-
-    private class ListIterator implements Iterator<Item> {
-        private int i = 0;
-
-        public boolean hasNext() {
-            return i < 5162;
-        }
-
-        public Item next() {
-            return itemArray[i++];
-        }
+    
+    public HashMap<String, ArrayList<CityT>> getCityHashMap(){
+    	return cityHashMap;
     }
 }
