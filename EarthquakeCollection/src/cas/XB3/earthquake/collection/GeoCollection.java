@@ -15,6 +15,7 @@ public class GeoCollection {
     		cityHashMap.put(province, temp);
     	}else {
     		temp = (ArrayList<CityT>) cityHashMap.get(province).clone();
+    		temp.remove(city); // avoid potential duplicated cites
     		temp.add(city);
     		cityHashMap.put(province, temp);
     	}

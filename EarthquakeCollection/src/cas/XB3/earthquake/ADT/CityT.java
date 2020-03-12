@@ -22,4 +22,18 @@ public class CityT {
 	public double getPopDensity() {
 		return popDensity;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof CityT)) {
+			return false;
+		}
+		final double TOLERANCE = 0.0000001;
+		CityT that = (CityT) o;
+		return that.getCityName().equals(cityName) && that.getProvince().equals(province) &&
+				Math.abs(popDensity - that.getPopDensity()) < TOLERANCE;
+	}
 }
