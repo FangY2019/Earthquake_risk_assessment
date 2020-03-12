@@ -8,14 +8,13 @@ import cas.XB3.earthquake.collection.CSVreader;
 import cas.XB3.earthquake.collection.EarthquakeBag;
 import cas.XB3.earthquake.collection.EarthquakeT;
 import cas.XB3.earthquake.collection.GeoCollection;
-import cas.XB3.earthquake.collection.GeoLoc;
 import cas.XB3.earthquake.riskAssessment.RiskAssessment;
 import cas.XB3.earthquake.search.SearchEarthquakes;
 
 public class DisplayDemo {
 	
     public static final EarthquakeBag<EarthquakeT> EarthquakeBag = new EarthquakeBag<EarthquakeT>();
-    public static final GeoCollection<GeoLoc> GeoCollection = new GeoCollection<GeoLoc>();
+    public static final GeoCollection GeoCollection = new GeoCollection();
     
 	public static void main(String[] args) {
 		init();
