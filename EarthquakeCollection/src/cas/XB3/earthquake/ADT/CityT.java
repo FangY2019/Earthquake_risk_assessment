@@ -3,12 +3,12 @@ package cas.XB3.earthquake.ADT;
 public class CityT {
 	private String cityName;
 	private String province;
-	private int population;
+	private double popDensity;
 	
-	public CityT(String cityName, String province, int population) {
+	public CityT(String cityName, String province, double popDensity) {
 		this.cityName = cityName;
 		this.province = province;
-		this.population = population;
+		this.popDensity = popDensity;
 	}
 	
 	public String getCityName() {
@@ -19,7 +19,7 @@ public class CityT {
 		return province;
 	}
 	
-	public int getPopulation() {
-		return population;
+	public double getPopDensity() {
+		return popDensity;
 	}
 }
