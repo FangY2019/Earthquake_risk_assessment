@@ -47,15 +47,20 @@ public class CSVreader {
 
             while ((singleL = bufferedR.readLine()) != null){
                 String[] cell = singleL.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+//                for(String str: cell) {
+//                	System.out.print(str + " ");
+//                }
+//                System.out.println();
+                
 
                 //cell[0] = rmFirstLastQuote(cell[0]);
                 cell[1] = rmFirstLastQuote(cell[1]);
                 cell[3] = rmFirstLastQuote(cell[3]);
                 cell[5] = rmFirstLastQuote(cell[5]);
 
-                int cell26 = 0;
+                Double cell26 = 0.0;
                 if (!cell[26].isEmpty())
-                    cell26 = Integer.parseInt(cell[26]);
+                    cell26 = Double.parseDouble(cell[26]);
 
                 CityT loc = new CityT(cell[1], cell[5], cell26);
                 geoCollec.add(loc);
