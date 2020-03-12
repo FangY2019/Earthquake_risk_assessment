@@ -1,9 +1,15 @@
 package cas.XB3.earthquake.riskAssessment;
+/**
+ * Assuming the future earthquake risk is determined by three factors:past earthquake frequency, magnitude and population density 
+ * 
+ */
 
 import java.util.ArrayList;
 
+import cas.XB3.earthquake.ADT.CityT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.collection.EarthquakeT;
+import cas.XB3.earthquake.search.Search;
 import cas.XB3.earthquake.search.SearchEarthquakeInCircle;
 
 public class RiskAssessment {
@@ -19,9 +25,9 @@ public class RiskAssessment {
 		int rating;
 
 		ArrayList<ArrayList<EarthquakeT>> earthquakeLists = new ArrayList<>();
-		earthquakeLists.add(SearchEarthquakeInCircle.searchEarthquakeInCircle(location, 100000));
-		earthquakeLists.add(SearchEarthquakeInCircle.searchEarthquakeInCircle(location, 200000));
-		earthquakeLists.add(SearchEarthquakeInCircle.searchEarthquakeInCircle(location, 300000));
+		earthquakeLists.add(Search.searchEarthquakeInCircle(location, 100000));
+		earthquakeLists.add(Search.searchEarthquakeInCircle(location, 200000));
+		earthquakeLists.add(Search.searchEarthquakeInCircle(location, 300000));
 		
 		
 
@@ -31,14 +37,15 @@ public class RiskAssessment {
 				break;
 		}
 		
-		int frequency1  = SearchEarthquakeInCircle.getFrequency(earthquakeLists.get(0));
-		int frequency2  = SearchEarthquakeInCircle.getFrequency(earthquakeLists.get(1));
-		int frequency3  = SearchEarthquakeInCircle.getFrequency(earthquakeLists.get(2));
-		int averagerMag1  = SearchEarthquakeInCircle.getAverageMangenitude(earthquakeLists.get(0));
-		int averagerMag2  = SearchEarthquakeInCircle.getAverageMangenitude(earthquakeLists.get(1));
-		int averagerMag3  = SearchEarthquakeInCircle.getAverageMangenitude(earthquakeLists.get(2));
+		int frequency1  = Search.getFrequency(earthquakeLists.get(0));
+		int frequency2  = Search.getFrequency(earthquakeLists.get(1));
+		int frequency3  = Search.getFrequency(earthquakeLists.get(2));
+		double averagerMag1  = Search.getAverageMangenitude(earthquakeLists.get(0));
+		double averagerMag2  = Search.getAverageMangenitude(earthquakeLists.get(1));
+		double averagerMag3  = Search.getAverageMangenitude(earthquakeLists.get(2));
 		
-		int populationdensity  = getPopulation(cityName);
+		CityT city = new CityT(cityName);
+		int populationdensity  = city.getPopulation();
 		
 		rating = (int) Math.round(0.5 * (frequency1 + Math.pow(averagerMag1, 2)) + 0.3 * (frequency2 + Math.pow(averagerMag2, 2)) + 2 * populationdensity/ 1000)
 		
@@ -50,8 +57,8 @@ public class RiskAssessment {
 		double minDistance = Double.MAX_VALUE;
 		EarthquakeT nearestEarthquake;
 		for(EarthquakeT earthquake: earthquakeList ) {
-			if(location.distanceTo(earthquake.getPoint()) < minDistance) {
-				minDistance = location.distanceTo(earthquake.getPoint();
+			if(location.distanceTo(earthquake.getPointT()) < minDistance) {
+				minDistance = location.distanceTo(earthquake.getPointT());
 				nearestEarthquake = earthquake;
 				
 			}
@@ -63,7 +70,7 @@ public class RiskAssessment {
 
 		
 	}
-//	SearchEarthquakeInCircle search = new SearchEarthquakeInCircle();
+
 	
 
 }

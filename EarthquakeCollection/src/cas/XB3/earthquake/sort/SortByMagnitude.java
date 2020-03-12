@@ -6,47 +6,19 @@ import java.util.ArrayList;
 
 import cas.XB3.earthquake.collection.EarthquakeT;
 
-public class SortEarthquakeListByMagnitude {
+public class SortByMagnitude {
 	private static ArrayList<EarthquakeT> aux;
 	
 	
 	// compare by magnitude
-	private static boolean less(EarthquakeT a, EarthquakeT b) {
-		return a.compareTo(b) < 0;
 
-	}
 
-	private static void swap(ArrayList<EarthquakeT> eqList, int i, int j) {
-		EarthquakeT temp = eqList.get(i);
-		eqList.set(i,  eqList.get(j));
-		eqList.set(j, temp);
-	}
 
-	public static boolean isSorted(ArrayList<EarthquakeT> eqList) {
-		for (int i = 10; i < eqList.size() - 1; i++) {
-			if (less(eqList.get(i), eqList.get(i - 1))) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	//sort a list of Earthquake using insertion sort
-	public static void InsertionSort(ArrayList<EarthquakeT> eqList) {
-		for(int i = 1; i < eqList.size(); i ++) {
-			for(int j = i; j > 0; j --) {
-				if(less(eqList.get(j), eqList.get(j - 1))) {
-					swap(eqList, j, j - 1);
-				}
-			}			
-		}	
-	
-	}
 	
 	
 	//sort a list of Earthquake using mergesort
 	public static void mergeSort(ArrayList<EarthquakeT> eqList) {
-		aux = new ArrayList<>(); // Allocate space just once.
+		aux = new ArrayList<>(eqList.size()); // Allocate space just once.
 		mergeSort(eqList, 0, eqList.size() - 1);
 	}
 
@@ -54,24 +26,24 @@ public class SortEarthquakeListByMagnitude {
 		if (hi <= lo)
 			return;
 		int mid = lo + (hi - lo) / 2;
-		mergeSort(eqList, lo, mid); // Sort left half.
-		mergeSort(eqList, mid + 1, hi); // Sort right half.
-		merge(eqList, lo, mid, hi); // Merge results (code on page 271).
+		mergeSort(eqList, lo, mid); 
+		mergeSort(eqList, mid + 1, hi);
+		merge(eqList, lo, mid, hi);
 	}
 	
 	static private void merge(ArrayList<EarthquakeT> eqList, int lo, int mid, int hi) {
 		int i = lo, j = mid + 1;
-		for (int k = lo; k <= hi; k++) // Copy a[lo..hi] to aux[lo..hi].
-			aux.add(eqList.get(i));
-		for (int k = lo; k <= hi; k++) // Merge back to a[lo..hi].
+		for (int k = lo; k <= hi; k++)
+			aux.add(k, eqList.get(k));
+		for (int k = lo; k <= hi; k++)
 			if (i > mid)
-				eqList.add(k, aux.get(j++));
+				eqList.set(k, aux.get(j++));
 			else if (j > hi)
-				eqList.add(k, aux.get(i++));
+				eqList.set(k, aux.get(i++));
 			else if (less(aux.get(j),aux.get(i)))
-				eqList.add(k, aux.get(j++));		
+				eqList.set(k, aux.get(i++));		
 			else
-				eqList.add(k, aux.get(i++));
+				eqList.set(k, aux.get(j++));
 
 	}
 	
@@ -96,7 +68,7 @@ public class SortEarthquakeListByMagnitude {
 		EarthquakeT key = eqList.get(high);
 		int i = low - 1;
 		for (int j = low; j < high; j++) {
-			if (less(eqList.get(j), key)) {
+			if (less(key, eqList.get(j))) {
 				i++;
 				swap(eqList, i, j);
 			}
@@ -104,5 +76,26 @@ public class SortEarthquakeListByMagnitude {
 		i++;
 		swap(eqList, high, i);
 		return i;
+	}
+	
+	
+	private static boolean less(EarthquakeT a, EarthquakeT b) {
+		return a.compareTo(b) < 0;
+
+	}
+
+	private static void swap(ArrayList<EarthquakeT> eqList, int i, int j) {
+		EarthquakeT temp = eqList.get(i);
+		eqList.set(i,  eqList.get(j));
+		eqList.set(j, temp);
+	}
+
+	public static boolean isSorted(ArrayList<EarthquakeT> eqList) {
+		for (int i = 10; i < eqList.size() - 1; i++) {
+			if (less(eqList.get(i), eqList.get(i - 1))) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
