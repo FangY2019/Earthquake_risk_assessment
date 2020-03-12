@@ -3,6 +3,8 @@ package cas.XB3.earthquake.collection;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import cas.XB3.earthquake.ADT.CityT;
 import cas.XB3.earthquake.collection.EarthquakeT.*;
 import java.util.Iterator;
 
@@ -46,17 +48,17 @@ public class CSVreader {
             while ((singleL = bufferedR.readLine()) != null){
                 String[] cell = singleL.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 
-                cell[0] = rmFirstLastQuote(cell[0]);
+                //cell[0] = rmFirstLastQuote(cell[0]);
                 cell[1] = rmFirstLastQuote(cell[1]);
                 cell[3] = rmFirstLastQuote(cell[3]);
                 cell[5] = rmFirstLastQuote(cell[5]);
 
-                int cell10 = 0;
-                if (!cell[10].isEmpty())
-                    cell10 = Integer.parseInt(cell[10]);
+                int cell26 = 0;
+                if (!cell[26].isEmpty())
+                    cell26 = Integer.parseInt(cell[26]);
 
-                //GeoLoc loc = new GeoLoc(cell[0], cell[1], cell[3], cell[5], cell10);
-                //geoCollec.add(loc);
+                CityT loc = new CityT(cell[1], cell[5], cell26);
+                geoCollec.add(loc.getProvince(), loc);
             }
 
         } catch (IOException e){
