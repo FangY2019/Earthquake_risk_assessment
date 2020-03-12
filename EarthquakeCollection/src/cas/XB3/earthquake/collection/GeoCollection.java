@@ -26,8 +26,8 @@ public class GeoCollection {
         return cityHashMap.isEmpty();
     }
     
-    public ArrayList<CityT> getCityArrayList(String province) {
-    	return cityHashMap.get(province);
+    public ArrayList<CityT> getCityArrayList(String firstLetter) {
+    	return cityHashMap.get(firstLetter);
     }
     
     public HashMap<String, ArrayList<CityT>> getCityHashMap(){

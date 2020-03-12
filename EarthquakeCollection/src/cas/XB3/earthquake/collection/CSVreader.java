@@ -58,7 +58,7 @@ public class CSVreader {
                     cell26 = Integer.parseInt(cell[26]);
 
                 CityT loc = new CityT(cell[1], cell[5], cell26);
-                geoCollec.add(loc.getProvince(), loc);
+                geoCollec.add(loc);
             }
 
         } catch (IOException e){
