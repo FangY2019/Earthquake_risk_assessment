@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.collection.EarthquakeT;
-import cas.XB3.earthquake.riskAssessment.RiskAssessment;
 
 //manage the display option
 public class DisplayManager {
