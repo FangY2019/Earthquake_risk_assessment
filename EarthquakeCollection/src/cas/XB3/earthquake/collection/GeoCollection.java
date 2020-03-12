@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GeoCollection {
-	private static HashMap<String, ArrayList<CityT>> cityHashMap = new HashMap<>();
+	private HashMap<String, ArrayList<CityT>> cityHashMap = new HashMap<>();
 
-    public static void add(String province, CityT city){
+    public void add(String province, CityT city){
     	ArrayList<CityT> temp = new ArrayList<>();
     	if(cityHashMap.get(province) == null) {
     		temp.add(city);
@@ -21,11 +21,11 @@ public class GeoCollection {
     	}
     }
 
-    public static boolean isEmpty(){
+    public boolean isEmpty(){
         return cityHashMap.isEmpty();
     }
     
-    public static ArrayList<CityT> getCityArrayList(String province) {
+    public ArrayList<CityT> getCityArrayList(String province) {
     	return cityHashMap.get(province);
     }
 }
