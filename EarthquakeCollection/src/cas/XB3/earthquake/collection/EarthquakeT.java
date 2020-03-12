@@ -36,7 +36,7 @@ public class EarthquakeT implements Comparable<EarthquakeT>{
         return mag;
     }
     
-    public double dph() {
+    public double getDph() {
     	return dph;
     }
     
@@ -56,8 +56,27 @@ public class EarthquakeT implements Comparable<EarthquakeT>{
     	if(this.getMag() < eq.getMag()) return -1;
     	else if(this.getMag() > eq.getMag()) return 1;
     	else return 0;
-
-    	
+    }
+    
+    public boolean equals(EarthquakeT that) {
+    	final double TOLERANCE = 0.0000001;
+    	int cmp = date.compareTo(that.getDate());
+    	if (cmp != 0) {
+    		return false;
+    	}
+    	if(!this.getPointT().equals(that.getPointT())) {
+    		return false;
+    	}
+    	if (!place.equals(that.getPlace())) {
+    		return false;
+    	}
+    	if (Math.abs(dph - that.getDph()) > TOLERANCE) {
+    		return false;
+    	}
+    	if (Math.abs(mag - that.getMag()) > TOLERANCE) {
+    		return false;
+    	}
+    	return magnitudeType == that.getMagitudeType() && color == that.getColor();
     }
 
     /*

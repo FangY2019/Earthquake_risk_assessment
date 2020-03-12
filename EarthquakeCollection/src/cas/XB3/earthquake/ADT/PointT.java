@@ -50,6 +50,17 @@ public class PointT {
         }
 		return result;
 	}
+	
+    public boolean equals(PointT that) {
+    	final double TOLERANCE = 0.0000001;
+    	if (Math.abs(x - that.getLat()) > TOLERANCE) {
+    		return false;
+    	}
+    	if (Math.abs(y - that.getLong()) > TOLERANCE) {
+    		return false;
+    	}
+    	return true;
+    }
 
 	public double getLat() {
 		return x;

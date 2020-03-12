@@ -15,11 +15,11 @@ public class CityT {
 		return cityName;
 	}
 	
-	public String getProvince() throws RuntimeException {
+	public String getProvince() {
 		return province;
 	}
 	
-	public int getPopulation() throws RuntimeException{
+	public int getPopulation() {
 		return population;
 	}
 }
