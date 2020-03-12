@@ -28,4 +28,8 @@ public class GeoCollection {
     public ArrayList<CityT> getCityArrayList(String province) {
     	return cityHashMap.get(province);
     }
+    
+    public HashMap<String, ArrayList<CityT>> getCityHashMap(){
+    	return cityHashMap;
+    }
 }
