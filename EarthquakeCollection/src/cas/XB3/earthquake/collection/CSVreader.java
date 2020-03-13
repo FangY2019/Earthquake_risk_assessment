@@ -50,11 +50,8 @@ public class CSVreader {
 //                	System.out.print(str + " ");
 //                }
 //                System.out.println();
-                
 
-                //cell[0] = rmFirstLastQuote(cell[0]);
                 cell[1] = rmFirstLastQuote(cell[1]);
-                cell[3] = rmFirstLastQuote(cell[3]);
                 cell[5] = rmFirstLastQuote(cell[5]);
 
                 Double cell26 = 0.0;
