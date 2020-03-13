@@ -6,12 +6,12 @@ package cas.XB3.earthquake.riskAssessment;
 
 import java.util.ArrayList;
 
+import cas.XB3.earthquake.ADT.CityT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.collection.CSVreader;
 import cas.XB3.earthquake.collection.EarthquakeBag;
 import cas.XB3.earthquake.collection.EarthquakeT;
 import cas.XB3.earthquake.collection.GeoCollection;
-import cas.XB3.earthquake.collection.GeoLoc;
 import cas.XB3.earthquake.search.SearchEarthquakes;
 
 public class RiskAssessment {
@@ -33,7 +33,7 @@ public class RiskAssessment {
 		double averagerMag1  = AverageMangenitude(earthquakeLists.get(0));
 //		double averagerMag2  = AverageMangenitude(earthquakeLists.get(1));
 		
-		int populationdensity  =getPopulation(cityName);
+		double populationdensity  =getPopulation(cityName);
 		
 		rating = OverallRating(frequency1, averagerMag1, populationdensity);
 		
@@ -55,13 +55,14 @@ public class RiskAssessment {
 		return nearestEarthquake.getPlace();	
 	}
 	
-	public static int getPopulation(String cityName) {
-		int populationDensity = 0;
-		GeoCollection<GeoLoc> GeoCollection = new GeoCollection<GeoLoc>();
+	public static double getPopulation(String cityName) {
+		double populationDensity = 0;
+		GeoCollection GeoCollection = new GeoCollection();
 		CSVreader.readPopulation("./T301EN.CSV", GeoCollection);
-		for(GeoLoc geoloc: GeoCollection) {
-			if(cityName.contains(geoloc.getGeoname())) {
-				populationDensity = geoloc.getPopulation();
+		ArrayList<CityT> listOfCity = GeoCollection.getCityArrayList(String.valueOf(cityName.charAt(0)));
+		for(CityT city: listOfCity) {
+			if(cityName.contains(city.getCityName())) {
+				populationDensity = city.getPopDensity();
 				break;
 			}
 		}
@@ -80,7 +81,7 @@ public class RiskAssessment {
 		return (double) (sum/(double)Frequency(earthquakeList));
 	}
 	
-	private static int OverallRating(int frequency, double averagerMag, int populationdensity ) {
+	private static int OverallRating(int frequency, double averagerMag, double populationdensity ) {
 		return frequencyRating(frequency) +  magnitudeRating(averagerMag) + populationdensityRating(populationdensity);
 		
 	}
@@ -105,7 +106,7 @@ public class RiskAssessment {
 		return risk_averagerMag;		
 	}
 	
-	public static int populationdensityRating(int populationdensity) {
+	public static int populationdensityRating(double populationdensity) {
 		int risk_population = 0;
 		if(populationdensity < 1000) risk_population = 0;
 		else if(1000 <= populationdensity && populationdensity < 5000) risk_population = 1;
