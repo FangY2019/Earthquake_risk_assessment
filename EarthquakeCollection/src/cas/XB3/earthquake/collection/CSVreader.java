@@ -33,6 +33,8 @@ public class CSVreader {
                 bag.add(eqk);
             }
 
+            bufferedR.close();
+
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -61,6 +63,8 @@ public class CSVreader {
                 CityT loc = new CityT(cell[1], cell[5], cell26);
                 geoCollec.add(loc);
             }
+
+            bufferedR.close();
 
         } catch (IOException e){
             e.printStackTrace();
