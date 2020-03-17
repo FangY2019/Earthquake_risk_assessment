@@ -88,10 +88,10 @@ public class EarthquakeT implements Comparable<EarthquakeT>{
          Light (4 - 4.9)
     PURPLE: Minor (3 - 3.9)
     */
-    enum ColorRating{
+    public enum ColorRating{
         NOCOLOR, ZERO, PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED
     }
-    enum MagType{
+    public enum MagType{
         M5, mb, MB, Mb, MC, Mc, mc, ML, MLSn, MN, MS, MW, Ms, Mw, BLANK
     }
 }

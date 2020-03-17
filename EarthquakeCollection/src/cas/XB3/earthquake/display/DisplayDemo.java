@@ -35,7 +35,7 @@ public class DisplayDemo {
 		ArrayList<EarthquakeT> eqList = SearchEarthquakes.searchEarthquakeInCircle(EarthquakeBag, location, radius);
 		DisplayManager displaymanager = new DisplayManager(eqList, location);
 		do {
-			System.out.println("Display by Magnitude, choose 1; Display by time, choose 2; Dispplay risk rating, choose 3; exist, choose 0");
+			System.out.println("Display by Magnitude, choose 1; Display by time, choose 2; Display risk rating, choose 3; exist, choose 0");
 			choice = input.nextInt();
 			if (choice == 1) {
 				displaymanager.display(new DispalyByMagnitude());

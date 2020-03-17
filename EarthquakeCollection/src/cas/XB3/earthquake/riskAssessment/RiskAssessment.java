@@ -25,12 +25,14 @@ public class RiskAssessment {
 		earthquakeLists.add(SearchEarthquakes.searchEarthquakeInCircle(Earthquakebag,location, 100));
 		earthquakeLists.add(SearchEarthquakes.searchEarthquakeInCircle(Earthquakebag,location, 200));
 		
+		//if no earthquake in range
+		if (earthquakeLists.size() == 0) return 0;
 		//find the nearest city name in the smallest circle
 		cityName = getCityName(location, earthquakeLists.get(0));
 		
 		int frequency1  = Frequency(earthquakeLists.get(0));
 //		int frequency2  = Frequency(earthquakeLists.get(1));
-		double averagerMag1  = AverageMangenitude(earthquakeLists.get(0));
+		double averagerMag1  = AverageMagnitude(earthquakeLists.get(0));
 //		double averagerMag2  = AverageMangenitude(earthquakeLists.get(1));
 		
 		double populationdensity  =getPopulation(cityName);
@@ -73,11 +75,13 @@ public class RiskAssessment {
 		return earthquakeList.size();
 	}
 	
-	public static double AverageMangenitude(ArrayList<EarthquakeT> earthquakeList) {
+	public static double AverageMagnitude(ArrayList<EarthquakeT> earthquakeList) {
 		double sum = 0;
 		for(EarthquakeT earthquake: earthquakeList) {
 			sum += earthquake.getMag();
 		}
+		int frequency = Frequency(earthquakeList);
+		if (frequency == 0) return 0;
 		return (double) (sum/(double)Frequency(earthquakeList));
 	}
 	
@@ -99,7 +103,7 @@ public class RiskAssessment {
 	public static int magnitudeRating(double averagerMag) {
 		int risk_averagerMag = 0;
 		if(averagerMag < 1) risk_averagerMag = 0;
-		else if(1 <= averagerMag && averagerMag < 2) risk_averagerMag = 1;
+		else if(1 <= averagerMag && averagerMag < 4) risk_averagerMag = 1;
 		else if(4 <= averagerMag && averagerMag < 6) risk_averagerMag = 2;
 		else if(6 <= averagerMag && averagerMag < 7) risk_averagerMag = 3;
 		else risk_averagerMag = 4;		

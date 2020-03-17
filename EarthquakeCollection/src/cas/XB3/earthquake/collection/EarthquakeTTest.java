@@ -25,7 +25,7 @@ public class EarthquakeTTest {
 
 	@Before
 	public void setUp() throws Exception {
-		e1 = new EarthquakeT("place",d, 72, 63, 20, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
+		e1 = new EarthquakeT("place",d, 72, 63, 20, 2.8, MagType.M5, ColorRating.ZERO);
 		e2 = new EarthquakeT("place",LocalDateTime.now(), 25, 13, 69, 7.3, EarthquakeT.MagType.MS, EarthquakeT.ColorRating.ORANGE);
 		e3 = new EarthquakeT("place",d, 71, 63, 20, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
 		e4 = new EarthquakeT("place2",d, 72, 63, 20, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
