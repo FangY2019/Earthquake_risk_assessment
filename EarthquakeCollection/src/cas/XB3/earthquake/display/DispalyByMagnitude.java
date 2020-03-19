@@ -10,10 +10,13 @@ public class DispalyByMagnitude implements DisplayInterface{
 	
 	public void display(ArrayList<EarthquakeT> earthquakeList, PointT location) {		
 		Sort.sortByMagnitude(earthquakeList);
+		if (earthquakeList.size() == 0) System.out.println("There's no earthquake!");
+		else {
 		System.out.println("Magnitude         Date                 City");
 		for(EarthquakeT eq: earthquakeList) {
 			System.out.println("" + eq.getMag() +", "+ eq.getDate().getYear() +", " +eq.getPlace());
-		}			
+		}	
+		}
 	}
 
 }
