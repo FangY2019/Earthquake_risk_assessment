@@ -35,6 +35,12 @@ public class SortTest {
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	@Test
+	public void testSortByDistanceNoEarthquake() {
+		ArrayList<EarthquakeT> list2 = new ArrayList<>();
+		Sort.sortByDistance(p, list2);
+	}
 
 	@Test
 	public void testSortByDistanceGet0() {
@@ -82,6 +88,12 @@ public class SortTest {
 	public void testSortByMagnitudeGet3() {
 		Sort.sortByMagnitude(list1);
 		assertEquals(list1.get(3), e3);
+	}
+	
+	@Test
+	public void testSortByMagnitudeNoEarthquake() {
+		ArrayList<EarthquakeT> list2 = new ArrayList<>();
+		Sort.sortByMagnitude(list2);
 	}
 
 }
