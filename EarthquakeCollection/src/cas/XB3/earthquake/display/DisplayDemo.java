@@ -1,9 +1,14 @@
 package cas.XB3.earthquake.display;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
+import cas.XB3.earthquake.ADT.CityPostT;
+import cas.XB3.earthquake.ADT.CityT;
 import cas.XB3.earthquake.ADT.PointT;
+import cas.XB3.earthquake.Graph.CityGraph;
+import cas.XB3.earthquake.Graph.Edge;
 import cas.XB3.earthquake.collection.CSVreader;
 import cas.XB3.earthquake.collection.EarthquakeBag;
 import cas.XB3.earthquake.collection.EarthquakeT;
@@ -13,12 +18,33 @@ import cas.XB3.earthquake.search.SearchEarthquakes;
 
 public class DisplayDemo {
 	
-    public static final EarthquakeBag<EarthquakeT> EarthquakeBag = new EarthquakeBag<EarthquakeT>();
-    public static final GeoCollection GeoCollection = new GeoCollection();
+    private static final EarthquakeBag<EarthquakeT> EarthquakeBag = new EarthquakeBag<EarthquakeT>();
+    private static final GeoCollection GeoCollection = new GeoCollection();
+    private static final ArrayList<CityPostT> cityPostList = new ArrayList<>();
+    private static final CityGraph  graph = new CityGraph();
+ 
+    public static void init(){
+        CSVreader.readEarthquakes("./eqarchive-en.csv", EarthquakeBag);
+        CSVreader.readPopulation("./T301EN.CSV", GeoCollection);        
+		CSVreader.readCityPosition("./City_Coordinates.CSV", cityPostList); 
+//		for(CityPostT cityFrom: cityPostList) {
+//			for(CityPostT cityTo: cityPostList) {
+//				if(!cityFrom.getCityName().equals(cityTo.getCityName())) {
+//					int distance = (int) cityFrom.getPoint().distanceTo(cityTo.getPoint());
+//					Edge e = new Edge(cityFrom.getCityName(), cityTo.getCityName(), distance);
+//					graph.addEdge(e);
+//				}				
+//			}
+//		}
+    } 
     
 	public static void main(String[] args) {
-		init();
+		init();	
 		
+//		ArrayList<CityT> list = GeoCollection.getCityArrayList("2");
+//		System.out.println(list.size());
+//		System.out.println(GeoCollection.getCityHashMap().keySet().contains("2"));
+
 		
 		Scanner input = new Scanner(System.in);
 
@@ -42,8 +68,29 @@ public class DisplayDemo {
 			} else if (choice == 2) {
 				displaymanager.display(new DisplayByDistance());
 			}else if (choice == 3) {
-				int rating = RiskAssessment.calculateRiskRating(EarthquakeBag, location);
-				System.out.printf("The risk for the location (%.2f , %.2f) is : % d\n" , location.getLat(), location.getLong(), rating);
+				RiskAssessment riskAssessment = new RiskAssessment(EarthquakeBag, location);
+				int rating = riskAssessment.getRisk();
+				for (CityPostT cityFrom : cityPostList) {
+					if(cityFrom.getCityName().equals(riskAssessment.getCity())) {
+						for (CityPostT cityTo : cityPostList) {
+							if (!cityFrom.getCityName().equals(cityTo.getCityName())) {
+								int distance = (int) cityFrom.getPoint().distanceTo(cityTo.getPoint());
+								if(distance < 200) {
+									Edge e = new Edge(cityFrom.getCityName(), cityTo.getCityName(), distance);
+									graph.addEdge(e);
+								}								
+							}
+						}
+					}
+					
+				}
+				System.out.printf("The risk rating for the location (%.2f , %.2f) is : % d\n" , location.getLat(), location.getLong(), rating);
+				if(riskAssessment.nearestLowerRiskCity(graph) != null) {
+					System.out.printf("The nearest lower risk city is: %s\n\n\n", riskAssessment.nearestLowerRiskCity(graph));
+				}else {
+					System.out.printf("There is no lower risk city in the range of 200 kilometers\n\n\n");
+				}
+				
 			}
 			
 		}while(choice != 0);
@@ -51,11 +98,7 @@ public class DisplayDemo {
 		input.close();
 	}
 	
-    public static void init(){
-        CSVreader.readEarthquakes("./eqarchive-en.csv", EarthquakeBag);
-        CSVreader.readPopulation("./T301EN.CSV", GeoCollection);
-
-    }   
+  
 	
 }
 
