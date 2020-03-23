@@ -14,7 +14,7 @@ public class Sort {
 	public static void sortByDistance(PointT location, ArrayList<EarthquakeT> eqList) {
 //		double distance= location.distanceTo(earthquakeList.get(0).getPointT());
 		for(int i = 0 ; i < eqList.size(); i++) {
-			for(int j = 1; j < i; j ++ ) {
+			for(int j = i; j > 0; j -- ) {
 				if(location.distanceTo(eqList.get(j - 1).getPointT()) > location.distanceTo(eqList.get(j).getPointT())) {
 					swap(eqList, j, j - 1);
 				}
