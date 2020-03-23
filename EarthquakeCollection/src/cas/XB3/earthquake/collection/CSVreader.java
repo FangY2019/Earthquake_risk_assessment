@@ -3,8 +3,11 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import cas.XB3.earthquake.ADT.CityPostT;
 import cas.XB3.earthquake.ADT.CityT;
 import cas.XB3.earthquake.collection.EarthquakeT.*;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CSVreader {
@@ -29,6 +32,19 @@ public class CSVreader {
                     cell5 = MagType.valueOf(cell[5]);
 
                 ColorRating clRating = generateColorRating(cell4);
+                
+                //extract the city name from the string
+                if(cell[6].contains(" from ")) {
+                	int i = cell[6].indexOf('f');
+                	cell[6] = cell[6].substring(i+ 5);
+                }else if(cell[6].contains(" of ")) {
+                	int i = cell[6].indexOf('o');
+                	cell[6] = cell[6].substring(i + 3);                	
+                }else if(cell[6].startsWith("NEAR")) {
+                	cell[6] = cell[6].substring(5);  
+                }
+                
+                
                 EarthquakeT eqk = new EarthquakeT(cell[6], date, cell1, cell2, cell3, cell4, cell5, clRating);
                 bag.add(eqk);
             }
