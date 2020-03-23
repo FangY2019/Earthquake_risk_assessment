@@ -71,6 +71,29 @@ public class CSVreader {
         }
     }
 
+    /**
+     * read the each city name, latitude and longitude, instantiate a CityPostT object and add all the objects in a ArrayList
+     * @param filename the file name which store the cities' coordinates
+     * @param cityPostList A ArrayList of CityPostT
+     */
+    public static void readCityPosition(String filename, ArrayList<CityPostT> cityPostList){
+    	try {
+			BufferedReader buffered = new BufferedReader(new FileReader(filename));
+			String line;
+			while ((line = buffered.readLine()) != null) {
+				String[] cell = line.split(", ");
+				cell[0] = cell[0].split(",")[0];
+				double lat = Double.parseDouble(cell[1]);
+				double longi = Double.parseDouble(cell[2]);
+				cityPostList.add(new CityPostT(cell[0], lat, longi));
+
+			}
+			buffered.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }	
+	
     public static String rmFirstLastQuote(String cell){
         String cellq = cell;
         if (cell.startsWith("\"") && cell.endsWith("\""))
