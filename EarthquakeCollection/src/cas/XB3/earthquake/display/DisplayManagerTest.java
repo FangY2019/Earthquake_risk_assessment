@@ -21,7 +21,7 @@ public class DisplayManagerTest {
 		PointT location = new PointT(lat, longi);
 		DisplayManager displaymanager = new DisplayManager(location, radius);
 		do {
-			System.out.println("Display by Magnitude, choose 1; Display by time, choose 2, exist, choose 0");
+			System.out.println("Display by Magnitude, choose 1; Display by distance, choose 2, exit, choose 0");
 			choice = input.nextInt();
 			if (choice == 1) {
 				displaymanager.display(new DispalyByMagnitude());
