@@ -95,14 +95,13 @@ public class CSVreader {
     public static void readCityPosition(String filename, ArrayList<CityPostT> cityPostList){
     	try {
 			BufferedReader buffered = new BufferedReader(new FileReader(filename));
-			String line;
+			String line = buffered.readLine();;
 			while ((line = buffered.readLine()) != null) {
-				String[] cell = line.split(", ");
-				cell[0] = cell[0].split(",")[0];
+				String[] cell = line.split(",");
+				cell[0] = cell[0].split(";")[0];			
 				double lat = Double.parseDouble(cell[1]);
 				double longi = Double.parseDouble(cell[2]);
 				cityPostList.add(new CityPostT(cell[0], lat, longi));
-
 			}
 			buffered.close();
 		} catch (IOException e) {
