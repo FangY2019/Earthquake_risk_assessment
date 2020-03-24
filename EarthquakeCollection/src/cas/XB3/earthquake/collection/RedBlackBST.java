@@ -146,38 +146,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     }
 
     /***************************************************************************
-     *  Red-black tree deletion.
-     ***************************************************************************/
-
-    /**
-     * Removes the smallest key and associated value from the symbol table.
-     * @throws NoSuchElementException if the symbol table is empty
-     */
-    public void deleteMin() {
-        if (isEmpty()) throw new NoSuchElementException("BST underflow");
-
-        // if both children of root are black, set root to red
-        if (!isRed(root.left) && !isRed(root.right))
-            root.color = RED;
-
-        root = deleteMin(root);
-        if (!isEmpty()) root.color = BLACK;
-        // assert check();
-    }
-
-    // delete the key-value pair with the minimum key rooted at h
-    private Node deleteMin(Node h) {
-        if (h.left == null)
-            return null;
-
-        if (!isRed(h.left) && !isRed(h.left.left))
-            h = moveRedLeft(h);
-
-        h.left = deleteMin(h.left);
-        return balance(h);
-    }
-
-    /***************************************************************************
      *  Red-black tree helper functions.
      ***************************************************************************/
 
@@ -216,46 +184,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         h.color = !h.color;
         h.left.color = !h.left.color;
         h.right.color = !h.right.color;
-    }
-
-    // Assuming that h is red and both h.left and h.left.left
-    // are black, make h.left or one of its children red.
-    private Node moveRedLeft(Node h) {
-        // assert (h != null);
-        // assert isRed(h) && !isRed(h.left) && !isRed(h.left.left);
-
-        flipColors(h);
-        if (isRed(h.right.left)) {
-            h.right = rotateRight(h.right);
-            h = rotateLeft(h);
-            flipColors(h);
-        }
-        return h;
-    }
-
-    // Assuming that h is red and both h.right and h.right.left
-    // are black, make h.right or one of its children red.
-    private Node moveRedRight(Node h) {
-        // assert (h != null);
-        // assert isRed(h) && !isRed(h.right) && !isRed(h.right.left);
-        flipColors(h);
-        if (isRed(h.left.left)) {
-            h = rotateRight(h);
-            flipColors(h);
-        }
-        return h;
-    }
-
-    // restore red-black tree invariant
-    private Node balance(Node h) {
-        // assert (h != null);
-
-        if (isRed(h.right))                      h = rotateLeft(h);
-        if (isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
-        if (isRed(h.left) && isRed(h.right))     flipColors(h);
-
-        h.size = size(h.left) + size(h.right) + 1;
-        return h;
     }
 
 
