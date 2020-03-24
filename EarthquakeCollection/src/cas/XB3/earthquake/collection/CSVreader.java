@@ -193,7 +193,9 @@ public class CSVreader {
         }
 
         for(Double lat: eqBST.keys(52.0, 61.0)){
-            System.out.println(lat);
+            for(EarthquakeT eq : eqBST.get(lat))
+                System.out.print(eq.getPlace() + "            ");
+            System.out.println();
         }
 
         Iterator iterator = EarthquakeBag.iterator();

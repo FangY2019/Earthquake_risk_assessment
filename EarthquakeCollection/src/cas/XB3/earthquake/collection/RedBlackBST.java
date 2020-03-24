@@ -1,5 +1,6 @@
 package cas.XB3.earthquake.collection;
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class RedBlackBST<Key extends Comparable<Key>, Value> {
@@ -12,14 +13,14 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     // BST helper node data type
     private class Node {
         private Key key;           // key
-        private Value val;         // associated data
+        private LinkedList<Value> lst = new LinkedList<Value>();     // associated data
         private Node left, right;  // links to left and right subtrees
         private boolean color;     // color of parent link
         private int size;          // subtree count
 
         public Node(Key key, Value val, boolean color, int size) {
             this.key = key;
-            this.val = val;
+            this.lst.add(val);
             this.color = color;
             this.size = size;
         }
@@ -75,18 +76,18 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      *     and {@code null} if the key is not in the symbol table
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
-    public Value get(Key key) {
+    public LinkedList<Value> get(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to get() is null");
         return get(root, key);
     }
 
     // value associated with the given key in subtree rooted at x; null if no such key
-    private Value get(Node x, Key key) {
+    private LinkedList<Value> get(Node x, Key key) {
         while (x != null) {
             int cmp = key.compareTo(x.key);
             if      (cmp < 0) x = x.left;
             else if (cmp > 0) x = x.right;
-            else              return x.val;
+            else              return x.lst;
         }
         return null;
     }
@@ -118,10 +119,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      */
     public void put(Key key, Value val) {
         if (key == null) throw new IllegalArgumentException("first argument to put() is null");
-        if (val == null) {
-            delete(key);
-            return;
-        }
 
         root = put(root, key, val);
         root.color = BLACK;
@@ -135,7 +132,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         int cmp = key.compareTo(h.key);
         if      (cmp < 0) h.left  = put(h.left,  key, val);
         else if (cmp > 0) h.right = put(h.right, key, val);
-        else              h.val   = val;
+        else {
+            h.lst.add(val);
+        }
 
         // fix-up any right-leaning links
         if (isRed(h.right) && !isRed(h.left))      h = rotateLeft(h);
@@ -175,88 +174,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
             h = moveRedLeft(h);
 
         h.left = deleteMin(h.left);
-        return balance(h);
-    }
-
-
-    /**
-     * Removes the largest key and associated value from the symbol table.
-     * @throws NoSuchElementException if the symbol table is empty
-     */
-    public void deleteMax() {
-        if (isEmpty()) throw new NoSuchElementException("BST underflow");
-
-        // if both children of root are black, set root to red
-        if (!isRed(root.left) && !isRed(root.right))
-            root.color = RED;
-
-        root = deleteMax(root);
-        if (!isEmpty()) root.color = BLACK;
-        // assert check();
-    }
-
-    // delete the key-value pair with the maximum key rooted at h
-    private Node deleteMax(Node h) {
-        if (isRed(h.left))
-            h = rotateRight(h);
-
-        if (h.right == null)
-            return null;
-
-        if (!isRed(h.right) && !isRed(h.right.left))
-            h = moveRedRight(h);
-
-        h.right = deleteMax(h.right);
-
-        return balance(h);
-    }
-
-    /**
-     * Removes the specified key and its associated value from this symbol table
-     * (if the key is in this symbol table).
-     *
-     * @param  key the key
-     * @throws IllegalArgumentException if {@code key} is {@code null}
-     */
-    public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
-        if (!contains(key)) return;
-
-        // if both children of root are black, set root to red
-        if (!isRed(root.left) && !isRed(root.right))
-            root.color = RED;
-
-        root = delete(root, key);
-        if (!isEmpty()) root.color = BLACK;
-        // assert check();
-    }
-
-    // delete the key-value pair with the given key rooted at h
-    private Node delete(Node h, Key key) {
-        // assert get(h, key) != null;
-
-        if (key.compareTo(h.key) < 0)  {
-            if (!isRed(h.left) && !isRed(h.left.left))
-                h = moveRedLeft(h);
-            h.left = delete(h.left, key);
-        }
-        else {
-            if (isRed(h.left))
-                h = rotateRight(h);
-            if (key.compareTo(h.key) == 0 && (h.right == null))
-                return null;
-            if (!isRed(h.right) && !isRed(h.right.left))
-                h = moveRedRight(h);
-            if (key.compareTo(h.key) == 0) {
-                Node x = min(h.right);
-                h.key = x.key;
-                h.val = x.val;
-                // h.val = get(h.right, min(h.right).key);
-                // h.key = min(h.right).key;
-                h.right = deleteMin(h.right);
-            }
-            else h.right = delete(h.right, key);
-        }
         return balance(h);
     }
 
