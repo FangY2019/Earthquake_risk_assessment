@@ -55,6 +55,50 @@ public class CSVreader {
             e.printStackTrace();
         }
     }
+
+    public static void readEarthquakesBST(String filename, RedBlackBST<Double, EarthquakeT> bst){
+        String singleL;
+        try {
+            BufferedReader bufferedR = new BufferedReader(new FileReader(filename));
+            String columnN = bufferedR.readLine();
+
+            while ((singleL = bufferedR.readLine()) != null){
+                String[] cell = singleL.split(",");
+                cell[0] = cell[0].substring(0, 19);
+                DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+                LocalDateTime date = LocalDateTime.parse(cell[0], formatter);
+                double cell1 = Double.parseDouble(cell[1]);
+                double cell2 = Double.parseDouble(cell[2]);
+                double cell3 = Double.parseDouble(cell[3]);
+                double cell4 = Double.parseDouble(cell[4]);
+                MagType cell5 = MagType.BLANK;
+                if (!cell[5].isEmpty())
+                    cell5 = MagType.valueOf(cell[5]);
+
+                ColorRating clRating = generateColorRating(cell4);
+
+                //extract the city name from the string
+                if(cell[6].contains(" from ")) {
+                    int i = cell[6].indexOf('f');
+                    cell[6] = cell[6].substring(i+ 5);
+                }else if(cell[6].contains(" of ")) {
+                    int i = cell[6].indexOf('o');
+                    cell[6] = cell[6].substring(i + 3);
+                }else if(cell[6].startsWith("NEAR")) {
+                    cell[6] = cell[6].substring(5);
+                }
+
+
+                EarthquakeT eqk = new EarthquakeT(cell[6], date, cell1, cell2, cell3, cell4, cell5, clRating);
+                bst.put(cell1, eqk);
+            }
+
+            bufferedR.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
     
     public static void readPopulation(String filename, GeoCollection geoCollec){
         String singleL;
@@ -134,5 +178,29 @@ public class CSVreader {
             clRating = ColorRating.RED;
 
         return clRating;
+    }
+
+    public static void main(String[] args){
+
+        EarthquakeBag<EarthquakeT> EarthquakeBag = new EarthquakeBag<EarthquakeT>();
+        RedBlackBST<Double, EarthquakeT> eqBST = new RedBlackBST<Double, EarthquakeT>();
+
+        CSVreader.readEarthquakes("./eqarchive-en.csv", EarthquakeBag);
+        CSVreader.readEarthquakesBST("./eqarchive-en.csv", eqBST);
+
+        for(Double lat: eqBST.keys()){
+            //System.out.println(lat);
+        }
+
+        for(Double lat: eqBST.keys(52.0, 61.0)){
+            System.out.println(lat);
+        }
+
+        Iterator iterator = EarthquakeBag.iterator();
+        while (iterator.hasNext()){
+            EarthquakeT i = (EarthquakeT) iterator.next();
+            //System.out.println(i.getEarthquakePlace());
+        }
+
     }
 }
