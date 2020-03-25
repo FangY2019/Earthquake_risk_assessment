@@ -12,16 +12,22 @@ public class EarthquakeT implements Comparable<EarthquakeT>{
     private double mag;
     private MagType magnitudeType;
     private ColorRating color;
+    private String nameOfProv;
 
-    public EarthquakeT(String place, LocalDateTime date, double lat, double lng, double dph, double mag, MagType mgT, ColorRating color){
+    public EarthquakeT(String place, String prov, LocalDateTime date, double lat, double lng, double dph, double mag, MagType mgT, ColorRating color){
     	this.lat = lat;
     	this.lng = lng;
     	this.place = place;
+    	this.nameOfProv = prov;
     	this.date = date;
         this.dph = dph;
         this.mag = mag;
         this.magnitudeType = mgT;
         this.color = color;
+    }
+
+    public String getNameOfProv(){
+        return nameOfProv;
     }
 
     public String getPlace() {
