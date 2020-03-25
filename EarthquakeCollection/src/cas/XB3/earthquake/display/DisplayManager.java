@@ -24,11 +24,15 @@ public class DisplayManager {
 		dispalyByOption.display(earthquakeList, location);
 	}
 
-	public void showRisk(RedBlackBST<Double, EarthquakeT> earthquakeTree, PointT location, ArrayList<CityPostT> cityPostList,
-			CityGraph graph) {
+	public void showRisk(RedBlackBST<Double, EarthquakeT> earthquakeTree, PointT location,
+			ArrayList<CityPostT> cityPostList, CityGraph graph) {
 		RiskAssessment riskAssessment = new RiskAssessment(earthquakeTree, location);
 		int rating = riskAssessment.getRisk();
 		for (CityPostT cityFrom : cityPostList) {
+			// if the assessing city is in the city position list, build the graph with
+			// edges, the origin node is the assessing city, the destination nodes are
+			// cities in the city position list and they are within 200 kilometers of the
+			// origin node city
 			if (cityFrom.getCityName().equals(riskAssessment.getCity())) {
 				for (CityPostT cityTo : cityPostList) {
 					if (!cityFrom.getCityName().equals(cityTo.getCityName())) {
@@ -41,15 +45,20 @@ public class DisplayManager {
 				}
 			}
 		}
-		System.out.printf("%-56s%-5d%s\n", "The number of earthquakes within 100 km is :",riskAssessment.getFrequency(), " times");
-		System.out.printf("%-56s%-5.1f\n", "The average magnitude of earthquakes within 100 km is :",riskAssessment.getMag());
-		System.out.printf("%-56s%-5.1f%s\n", "The population density in the nearest city is :",riskAssessment.getPoplationDensity(), " per square kilometre");
+		System.out.printf("%-67s%-10s\n", "The nearest historical earthquake from your location is in: ",
+				riskAssessment.getCity());
+		System.out.printf("%-67s%-5d%s\n", "The number of historical earthquakes within 100 km is :",
+				riskAssessment.getFrequency(), " times");
+		System.out.printf("%-67s%-5.1f\n", "The average magnitude of historical earthquakes within 100 km is :",
+				riskAssessment.getMag());
+		System.out.printf("%-67s%-5.1f%s\n", "The population density in the nearest city is :",
+				riskAssessment.getPoplationDensity(), " per square kilometre");
 		System.out.printf("The risk rating for the location (%.2f , %.2f) is : % d\n", location.getLat(),
 				location.getLong(), rating);
 		if (riskAssessment.nearestLowerRiskCity(graph) != null) {
 			System.out.printf("The nearest lower risk city is: %s\n\n\n", riskAssessment.nearestLowerRiskCity(graph));
 		} else {
-			System.out.printf("There is no lower risk city in the range of 200 kilometers\n\n\n");
+			System.out.printf("There is no lower risk city within the range of 200 kilometers\n\n\n");
 		}
 	}
 
