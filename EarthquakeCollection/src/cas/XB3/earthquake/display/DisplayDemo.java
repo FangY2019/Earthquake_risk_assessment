@@ -4,12 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 import cas.XB3.earthquake.ADT.CityPostT;
+import cas.XB3.earthquake.ADT.CityT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.Graph.CityGraph;
 import cas.XB3.earthquake.collection.CSVreader;
 import cas.XB3.earthquake.collection.EarthquakeT;
 import cas.XB3.earthquake.collection.GeoCollection;
 import cas.XB3.earthquake.collection.RedBlackBST;
+import cas.XB3.earthquake.riskAssessment.RiskAssessment;
 import cas.XB3.earthquake.search.SearchEarthquakes;
 
 public class DisplayDemo {
@@ -37,7 +39,7 @@ public class DisplayDemo {
 
 	public static void main(String[] args) {
 		init();	
-
+		
 		try {
 			File file = new File("./input.txt");
 			Scanner input = new Scanner(file);
@@ -50,6 +52,9 @@ public class DisplayDemo {
 			System.out.println("Please enter the radius with the unit of kilometer:\n");
 			int radius = input.nextInt();			
 			int choice = -1;
+			
+
+			
 
 			PointT location = new PointT(lat, longi);
 			ArrayList<EarthquakeT> eqList = SearchEarthquakes.searchEarthquakeInCircle(earthquakeTree, location, radius);
@@ -71,7 +76,6 @@ public class DisplayDemo {
 			input.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
-
+		}
 	}
 }
