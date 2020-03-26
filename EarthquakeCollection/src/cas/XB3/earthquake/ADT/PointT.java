@@ -4,12 +4,9 @@ public class PointT {
 	private double x;
 	private double y;
 
-	public PointT(double x, double y) throws RuntimeException{
-		if(x > 90 || x < -90) {
-			throw new RuntimeException("Invalid Latitude: "+x);
-		}
+	public PointT(double x, double y) {
 		this.x = x;
-		this.y = (y+540)%360-180;
+		this.y = y;
 	}
 
 	public double distanceTo(PointT that) {

@@ -4,15 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 import cas.XB3.earthquake.ADT.CityPostT;
-import cas.XB3.earthquake.ADT.CityT;
+import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.Graph.CityGraph;
 import cas.XB3.earthquake.collection.CSVreader;
-import cas.XB3.earthquake.collection.EarthquakeT;
-import cas.XB3.earthquake.collection.GeoCollection;
-import cas.XB3.earthquake.collection.RedBlackBST;
-import cas.XB3.earthquake.riskAssessment.RiskAssessment;
+import cas.XB3.earthquake.search.RedBlackBST;
 import cas.XB3.earthquake.search.SearchEarthquakes;
+import cas.XB3.earthquake.search.GeoCollection;
 
 public class DisplayDemo {
 

@@ -1,3 +1,8 @@
+/**
+ * Undirected graph data type implemented using a symbol 
+ * @author Ye Fang
+ * Revised: March 24, 2020
+ */
 package cas.XB3.earthquake.Graph;
 
 import java.util.HashMap;

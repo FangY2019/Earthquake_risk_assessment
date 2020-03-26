@@ -2,11 +2,8 @@ package cas.XB3.earthquake.search;
 
 import java.util.ArrayList;
 
+import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
-import cas.XB3.earthquake.collection.CSVreader;
-import cas.XB3.earthquake.collection.EarthquakeBag;
-import cas.XB3.earthquake.collection.EarthquakeT;
-import cas.XB3.earthquake.collection.RedBlackBST;
 
 public class SearchEarthquakes {
 

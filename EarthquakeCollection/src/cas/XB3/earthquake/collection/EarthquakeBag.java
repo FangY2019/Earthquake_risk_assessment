@@ -3,6 +3,8 @@ package cas.XB3.earthquake.collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import cas.XB3.earthquake.ADT.EarthquakeT;
+
 public class EarthquakeBag<Item> implements Iterable<Item>{
     private Node first;    // beginning of bag
     private Node firstpurple;

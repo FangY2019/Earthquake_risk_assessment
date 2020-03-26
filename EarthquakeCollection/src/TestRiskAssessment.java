@@ -6,9 +6,9 @@ import cas.XB3.earthquake.ADT.CityT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.Graph.CityGraph;
 import cas.XB3.earthquake.collection.CSVreader;
-import cas.XB3.earthquake.collection.EarthquakeT;
-import cas.XB3.earthquake.collection.GeoCollection;
-import cas.XB3.earthquake.collection.RedBlackBST;
+import cas.XB3.earthquake.ADT.EarthquakeT;
+import cas.XB3.earthquake.search.GeoCollection;
+import cas.XB3.earthquake.search.RedBlackBST;
 import cas.XB3.earthquake.riskAssessment.RiskAssessment;
 import cas.XB3.earthquake.search.SearchEarthquakes;
 
@@ -27,7 +27,7 @@ public class TestRiskAssessment {
 		System.out.println("population density of Victoria in the  GeoCollection:");
 		for(CityT city: GeoCollection.getCityArrayList("V")) {
 			if(city.getCityName().equals("Victoria")) {
-				System.out.println("Province: " + city.getProvince() + " population density: " + city.getPopDensity() );				
+				System.out.println("Province: " + city.getProvince() + ", population density: " + city.getPopDensity() );				
 			}			
 		}
 		System.out.println();	

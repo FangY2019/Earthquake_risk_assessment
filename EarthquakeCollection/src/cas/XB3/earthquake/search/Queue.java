@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.collection;
+package cas.XB3.earthquake.search;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

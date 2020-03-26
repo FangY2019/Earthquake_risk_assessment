@@ -1,6 +1,5 @@
-package cas.XB3.earthquake.collection;
+package cas.XB3.earthquake.ADT;
 
-import cas.XB3.earthquake.ADT.*;
 import java.time.LocalDateTime;
 
 public class EarthquakeT implements Comparable<EarthquakeT>{

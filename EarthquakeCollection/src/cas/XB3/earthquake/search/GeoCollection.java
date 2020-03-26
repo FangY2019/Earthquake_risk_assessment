@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.collection;
+package cas.XB3.earthquake.search;
 
 import cas.XB3.earthquake.ADT.*;
 

@@ -3,12 +3,12 @@ package cas.XB3.earthquake.display;
 import java.util.ArrayList;
 
 import cas.XB3.earthquake.ADT.CityPostT;
+import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.Graph.CityGraph;
 import cas.XB3.earthquake.Graph.Edge;
-import cas.XB3.earthquake.collection.EarthquakeT;
-import cas.XB3.earthquake.collection.RedBlackBST;
 import cas.XB3.earthquake.riskAssessment.RiskAssessment;
+import cas.XB3.earthquake.search.RedBlackBST;
 
 //manage the display option
 public class DisplayManager {
