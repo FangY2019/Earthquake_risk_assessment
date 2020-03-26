@@ -19,7 +19,7 @@ import cas.XB3.earthquake.search.SearchEarthquakes;
 
 public class RiskAssessment {
 	private RedBlackBST<Double, EarthquakeT> earthquakeTree;
-	private String cityName;
+	private String[] cityName;
 	private int frequency;
 	private double averageMag;
 	private double populationDensity;
@@ -42,7 +42,7 @@ public class RiskAssessment {
 //		System.out.println("The size of the list assessing location: " + earthquakeLists.size());
 
 		// find the nearest city name in the smallest circle
-		this.cityName = getCityName(location, earthquakeLists); // place string with other information
+		this.cityName = getCityName(location, earthquakeLists); // city name and its province in the nearest EarthquakeT
 		this.frequency = Frequency(earthquakeLists);
 		this.averageMag = AverageMagnitude(earthquakeLists);
 		this.populationDensity = getPopulation();
@@ -73,7 +73,7 @@ public class RiskAssessment {
 	 *         location
 	 */
 	public String getCity() {
-		return this.cityName;
+		return this.cityName[0];
 	}
 
 	/**
@@ -104,19 +104,19 @@ public class RiskAssessment {
 	}
 
 	/**
-	 * Finds the nearest city in the range of 200 kilometers, where the risk rating
-	 * is lower than this location *
+	 * Finds the nearest city within 100 kilometers, where the risk rating
+	 * is lower than this location 
 	 * 
 	 * @param graph A cityGraph which represents a connected graph between this
-	 *              location and all the city in the range of 200 km in the city
+	 *              location and all the city within the 100 km in the city
 	 *              coordinates dataset
 	 * @return The nearest city whose risk rating is lower than this location
 	 */
 	public String nearestLowerRiskCity(CityGraph graph) {
 		String nearestSfaterCity = null;
 		int minDistance = Integer.MAX_VALUE;
-		if (graph.adj(this.cityName) != null) {
-			for (Edge city : graph.adj(this.cityName)) {
+		if (graph.adj(this.cityName[0]) != null) {
+			for (Edge city : graph.adj(this.cityName[0])) {
 				if (new RiskAssessment(this.earthquakeTree, getLocation(city.to())).getRisk() < this.rating
 						&& city.weight() < minDistance) {
 					minDistance = city.weight();
@@ -141,8 +141,9 @@ public class RiskAssessment {
 		return location;
 	}
 
-	// get the city name from the nearest EarthquakeT of the given location
-	private String getCityName(PointT location, ArrayList<EarthquakeT> earthquakeList) {
+	// get the city name and its province name from the nearest EarthquakeT of the given location
+	private String[] getCityName(PointT location, ArrayList<EarthquakeT> earthquakeList) {
+		String[] cityAndProv = new String[2];
 		double minDistance = Double.MAX_VALUE;
 		EarthquakeT nearestEarthquake = null;
 		for (EarthquakeT earthquake : earthquakeList) {
@@ -156,25 +157,27 @@ public class RiskAssessment {
 			return null;
 //		System.out.println("nearestEarthquake :" +nearestEarthquake.getPointT().getLat() + "," +nearestEarthquake.getPointT().getLong());
 //		System.out.println("this city2 :" +nearestEarthquake.getPlace());
-		return nearestEarthquake.getPlace();
-		
-	}
+		cityAndProv[0] = nearestEarthquake.getPlace();
+		cityAndProv[1] = nearestEarthquake.getNameOfProv();
+		return cityAndProv;		
+	}	
+
 
 	// Gets the population density of the given city name from the population
 	// dataset
 	private double getPopulation() {
 //		System.out.println("place " + String.valueOf(cityName.charAt(0)));
 		populationDensity = 0;
-		if (this.cityName != null) {
+		if (this.cityName[0] != null) {
 			GeoCollection GeoCollection = new GeoCollection();
 			CSVreader.readPopulation("./T301EN.CSV", GeoCollection);
-			if (GeoCollection.getCityHashMap().keySet().contains(String.valueOf(this.cityName.charAt(0)))) {
-				ArrayList<CityT> listOfCity = GeoCollection.getCityArrayList(String.valueOf(this.cityName.charAt(0)));
+			if (GeoCollection.getCityHashMap().keySet().contains(String.valueOf(this.cityName[0].charAt(0)))) {
+				ArrayList<CityT> listOfCity = GeoCollection.getCityArrayList(String.valueOf(this.cityName[0].charAt(0)));
 //				System.out.println("Fisrt letter of the string " + String.valueOf(cityName.charAt(0)));
 //				System.out.println(listOfCity.size());
 				if (listOfCity.size() != 0) {
 					for (CityT city : listOfCity) {
-						if (this.cityName.contains(city.getCityName())) { // place string contains cityname
+						if (this.cityName[0].equals(city.getCityName()) && this.cityName[1].equals(city.getProvince())) { 
 //							System.out.println("city2:" + this.cityName);
 //							System.out.println("city:" +city.getCityName());
 							populationDensity = city.getPopDensity();
@@ -259,7 +262,5 @@ public class RiskAssessment {
 		else if (5000 <= populationdensity)
 			risk_population = 2;
 		return risk_population;
-
 	}
-
 }
