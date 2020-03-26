@@ -18,7 +18,7 @@ public class TestSearchTime {
 		PointT location = new PointT(60, -95);
 
 
-		int[] radius = { 10, 100, 1000, 10000, 100000 };
+		int[] radius = { 10, 100, 1000, 4000};
 		
 		System.out.println("execution time of earthquake bag");
 		for (int i = 0; i < radius.length; i++) {
@@ -36,6 +36,6 @@ public class TestSearchTime {
 			System.out.printf("Radius: %d, Total execution time: %.5f , size of the list: %d\n", radius[i], (endTime - startTime) / 1000.0, eqList2.size());
 		}		
 		
-	}
+	}	
 
 }
