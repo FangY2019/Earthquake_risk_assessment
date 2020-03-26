@@ -37,7 +37,7 @@ public class DisplayManager {
 				for (CityPostT cityTo : cityPostList) {
 					if (!cityFrom.getCityName().equals(cityTo.getCityName())) {
 						int distance = (int) cityFrom.getPoint().distanceTo(cityTo.getPoint());
-						if (distance < 200) {
+						if (distance < 100) {
 							Edge e = new Edge(cityFrom.getCityName(), cityTo.getCityName(), distance);
 							graph.addEdge(e);
 						}
@@ -52,13 +52,13 @@ public class DisplayManager {
 		System.out.printf("%-67s%-5.1f\n", "The average magnitude of historical earthquakes within 100 km is :",
 				riskAssessment.getMag());
 		System.out.printf("%-67s%-5.1f%s\n", "The population density in the nearest city is :",
-				riskAssessment.getPoplationDensity(), " per square kilometre");
+				riskAssessment.getPoplationDensity(), " persons per square kilometre");
 		System.out.printf("The risk rating for the location (%.2f , %.2f) is : % d\n", location.getLat(),
 				location.getLong(), rating);
 		if (riskAssessment.nearestLowerRiskCity(graph) != null) {
 			System.out.printf("The nearest lower risk city is: %s\n\n\n", riskAssessment.nearestLowerRiskCity(graph));
 		} else {
-			System.out.printf("There is no lower risk city within the range of 200 kilometers\n\n\n");
+			System.out.printf("There is no lower risk city within the range of 100 kilometers\n\n\n");
 		}
 	}
 
