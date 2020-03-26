@@ -14,9 +14,9 @@ public class DispalyByMagnitude implements DisplayInterface {
 			System.out.println("There's no earthquake!");
 		else {
 			System.out.println("The earthquakes are displayed in the descending order based on the magnitude:");
-			System.out.printf("%-15s%-15s%-40s\n", "Magnitude","Date","City");
+			System.out.printf("%-15s%-15s%-15s%-40s\n", "Magnitude","Earthquake class", "Date","City");
 			for (EarthquakeT eq : earthquakeList) {
-				System.out.printf("%-15.1f%-15d%-40s\n", eq.getMag(), eq.getDate().getYear(), eq.getPlace());
+				System.out.printf("%-15.1f%-15s%-15d%-40s\n", eq.getMag(), eq.getColor(), eq.getDate().getYear(), eq.getPlace());
 			}
 			System.out.println();
 		}

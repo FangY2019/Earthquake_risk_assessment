@@ -47,8 +47,8 @@ public class DisplayManager {
 		}
 		System.out.printf("%-67s%-10s\n", "The nearest historical earthquake from your location is in: ",
 				riskAssessment.getCity());
-		System.out.printf("%-67s%-5d%s\n", "The number of historical earthquakes within 100 km is :",
-				riskAssessment.getFrequency(), " times");
+		System.out.printf("%-67s%-5d\n", "The number of historical earthquakes within 100 km is :",
+				riskAssessment.getFrequency());
 		System.out.printf("%-67s%-5.1f\n", "The average magnitude of historical earthquakes within 100 km is :",
 				riskAssessment.getMag());
 		System.out.printf("%-67s%-5.1f%s\n", "The population density in the nearest city is :",
