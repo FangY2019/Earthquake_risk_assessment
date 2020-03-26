@@ -30,7 +30,8 @@ public class TestRiskAssessment {
 				System.out.println("Province: " + city.getProvince() + ", population density: " + city.getPopDensity() );				
 			}			
 		}
-		System.out.println();	
+		System.out.println();
+		
 		
 
 		
