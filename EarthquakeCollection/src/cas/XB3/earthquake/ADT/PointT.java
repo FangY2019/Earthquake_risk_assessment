@@ -4,11 +4,22 @@ public class PointT {
 	private double x;
 	private double y;
 
+	/**
+	 * Constructor of PointT ADT.
+	 * @param x Double, the latitude.
+	 * @param y Double, the longitude.
+	 */
 	public PointT(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 
+	/**
+	 * 
+	 * @param that PointT Object.
+	 * @return A double of distance between this PointT object and that PointT
+	 *  object.
+	 */
 	public double distanceTo(PointT that) {
 		int earthRadius = 6371;
 		double latSelf = x;
@@ -23,8 +34,12 @@ public class PointT {
 		double distance = earthRadius * c;
 		return distance;
 	}
-	
-	//index 0 will be the smaller latitude, index 1 will be the larger latitude
+	/**
+	 * @details This method will calculate range of latitude by a given radius.
+	 * @param radius Double, the radius to filter latitude
+	 * @return a double array, index 0 will be the smaller latitude, index 1
+	 * will be the larger latitude
+	 */
 	public double[] latFilter(double radius) {
 		double result[] = new double[2];
         int earthRadius = 6371;
@@ -51,6 +66,12 @@ public class PointT {
 		return result;
 	}
 	
+	/**
+	 * @details Two points are considered equal if they have "same" x and y
+	 * value with a tolerance of 0.0000001
+	 * @param that PointT object that comparing to.
+	 * @return boolean if the two PointT objects are considered equal.
+	 */
     public boolean equals(PointT that) {
     	final double TOLERANCE = 0.0000001;
     	if (Math.abs(x - that.getLat()) > TOLERANCE) {
@@ -62,10 +83,18 @@ public class PointT {
     	return true;
     }
 
+    /**
+     * 
+     * @return double get the Latitude of the this object.
+     */
 	public double getLat() {
 		return x;
 	}
-
+	
+	/**
+	 * 
+	 * @return double get the longitude of this object.
+	 */
 	public double getLong() {
 		return y;
 	}
