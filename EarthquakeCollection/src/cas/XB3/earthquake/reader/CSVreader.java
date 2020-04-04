@@ -7,6 +7,7 @@ import cas.XB3.earthquake.ADT.CityPostT;
 import cas.XB3.earthquake.ADT.CityT;
 import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.EarthquakeT.*;
+import cas.XB3.earthquake.search.EarthquakeBag;
 import cas.XB3.earthquake.search.GeoCollection;
 import cas.XB3.earthquake.search.RedBlackBST;
 

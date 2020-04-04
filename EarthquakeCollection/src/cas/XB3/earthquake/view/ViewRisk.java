@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.display;
+package cas.XB3.earthquake.view;
 
 import java.util.ArrayList;
 

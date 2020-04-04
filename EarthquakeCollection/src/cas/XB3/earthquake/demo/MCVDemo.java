@@ -9,10 +9,10 @@ import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.Graph.CityGraph;
 import cas.XB3.earthquake.controller.Controller;
-import cas.XB3.earthquake.display.DispalyByMagnitude;
-import cas.XB3.earthquake.display.DisplayByDistance;
 import cas.XB3.earthquake.search.GeoCollection;
 import cas.XB3.earthquake.search.RedBlackBST;
+import cas.XB3.earthquake.view.DispalyByMagnitude;
+import cas.XB3.earthquake.view.DisplayByDistance;
 
 public class MCVDemo {
 	private static RedBlackBST<Double, EarthquakeT> earthquakeTree = new RedBlackBST<Double, EarthquakeT>();

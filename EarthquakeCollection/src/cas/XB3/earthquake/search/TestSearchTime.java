@@ -1,12 +1,11 @@
 package cas.XB3.earthquake.search;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
-import cas.XB3.earthquake.collection.CSVreader;
-import cas.XB3.earthquake.collection.EarthquakeBag;
+import cas.XB3.earthquake.reader.CSVreader;
+
 
 public class TestSearchTime {
 	public static void main(String[] args) {
@@ -15,7 +14,7 @@ public class TestSearchTime {
 		RedBlackBST<Double, EarthquakeT> earthquakeTree = new RedBlackBST<Double, EarthquakeT>();
 		CSVreader.readEarthquakes("./eqarchive-en.csv", Earthquakebag);
 		CSVreader.readEarthquakesBST("./eqarchive-en.csv", earthquakeTree);
-		PointT location = new PointT(48.7,-128.7);
+		PointT location = new PointT(60, -95);
 
 
 		int[] radius = { 10, 100, 1000, 4000};

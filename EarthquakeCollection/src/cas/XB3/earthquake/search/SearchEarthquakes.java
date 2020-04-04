@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
-import cas.XB3.earthquake.collection.EarthquakeBag;
+
 
 public class SearchEarthquakes {
 
