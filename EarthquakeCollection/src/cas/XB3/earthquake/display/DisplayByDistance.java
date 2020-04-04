@@ -6,7 +6,7 @@ import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.sort.Sort;
 
-public class DisplayByDistance implements DisplayInterface {
+public class DisplayByDistance implements ViewList {
 
 	@Override
 	public void display(ArrayList<EarthquakeT> earthquakeList, PointT location) {
