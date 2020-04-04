@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.collection;
+package cas.XB3.earthquake.reader;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.display;
+package cas.XB3.earthquake.demo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,6 +8,9 @@ import cas.XB3.earthquake.ADT.CityPostT;
 import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.Graph.CityGraph;
+import cas.XB3.earthquake.controller.Controller;
+import cas.XB3.earthquake.display.DispalyByMagnitude;
+import cas.XB3.earthquake.display.DisplayByDistance;
 import cas.XB3.earthquake.search.GeoCollection;
 import cas.XB3.earthquake.search.RedBlackBST;
 
@@ -32,9 +35,7 @@ public class MCVDemo {
 			
 			//read the input from keyboard
 //			Scanner input = new Scanner(System.in);
-			
-			System.out.println("MCVDemo\n");
-//			System.out.println(earthquakeTree.size());
+
 
 
 			System.out.println("Please enter the latidude, the number should be between 41.0 to 84.0: \n");

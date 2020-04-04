@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.display;
+package cas.XB3.earthquake.controller;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,9 @@ import cas.XB3.earthquake.ADT.CityPostT;
 import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.Graph.CityGraph;
-import cas.XB3.earthquake.collection.CSVreader;
+import cas.XB3.earthquake.display.ViewList;
+import cas.XB3.earthquake.display.ViewRisk;
+import cas.XB3.earthquake.reader.CSVreader;
 import cas.XB3.earthquake.search.GeoCollection;
 import cas.XB3.earthquake.search.RedBlackBST;
 import cas.XB3.earthquake.search.SearchEarthquakes;
