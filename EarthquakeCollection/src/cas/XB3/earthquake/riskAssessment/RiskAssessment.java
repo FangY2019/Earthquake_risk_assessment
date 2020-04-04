@@ -51,10 +51,7 @@ public class RiskAssessment {
 			this.rating = 0;
 		else
 			this.rating = OverallRating(this.frequency, this.averageMag, this.populationDensity);
-//		System.out.println("frequency1: " + frequency1);
-//		System.out.println("averagerMag1: " + averagerMag1);
-//		System.out.println("populationdensity: " + populationdensity);
-//		System.out.println("this city1 :" +this.cityName);
+
 	}
 
 	/**
@@ -73,7 +70,12 @@ public class RiskAssessment {
 	 *         location
 	 */
 	public String getCity() {
-		return this.cityName[0];
+		if(cityName == null) {
+			return null;
+		}else {
+			return this.cityName[0];
+		}
+		
 	}
 
 	/**
@@ -115,6 +117,9 @@ public class RiskAssessment {
 	public String nearestLowerRiskCity(CityGraph graph) {
 		String nearestSfaterCity = null;
 		int minDistance = Integer.MAX_VALUE;
+		if(cityName == null) {
+			return null;
+		}
 		if (graph.adj(this.cityName[0]) != null) {
 			for (Edge city : graph.adj(this.cityName[0])) {
 				if (new RiskAssessment(this.earthquakeTree, getLocation(city.to())).getRisk() < this.rating
@@ -146,6 +151,9 @@ public class RiskAssessment {
 		String[] cityAndProv = new String[2];
 		double minDistance = Double.MAX_VALUE;
 		EarthquakeT nearestEarthquake = null;
+		if(earthquakeList == null) {
+			return null;
+		}
 		for (EarthquakeT earthquake : earthquakeList) {
 			if (location.distanceTo(earthquake.getPointT()) < minDistance) {
 				minDistance = location.distanceTo(earthquake.getPointT());
@@ -168,6 +176,9 @@ public class RiskAssessment {
 	private double getPopulation() {
 //		System.out.println("place " + String.valueOf(cityName.charAt(0)));
 		populationDensity = 0;
+		if(cityName == null) {
+			return 0;
+		}
 		if (this.cityName[0] != null) {
 			GeoCollection GeoCollection = new GeoCollection();
 			CSVreader.readPopulation("./T301EN.CSV", GeoCollection);
