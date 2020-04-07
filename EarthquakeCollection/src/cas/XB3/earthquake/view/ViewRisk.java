@@ -15,6 +15,34 @@ public class ViewRisk {
 			ArrayList<CityPostT> cityPostList, CityGraph graph) {
 		RiskAssessment riskAssessment = new RiskAssessment(earthquakeTree, location);
 		int rating = riskAssessment.getRisk();
+
+		if (riskAssessment.getFrequency() == 0) {
+			System.out.printf("The risk rating for the location (%.2f , %.2f) is : % d\n", location.getLat(),
+					location.getLong(), rating);
+		} else {
+
+			System.out.printf("The risk rating for the location (%.2f , %.2f) is : % d\n\n", location.getLat(),
+					location.getLong(), rating);
+			System.out.printf("%-67s%-10s\n", "The nearest historical earthquake from your location is in: ",
+					riskAssessment.getCity());
+			System.out.printf("%-67s%-5d\n", "The number of historical earthquakes within 100 km is :",
+					riskAssessment.getFrequency());
+			System.out.printf("%-67s%-5.1f\n", "The average magnitude of historical earthquakes within 100 km is :",
+					riskAssessment.getMag());
+			System.out.printf("%-67s%-5.1f%s\n\n", "The population density in the nearest city is :",
+					riskAssessment.getPoplationDensity(), " persons per square kilometre");
+
+			if (riskAssessment.nearestLowerRiskCity(InitGraph(riskAssessment, cityPostList, graph)) != null) {
+				System.out.printf("The nearest lower risk city is: %s\n\n\n",
+						riskAssessment.nearestLowerRiskCity(graph));
+			} else {
+				System.out.printf("There is no lower risk city within the range of 100 kilometers\n\n\n");
+			}
+		}
+	}
+
+	private static CityGraph InitGraph(RiskAssessment riskAssessment,
+			ArrayList<CityPostT> cityPostList, CityGraph graph) {
 		for (CityPostT cityFrom : cityPostList) {
 			// if the assessing city is in the city position list, build the graph with
 			// edges, the origin node is the assessing city, the destination nodes are
@@ -32,28 +60,7 @@ public class ViewRisk {
 				}
 			}
 		}
-		if (riskAssessment.getFrequency() == 0) {
-			System.out.printf("The risk rating for the location (%.2f , %.2f) is : % d\n", location.getLat(),
-					location.getLong(), rating);
-		} else {
-
-			System.out.printf("The risk rating for the location (%.2f , %.2f) is : % d\n\n", location.getLat(),
-					location.getLong(), rating);
-			System.out.printf("%-67s%-10s\n", "The nearest historical earthquake from your location is in: ",
-					riskAssessment.getCity());
-			System.out.printf("%-67s%-5d\n", "The number of historical earthquakes within 100 km is :",
-					riskAssessment.getFrequency());
-			System.out.printf("%-67s%-5.1f\n", "The average magnitude of historical earthquakes within 100 km is :",
-					riskAssessment.getMag());
-			System.out.printf("%-67s%-5.1f%s\n\n", "The population density in the nearest city is :",
-					riskAssessment.getPoplationDensity(), " persons per square kilometre");
-
-			if (riskAssessment.nearestLowerRiskCity(graph) != null) {
-				System.out.printf("The nearest lower risk city is: %s\n\n\n",
-						riskAssessment.nearestLowerRiskCity(graph));
-			} else {
-				System.out.printf("There is no lower risk city within the range of 100 kilometers\n\n\n");
-			}
-		}
+		return graph;
+		
 	}
 }
