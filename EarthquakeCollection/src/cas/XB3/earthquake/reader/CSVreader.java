@@ -43,16 +43,16 @@ public class CSVreader {
                 ColorRating clRating = generateColorRating(cell4);
                 
                 //extract the city name from the string
-                if(cell[6].contains(" from ")) {
-                	int i = cell[6].indexOf('f');
+                cell[6] = cell[6].toUpperCase();
+                if(cell[6].contains(" FROM ")) {
+                	int i = cell[6].indexOf("FROM");
                 	cell[6] = cell[6].substring(i+ 5);
-                }else if(cell[6].contains(" of ")) {
-                	int i = cell[6].indexOf('o');
+                }else if(cell[6].contains(" OF ")) {
+                	int i = cell[6].indexOf("OF");
                 	cell[6] = cell[6].substring(i + 3);                	
                 }else if(cell[6].startsWith("NEAR")) {
                 	cell[6] = cell[6].substring(5);
                 }
-                
                 
                 EarthquakeT eqk = new EarthquakeT(cell[6], cell[7], date, cell1, cell2, cell3, cell4, cell5, clRating);
                 bag.add(eqk);
@@ -92,11 +92,12 @@ public class CSVreader {
                 ColorRating clRating = generateColorRating(cell4);
 
                 //extract the city name from the string
-                if(cell[6].contains(" from ")) {
-                    int i = cell[6].indexOf('f');
+                cell[6] = cell[6].toUpperCase();
+                if(cell[6].contains(" FROM ")) {
+                    int i = cell[6].indexOf("FROM");
                     cell[6] = cell[6].substring(i+ 5);
-                }else if(cell[6].contains(" of ")) {
-                    int i = cell[6].indexOf('o');
+                }else if(cell[6].contains(" OF ")) {
+                    int i = cell[6].indexOf("OF");
                     cell[6] = cell[6].substring(i + 3);
                 }else if(cell[6].startsWith("NEAR")) {
                     cell[6] = cell[6].substring(5);
@@ -127,7 +128,7 @@ public class CSVreader {
 //                }
 //                System.out.println();
 
-                cell[1] = rmFirstLastQuote(cell[1]);
+                cell[1] = rmFirstLastQuote(cell[1]).toUpperCase();
                 cell[5] = rmFirstLastQuote(cell[5]);
 
                 Double cell26 = 0.0;
@@ -156,7 +157,7 @@ public class CSVreader {
 			String line = buffered.readLine();;
 			while ((line = buffered.readLine()) != null) {
 				String[] cell = line.split(",");
-				cell[0] = cell[0].split(";")[0];			
+				cell[0] = cell[0].split(";")[0].toUpperCase();			
 				double lat = Double.parseDouble(cell[1]);
 				double longi = Double.parseDouble(cell[2]);
 				cityPostList.add(new CityPostT(cell[0], lat, longi));
