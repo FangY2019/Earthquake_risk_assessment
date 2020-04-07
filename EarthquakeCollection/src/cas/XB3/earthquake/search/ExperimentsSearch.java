@@ -14,7 +14,8 @@ public class ExperimentsSearch {
 		RedBlackBST<Double, EarthquakeT> earthquakeTree = new RedBlackBST<Double, EarthquakeT>();
 		CSVreader.readEarthquakes("./eqarchive-en.csv", Earthquakebag);
 		CSVreader.readEarthquakesBST("./eqarchive-en.csv", earthquakeTree);
-		PointT location = new PointT(46, -70);
+		PointT location = new PointT(60, -95);
+//		PointT location = new PointT(46, -70);
 
 
 		int[] radius = { 10, 100, 200, 300,1000, 4000};
