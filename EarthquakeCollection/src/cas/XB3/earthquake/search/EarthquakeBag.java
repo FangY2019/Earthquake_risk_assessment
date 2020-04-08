@@ -1,3 +1,10 @@
+/**
+ * Description: Modified Bag to iterate over a certain magnitude class of earthquakes
+ * Original Description: The Bag class represents a bag (or multiset) of
+ *                       generic items. It supports insertion and iterating over the
+ *                       items in arbitrary order.
+ * Link: https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/Bag.java.html
+ */
 package cas.XB3.earthquake.search;
 
 import java.util.Iterator;
