@@ -23,12 +23,6 @@ public class EdgeTest {
 	}
 
 	@Test
-	public void testSetWeight() {
-		e.setWeight(2);
-		assertEquals(e.weight(),2);
-	}
-
-	@Test
 	public void testWeight() {
 		assertEquals(e.weight(),3);
 	}

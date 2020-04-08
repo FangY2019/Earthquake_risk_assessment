@@ -10,19 +10,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cas.XB3.earthquake.ADT.PointT;
-import cas.XB3.earthquake.collection.EarthquakeT;
-import cas.XB3.earthquake.collection.EarthquakeT.ColorRating;
-import cas.XB3.earthquake.collection.EarthquakeT.MagType;
+import cas.XB3.earthquake.ADT.EarthquakeT;
+import cas.XB3.earthquake.ADT.EarthquakeT.ColorRating;
+import cas.XB3.earthquake.ADT.EarthquakeT.MagType;
 
 public class SortTest {
 	
 	private ArrayList<EarthquakeT> list1 = new ArrayList<>();
 	private PointT p = new PointT(0,0);
 	LocalDateTime d = LocalDateTime.now();
-	private EarthquakeT e1 = new EarthquakeT("place",d, 0, 1, 20, 2.7, MagType.M5, ColorRating.ZERO);
-	private EarthquakeT e2 = new EarthquakeT("place2",d, 0, 100, 20, 2.8, MagType.M5, ColorRating.ZERO);
-	private EarthquakeT e3 = new EarthquakeT("place3",d, 0, 10, 20, 2.6, MagType.M5, ColorRating.ZERO);
-	private EarthquakeT e4 = new EarthquakeT("place4",d, 10, 100, 20, 2.9, MagType.M5, ColorRating.ZERO);
+	private EarthquakeT e1 = new EarthquakeT("place","PA",d, 0, 1, 20, 2.7, MagType.M5, ColorRating.ZERO);
+	private EarthquakeT e2 = new EarthquakeT("place2","PA",d, 0, 100, 20, 2.8, MagType.M5, ColorRating.ZERO);
+	private EarthquakeT e3 = new EarthquakeT("place3","PA",d, 0, 10, 20, 2.6, MagType.M5, ColorRating.ZERO);
+	private EarthquakeT e4 = new EarthquakeT("place4","PA",d, 10, 100, 20, 2.9, MagType.M5, ColorRating.ZERO);
 
 	@Before
 	public void setUp() throws Exception {
@@ -57,13 +57,13 @@ public class SortTest {
 	@Test
 	public void testSortByDistanceGet2() {
 		Sort.sortByDistance(p, list1);
-		assertEquals(list1.get(2), e2);
+		assertEquals(list1.get(2), e4);
 	}
 	
 	@Test
 	public void testSortByDistanceGet3() {
 		Sort.sortByDistance(p, list1);
-		assertEquals(list1.get(3), e4);
+		assertEquals(list1.get(3), e2);
 	}
 
 	@Test

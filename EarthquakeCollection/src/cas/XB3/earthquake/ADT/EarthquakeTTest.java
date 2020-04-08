@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.collection;
+package cas.XB3.earthquake.ADT;
 
 import static org.junit.Assert.*;
 
@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cas.XB3.earthquake.ADT.PointT;
-import cas.XB3.earthquake.collection.EarthquakeT.ColorRating;
-import cas.XB3.earthquake.collection.EarthquakeT.MagType;
+import cas.XB3.earthquake.ADT.EarthquakeT.ColorRating;
+import cas.XB3.earthquake.ADT.EarthquakeT.MagType;
 
 public class EarthquakeTTest {
 	private EarthquakeT e1;
@@ -25,14 +25,14 @@ public class EarthquakeTTest {
 
 	@Before
 	public void setUp() throws Exception {
-		e1 = new EarthquakeT("place",d, 72, 63, 20, 2.8, MagType.M5, ColorRating.ZERO);
-		e2 = new EarthquakeT("place",LocalDateTime.now(), 25, 13, 69, 7.3, EarthquakeT.MagType.MS, EarthquakeT.ColorRating.ORANGE);
-		e3 = new EarthquakeT("place",d, 71, 63, 20, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
-		e4 = new EarthquakeT("place2",d, 72, 63, 20, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
-		e5 = new EarthquakeT("place",d, 72, 63, 60, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
-		e6 = new EarthquakeT("place",d, 72, 63, 20, 2.7, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
-		e7 = new EarthquakeT("place",d, 72, 63, 20, 2.8, EarthquakeT.MagType.MS, EarthquakeT.ColorRating.ZERO);
-		e8 = new EarthquakeT("place",d, 72, 63, 20, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.RED);
+		e1 = new EarthquakeT("place","pA",d, 72, 63, 20, 2.8, MagType.M5, ColorRating.ZERO);
+		e2 = new EarthquakeT("place","pA",LocalDateTime.now(), 25, 13, 69, 7.3, EarthquakeT.MagType.MS, EarthquakeT.ColorRating.ORANGE);
+		e3 = new EarthquakeT("place","pA",d, 71, 63, 20, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
+		e4 = new EarthquakeT("place2","pA",d, 72, 63, 20, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
+		e5 = new EarthquakeT("place","pA",d, 72, 63, 60, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
+		e6 = new EarthquakeT("place","pA",d, 72, 63, 20, 2.7, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.ZERO);
+		e7 = new EarthquakeT("place","pA",d, 72, 63, 20, 2.8, EarthquakeT.MagType.MS, EarthquakeT.ColorRating.ZERO);
+		e8 = new EarthquakeT("place","pA",d, 72, 63, 20, 2.8, EarthquakeT.MagType.M5, EarthquakeT.ColorRating.RED);
 
 	}
 
