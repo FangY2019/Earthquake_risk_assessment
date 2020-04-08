@@ -43,7 +43,7 @@ public class ViewRisk {
 			System.out.printf("%-67s%-5.1f\n", "The average magnitude of historical earthquakes within 100 km is :",
 					riskAssessment.getMag());
 			System.out.printf("%-67s%-5.1f%s\n\n", "The population density in the nearest city is :",
-					riskAssessment.getPoplationDensity(), " persons per square kilometre");
+					riskAssessment.getPopulationDensity(), " persons per square kilometre");
 
 			if (riskAssessment.nearestLowerRiskCity(initGraph(riskAssessment, cityPostList, graph)) != null) {
 				System.out.printf("The nearest lower risk city is: %s\n\n\n",
