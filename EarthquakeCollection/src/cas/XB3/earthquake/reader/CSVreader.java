@@ -12,10 +12,15 @@ import cas.XB3.earthquake.search.GeoCollection;
 import cas.XB3.earthquake.search.RedBlackBST;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 public class CSVreader {
 
+    /**
+     * Read each field of individual earthquake, and instantiate and store an EarthquakeT object
+     * @param filename the file name which stores individual earthquake information
+     * @param bag the instance of Bag used to store EarthquakeT objects
+     */
     public static void readEarthquakes(String filename, EarthquakeBag<EarthquakeT> bag){
         String singleL;
         try {
@@ -64,7 +69,12 @@ public class CSVreader {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Read each field of individual earthquake, and instantiate and store an EarthquakeT object
+     * @param filename the file name which stores individual earthquake information
+     * @param bst the instance of RedBlackBST used to store EarthquakeT objects
+     */
     public static void readEarthquakesBST(String filename, RedBlackBST<Double, EarthquakeT> bst){
         String singleL;
         try {
@@ -114,7 +124,12 @@ public class CSVreader {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Read each field of individual geolocation, and instantiate and store an CityT object
+     * @param filename the file name which stores individual geolocation's population density
+     * @param geoCollec the instance of GeoCollection used to store CityT objects
+     */
     public static void readPopulation(String filename, GeoCollection geoCollec){
         String singleL;
         try {
@@ -123,10 +138,6 @@ public class CSVreader {
 
             while ((singleL = bufferedR.readLine()) != null){
                 String[] cell = singleL.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-//                for(String str: cell) {
-//                	System.out.print(str + " ");
-//                }
-//                System.out.println();
 
                 cell[1] = rmFirstLastQuote(cell[1]).toUpperCase();
                 cell[5] = rmFirstLastQuote(cell[5]);
@@ -147,8 +158,8 @@ public class CSVreader {
     }
 
     /**
-     * read the each city name, latitude and longitude, instantiate a CityPostT object and add all the objects in a ArrayList
-     * @param filename the file name which store the cities' coordinates
+     * Read the each city name, latitude and longitude, instantiate a CityPostT object and add all the objects in a ArrayList
+     * @param filename the file name which stores the cities' coordinates
      * @param cityPostList A ArrayList of CityPostT
      */
     public static void readCityPosition(String filename, ArrayList<CityPostT> cityPostList){
@@ -166,8 +177,13 @@ public class CSVreader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }	
-	
+    }
+
+    /**
+     * Remove first and last double quotation marks from a string
+     * @param cell the string that has the quotation marks
+     * @return a string without the quotation marks
+     */
     public static String rmFirstLastQuote(String cell){
         String cellq = cell;
         if (cell.startsWith("\"") && cell.endsWith("\""))
@@ -175,6 +191,11 @@ public class CSVreader {
         return cellq;
     }
 
+    /**
+     * Obtain a color rating based on the magnitude of earthquake
+     * @param cell4 the magnitude of the earthquake
+     * @return the color rating enum type based on the input magnitude
+     */
     private static ColorRating generateColorRating(double cell4) {
         ColorRating clRating = ColorRating.NOCOLOR;
         if (cell4 == 0)
@@ -195,6 +216,11 @@ public class CSVreader {
         return clRating;
     }
 
+    /**
+     * Obtain an accurate name for the geolocation specified for individual earthquake
+     * @param nameP the approximate geolocation specified for the earthquake
+     * @return the accurate name for the approximate geolocation
+     */
     private static String fullProvName(String nameP){
         String newPN = nameP;
         if(nameP.length() == 2) {
