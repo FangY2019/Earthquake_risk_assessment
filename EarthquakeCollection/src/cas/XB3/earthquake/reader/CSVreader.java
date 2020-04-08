@@ -163,9 +163,10 @@ public class CSVreader {
      * @param cityPostList A ArrayList of CityPostT
      */
     public static void readCityPosition(String filename, ArrayList<CityPostT> cityPostList){
+        String line;
     	try {
 			BufferedReader buffered = new BufferedReader(new FileReader(filename));
-			String line = buffered.readLine();;
+			String firstLine = buffered.readLine();
 			while ((line = buffered.readLine()) != null) {
 				String[] cell = line.split(",");
 				cell[0] = cell[0].split(";")[0].toUpperCase();			
