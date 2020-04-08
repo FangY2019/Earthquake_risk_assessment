@@ -1,6 +1,7 @@
 /**
- *  
- * 
+ * The RiskAssessment class represents a ADT of the assessment results of future earthquake risk of a given location
+ * @author Ye Fang
+ * Revised: March 24, 2020
  */
 package cas.XB3.earthquake.riskAssessment;
 
@@ -19,34 +20,37 @@ import cas.XB3.earthquake.search.SearchEarthquakes;
 
 public class RiskAssessment {
 	private RedBlackBST<Double, EarthquakeT> earthquakeTree;
-	private String[] cityName;
+	private String[] cityProv;
 	private int frequency;
 	private double averageMag;
 	private double populationDensity;
 	private int rating;
 
 	/**
+	 * Initializes a risk assessment object for the given location based on the
+	 * earthquakes in the EarthquakeT BST. Assuming the future earthquake risk for a
+	 * assessing location is determined by three factors: frequency and average
+	 * magnitude of the historical earthquakes within 100 km from the assessing
+	 * location, as well as the population density in this city
 	 * 
-	 * Assuming the future earthquake risk for a specific location is determined by
-	 * three factors: historical earthquake frequency, magnitude and population
-	 * density
-	 * 
-	 * @param earthquakeTree
-	 * @param location
+	 * @param earthquakeTree a Red Black Tree with value of EarthquakeT
+	 * @param location       a PointT object that represents the objective location
 	 */
 	public RiskAssessment(RedBlackBST<Double, EarthquakeT> earthquakeTree, PointT location) {
 		this.earthquakeTree = earthquakeTree;
-		// search earthquake in two circles of different range
-		ArrayList<EarthquakeT> earthquakeLists = SearchEarthquakes.searchEarthquakeInCircle(earthquakeTree,
-				location, 100);
-//		System.out.println("The size of the list assessing location: " + earthquakeLists.size());
-
-		// find the nearest city name in the smallest circle
-		this.cityName = getCityName(location, earthquakeLists); // city name and its province in the nearest EarthquakeT
-		this.frequency = Frequency(earthquakeLists);
-		this.averageMag = AverageMagnitude(earthquakeLists);
+		// search earthquakeS within 100km of the given location in the EarthquakeT BST
+		ArrayList<EarthquakeT> earthquakeLists = SearchEarthquakes.searchEarthquakeInCircle(earthquakeTree, location,
+				100);
+		// gets the city name and its province name in the nearest EathquakeT from the
+		// given location
+		this.cityProv = getCityProv(location, earthquakeLists);
+		// gets the frequency of the given list of earthquakes
+		this.frequency = getFrequency(earthquakeLists);
+		// gets the average Magnitude of the given list of earthquakes
+		this.averageMag = getAverageMagnitude(earthquakeLists);
+		// gets the population density of this city
 		this.populationDensity = getPopulation();
-		// if no earthquake in range
+		// if there is no earthquakes in the range, the rating should be 0
 		if (earthquakeLists.size() == 0)
 			this.rating = 0;
 		else
@@ -55,7 +59,7 @@ public class RiskAssessment {
 	}
 
 	/**
-	 * Gets the risk rating of the assessed location
+	 * Returns the risk rating of the assessed location
 	 * 
 	 * @return The risk rating of the assessed location
 	 */
@@ -64,31 +68,32 @@ public class RiskAssessment {
 	}
 
 	/**
-	 * Gets the city name of the nearest earthquake from the the assessing location
+	 * Returns the city name of the nearest earthquake from the the assessing
+	 * location
 	 * 
-	 * @return The city name of the nearest earthquake from the the assessing
+	 * @return the city name of the nearest earthquake from the the assessing
 	 *         location
 	 */
 	public String getCity() {
-		if(cityName == null) {
+		if (cityProv == null) {
 			return null;
-		}else {
-			return this.cityName[0];
+		} else {
+			return this.cityProv[0];
 		}
-		
+
 	}
 
 	/**
-	 * Gets the earthquake frequency for this risk assessment
+	 * Returns the earthquake frequency for this risk assessment
 	 * 
-	 * @return The earthquake frequency
+	 * @return the earthquake frequency
 	 */
 	public int getFrequency() {
 		return this.frequency;
 	}
 
 	/**
-	 * Gets the average magnitude for this risk assessment
+	 * Returns the average magnitude for this risk assessment
 	 * 
 	 * @return The earthquake frequency
 	 */
@@ -97,7 +102,7 @@ public class RiskAssessment {
 	}
 
 	/**
-	 * Gets the population density in the nearest city from the given location
+	 * Returns the population density in the nearest city from the given location
 	 * 
 	 * @return The population density in the nearest city from the given location
 	 */
@@ -106,32 +111,32 @@ public class RiskAssessment {
 	}
 
 	/**
-	 * Finds the nearest city within 100 kilometers, where the risk rating
-	 * is lower than this location 
+	 * Finds the nearest city within 100 kilometers of this city, where the risk
+	 * rating is lower than this city
 	 * 
-	 * @param graph A cityGraph which represents a connected graph between this
-	 *              location and all the city within the 100 km in the city
-	 *              coordinates dataset
+	 * @param graph A cityGraph which represents a connected directed weighted graph
+	 *              between this location and all the cities within the 100 km in
+	 *              the city coordinates dataset
 	 * @return The nearest city whose risk rating is lower than this location
 	 */
 	public String nearestLowerRiskCity(CityGraph graph) {
-		String nearestSfaterCity = null;
+		String nearestLowerRiskCity = null;
 		int minDistance = Integer.MAX_VALUE;
-		if(cityName == null) {
+		if (cityProv == null) {
 			return null;
 		}
-		if (graph.adj(this.cityName[0]) != null) {
-			for (Edge city : graph.adj(this.cityName[0])) {
+		if (graph.adj(this.cityProv[0]) != null) {
+			for (Edge city : graph.adj(this.cityProv[0])) {
 				if (new RiskAssessment(this.earthquakeTree, getLocation(city.to())).getRisk() < this.rating
 						&& city.weight() < minDistance) {
 					minDistance = city.weight();
-					nearestSfaterCity = city.to();
+					nearestLowerRiskCity = city.to();
 				}
 			}
 		}
 		if (minDistance == Integer.MAX_VALUE)
-			nearestSfaterCity = null;
-		return nearestSfaterCity;
+			nearestLowerRiskCity = null;
+		return nearestLowerRiskCity;
 	}
 
 	// Gets the coordinate of the given city from the city coordinates list
@@ -146,12 +151,13 @@ public class RiskAssessment {
 		return location;
 	}
 
-	// get the city name and its province name from the nearest EarthquakeT of the given location
-	private String[] getCityName(PointT location, ArrayList<EarthquakeT> earthquakeList) {
+	// get the city name and its province name from the nearest EarthquakeT of the
+	// given location
+	private String[] getCityProv(PointT location, ArrayList<EarthquakeT> earthquakeList) {
 		String[] cityAndProv = new String[2];
 		double minDistance = Double.MAX_VALUE;
 		EarthquakeT nearestEarthquake = null;
-		if(earthquakeList == null) {
+		if (earthquakeList == null) {
 			return null;
 		}
 		for (EarthquakeT earthquake : earthquakeList) {
@@ -160,37 +166,30 @@ public class RiskAssessment {
 				nearestEarthquake = earthquake;
 			}
 		}
-//		System.out.println("heihei: " + nearestEarthquake.getPointT().getLat() +", " + nearestEarthquake.getPlace());
 		if (minDistance == Double.MAX_VALUE)
 			return null;
-//		System.out.println("nearestEarthquake :" +nearestEarthquake.getPointT().getLat() + "," +nearestEarthquake.getPointT().getLong());
-//		System.out.println("this city2 :" +nearestEarthquake.getPlace());
 		cityAndProv[0] = nearestEarthquake.getPlace();
 		cityAndProv[1] = nearestEarthquake.getNameOfProv();
-		return cityAndProv;		
-	}	
-
+		return cityAndProv;
+	}
 
 	// Gets the population density of the given city name from the population
 	// dataset
 	private double getPopulation() {
-//		System.out.println("place " + String.valueOf(cityName.charAt(0)));
 		populationDensity = 0;
-		if(cityName == null) {
+		if (cityProv == null) {
 			return 0;
 		}
-		if (this.cityName[0] != null) {
+		if (this.cityProv[0] != null) {
 			GeoCollection GeoCollection = new GeoCollection();
 			CSVreader.readPopulation("./T301EN.CSV", GeoCollection);
-			if (GeoCollection.getCityHashMap().keySet().contains(String.valueOf(this.cityName[0].charAt(0)))) {
-				ArrayList<CityT> listOfCity = GeoCollection.getCityArrayList(String.valueOf(this.cityName[0].charAt(0)));
-//				System.out.println("Fisrt letter of the string " + String.valueOf(cityName.charAt(0)));
-//				System.out.println(listOfCity.size());
+			if (GeoCollection.getCityHashMap().keySet().contains(String.valueOf(this.cityProv[0].charAt(0)))) {
+				ArrayList<CityT> listOfCity = GeoCollection
+						.getCityArrayList(String.valueOf(this.cityProv[0].charAt(0)));
 				if (listOfCity.size() != 0) {
 					for (CityT city : listOfCity) {
-						if (this.cityName[0].equals(city.getCityName()) && this.cityName[1].equals(city.getProvince())) { 
-//							System.out.println("city2:" + this.cityName);
-//							System.out.println("city:" +city.getCityName());
+						if (this.cityProv[0].equals(city.getCityName())
+								&& this.cityProv[1].equals(city.getProvince())) {
 							populationDensity = city.getPopDensity();
 							break;
 						}
@@ -198,25 +197,24 @@ public class RiskAssessment {
 				}
 			}
 		}
-//		System.out.println("population:" +populationDensity);
 		return populationDensity;
 	}
 
 	// Calculates the earthquake frequency of a given earthquake list
-	private int Frequency(ArrayList<EarthquakeT> earthquakeList) {
+	private int getFrequency(ArrayList<EarthquakeT> earthquakeList) {
 		return earthquakeList.size();
 	}
 
 	// Calculates the average magnitude of a given earthquake list
-	private double AverageMagnitude(ArrayList<EarthquakeT> earthquakeList) {
+	private double getAverageMagnitude(ArrayList<EarthquakeT> earthquakeList) {
 		double sum = 0;
 		for (EarthquakeT earthquake : earthquakeList) {
 			sum += earthquake.getMag();
 		}
-		int frequency = Frequency(earthquakeList);
+		int frequency = getFrequency(earthquakeList);
 		if (frequency == 0)
 			return 0;
-		return (double) (sum / (double) Frequency(earthquakeList));
+		return (double) (sum / (double) getFrequency(earthquakeList));
 	}
 
 	// Calculates the overall risk rating regarding a given earthquake
@@ -229,7 +227,6 @@ public class RiskAssessment {
 	// Calculates the risk rating of a given frequency based on the assuming
 	// criterion
 	public int frequencyRating(int frequency) {
-//		System.out.println("frequency2: " + frequency);
 		int risk_frequency = 0;
 		if (frequency < 1)
 			risk_frequency = 0;
@@ -247,7 +244,6 @@ public class RiskAssessment {
 	// Calculates the risk rating of a given average magnitude based on the assuming
 	// criterion
 	public int magnitudeRating(double averagerMag) {
-//		System.out.println("averagerMag 2: " + averagerMag);
 		int risk_averagerMag = 0;
 		if (averagerMag < 1)
 			risk_averagerMag = 0;
@@ -264,7 +260,6 @@ public class RiskAssessment {
 
 	// Calculates the risk rating of a given population density based on the
 	public int populationdensityRating(double populationdensity) {
-//		System.out.println("populationdensity 2: " + populationdensity);
 		int risk_population = 0;
 		if (populationdensity < 1000)
 			risk_population = 0;

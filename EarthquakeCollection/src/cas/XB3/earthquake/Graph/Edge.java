@@ -13,9 +13,9 @@ public class Edge {
 	/**
 	 * Initializes an edge object between vertices v and w of the given weight
 	 * 
-	 * @param v    a start vertex in the edge
-	 * @param w    a end vertex in the edge
-	 * @param weight a menuT object, its price represents the weight of the edge
+	 * @param v      the start vertex
+	 * @param w      the destination vertex
+	 * @param weight the weight of this edge
 	 */
 	public Edge(String v, String w, int weight) {
 		this.v = v;
@@ -23,14 +23,29 @@ public class Edge {
 		this.weight = weight;
 	}
 
+	/**
+	 * Returns the weight of this edge
+	 * 
+	 * @return the weight of this edge
+	 */
 	public int weight() {
 		return this.weight;
 	}
 
+	/**
+	 * Returns the start point of this edge
+	 * 
+	 * @return the start point of this edge
+	 */
 	public String from() {
 		return v;
 	}
 
+	/**
+	 * Returns the destination point of this edge
+	 * 
+	 * @return the destination point of this edge
+	 */
 	public String to() {
 		return w;
 	}

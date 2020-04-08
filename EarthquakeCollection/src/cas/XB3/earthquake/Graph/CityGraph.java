@@ -9,10 +9,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class CityGraph {
-	// HashMap: key = string vertex, value = list of neighboring vertices
+	// HashMap: key = string vertex, value = list of edges whose start vertex is the key
 	private HashMap<String, LinkedList<Edge>> adj;
-	// number of edges
-	private int E;
 
 	/**
 	 * Initializes an empty graph with no vertices or edges
@@ -32,7 +30,6 @@ public class CityGraph {
 		}
 		if (!adj.get(e.from()).contains(e)) {
 			adj.get(e.from()).add(e);
-			E++;
 		}
 	}
 
