@@ -106,7 +106,7 @@ public class RiskAssessment {
 	 * 
 	 * @return The population density in the nearest city from the given location
 	 */
-	public double getPoplationDensity() {
+	public double getPopulationDensity() {
 		return this.populationDensity;
 	}
 
@@ -226,7 +226,7 @@ public class RiskAssessment {
 
 	// Calculates the risk rating of a given frequency based on the assuming
 	// criterion
-	public int frequencyRating(int frequency) {
+	public static int frequencyRating(int frequency) {
 		int risk_frequency = 0;
 		if (frequency < 1)
 			risk_frequency = 0;
@@ -243,7 +243,7 @@ public class RiskAssessment {
 
 	// Calculates the risk rating of a given average magnitude based on the assuming
 	// criterion
-	public int magnitudeRating(double averageMag) {
+	public static int magnitudeRating(double averageMag) {
 		int risk_averagerMag = 0;
 		if (averageMag < 1)
 			risk_averagerMag = 0;
@@ -259,7 +259,7 @@ public class RiskAssessment {
 	}
 
 	// Calculates the risk rating of a given population density based on the
-	public int populationdensityRating(double populationdensity) {
+	public static int populationdensityRating(double populationdensity) {
 		int risk_population = 0;
 		if (populationdensity < 1000)
 			risk_population = 0;
