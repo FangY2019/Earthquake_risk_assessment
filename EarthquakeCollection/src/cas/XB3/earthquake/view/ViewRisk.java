@@ -1,3 +1,9 @@
+/**
+ * A ViewRisk class provides methods for displaying the assessing result of the potential earthquakes risk    
+ * 
+ * @author Ye Fang
+ * Revised: April 9, 2020
+ */
 package cas.XB3.earthquake.view;
 
 import java.util.ArrayList;
@@ -11,6 +17,13 @@ import cas.XB3.earthquake.riskAssessment.RiskAssessment;
 import cas.XB3.earthquake.search.RedBlackBST;
 
 public class ViewRisk {
+	/**
+	 * Display the assessing result of potential earthquakes risk for the given location
+	 * @param earthquakeTree  a Red Black Tree with value of EarthquakeT
+	 * @param location a PointT object that represents the objective location
+	 * @param cityPostList a list of CityPostT objects
+	 * @param graph a cityGraph which represents a connected directed weighted graph         
+	 */
 	public static void showRisk(RedBlackBST<Double, EarthquakeT> earthquakeTree, PointT location,
 			ArrayList<CityPostT> cityPostList, CityGraph graph) {
 		RiskAssessment riskAssessment = new RiskAssessment(earthquakeTree, location);
@@ -32,7 +45,7 @@ public class ViewRisk {
 			System.out.printf("%-67s%-5.1f%s\n\n", "The population density in the nearest city is :",
 					riskAssessment.getPoplationDensity(), " persons per square kilometre");
 
-			if (riskAssessment.nearestLowerRiskCity(InitGraph(riskAssessment, cityPostList, graph)) != null) {
+			if (riskAssessment.nearestLowerRiskCity(initGraph(riskAssessment, cityPostList, graph)) != null) {
 				System.out.printf("The nearest lower risk city is: %s\n\n\n",
 						riskAssessment.nearestLowerRiskCity(graph));
 			} else {
@@ -41,12 +54,13 @@ public class ViewRisk {
 		}
 	}
 
-	private static CityGraph InitGraph(RiskAssessment riskAssessment,
+	// initializes the graph
+	private static CityGraph initGraph(RiskAssessment riskAssessment,
 			ArrayList<CityPostT> cityPostList, CityGraph graph) {
 		for (CityPostT cityFrom : cityPostList) {
-			// if the assessing city is in the city position list, build the graph with
+			// if the assessing city is in the city position list, construct the graph with
 			// edges, the origin node is the assessing city, the destination nodes are
-			// cities in the city position list and they are within 200 kilometers of the
+			// cities in the city position list and they are within 100 kilometers of the
 			// origin node city
 			if (cityFrom.getCityName().equals(riskAssessment.getCity())) {
 				for (CityPostT cityTo : cityPostList) {
@@ -60,7 +74,6 @@ public class ViewRisk {
 				}
 			}
 		}
-		return graph;
-		
+		return graph;		
 	}
 }

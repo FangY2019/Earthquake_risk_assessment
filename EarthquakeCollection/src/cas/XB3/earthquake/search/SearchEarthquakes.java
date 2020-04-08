@@ -1,6 +1,7 @@
 /**
- * The SearchEarthquakes class represents a library that has the functionality of searching 
- * the earthquakes within the given distance of a given location 
+ * The SearchEarthquakes class provides static methods for searching 
+ * the earthquakes within the given distance of a given location in the 
+ * given collection of EarthquakeT objects
  * @author Ye Fang
  * Revised: March 24, 2020
  */

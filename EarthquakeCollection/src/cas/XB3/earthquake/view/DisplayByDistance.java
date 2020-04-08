@@ -1,3 +1,9 @@
+/**
+ * A DisplayByDistance implements ViewList interface   
+ * 
+ * @author Ye Fang
+ * Revised: April 9, 2020
+ */
 package cas.XB3.earthquake.view;
 
 import java.util.ArrayList;
@@ -8,6 +14,12 @@ import cas.XB3.earthquake.sort.Sort;
 
 public class DisplayByDistance implements ViewList {
 
+	/**
+	 * Display the list of earthquakes in ascending order based on their distance to the given location
+	 * 
+	 * @param earthquakeList a list of EarthquakeT objects
+	 * @param location a PointT object represent the objective location
+	 */
 	@Override
 	public void display(ArrayList<EarthquakeT> earthquakeList, PointT location) {
 		Sort.sortByDistance(location, earthquakeList);
@@ -25,5 +37,4 @@ public class DisplayByDistance implements ViewList {
 		}
 
 	}
-
 }

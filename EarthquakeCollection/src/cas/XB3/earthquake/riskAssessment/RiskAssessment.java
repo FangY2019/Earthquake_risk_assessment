@@ -19,7 +19,7 @@ import cas.XB3.earthquake.search.RedBlackBST;
 import cas.XB3.earthquake.search.SearchEarthquakes;
 
 public class RiskAssessment {
-	private RedBlackBST<Double, EarthquakeT> earthquakeTree;
+	private RedBlackBST<Double, EarthquakeT> bst;
 	private String[] cityProv;
 	private int frequency;
 	private double averageMag;
@@ -33,13 +33,13 @@ public class RiskAssessment {
 	 * magnitude of the historical earthquakes within 100 km from the assessing
 	 * location, as well as the population density in this city
 	 * 
-	 * @param earthquakeTree a Red Black Tree with value of EarthquakeT
+	 * @param bst a Red Black Tree with value of EarthquakeT
 	 * @param location       a PointT object that represents the objective location
 	 */
-	public RiskAssessment(RedBlackBST<Double, EarthquakeT> earthquakeTree, PointT location) {
-		this.earthquakeTree = earthquakeTree;
+	public RiskAssessment(RedBlackBST<Double, EarthquakeT> bst, PointT location) {
+		this.bst = bst;
 		// search earthquakeS within 100km of the given location in the EarthquakeT BST
-		ArrayList<EarthquakeT> earthquakeLists = SearchEarthquakes.searchEarthquakeInCircle(earthquakeTree, location,
+		ArrayList<EarthquakeT> earthquakeLists = SearchEarthquakes.searchEarthquakeInCircle(bst, location,
 				100);
 		// gets the city name and its province name in the nearest EathquakeT from the
 		// given location
@@ -111,12 +111,12 @@ public class RiskAssessment {
 	}
 
 	/**
-	 * Finds the nearest city within 100 kilometers of this city, where the risk
+	 * Finds the nearest from this city in the connected graph, where the risk
 	 * rating is lower than this city
 	 * 
-	 * @param graph A cityGraph which represents a connected directed weighted graph
-	 *              between this location and all the cities within the 100 km in
-	 *              the city coordinates dataset
+	 * @param graph a cityGraph which represents a connected directed weighted
+	 *              graph, the vertices are cities, the weight is distance between
+	 * 
 	 * @return The nearest city whose risk rating is lower than this location
 	 */
 	public String nearestLowerRiskCity(CityGraph graph) {
@@ -127,7 +127,7 @@ public class RiskAssessment {
 		}
 		if (graph.adj(this.cityProv[0]) != null) {
 			for (Edge city : graph.adj(this.cityProv[0])) {
-				if (new RiskAssessment(this.earthquakeTree, getLocation(city.to())).getRisk() < this.rating
+				if (new RiskAssessment(this.bst, getLocation(city.to())).getRisk() < this.rating
 						&& city.weight() < minDistance) {
 					minDistance = city.weight();
 					nearestLowerRiskCity = city.to();
@@ -243,15 +243,15 @@ public class RiskAssessment {
 
 	// Calculates the risk rating of a given average magnitude based on the assuming
 	// criterion
-	public int magnitudeRating(double averagerMag) {
+	public int magnitudeRating(double averageMag) {
 		int risk_averagerMag = 0;
-		if (averagerMag < 1)
+		if (averageMag < 1)
 			risk_averagerMag = 0;
-		else if (1 <= averagerMag && averagerMag < 4)
+		else if (1 <= averageMag && averageMag < 4)
 			risk_averagerMag = 1;
-		else if (4 <= averagerMag && averagerMag < 6)
+		else if (4 <= averageMag && averageMag < 6)
 			risk_averagerMag = 2;
-		else if (6 <= averagerMag && averagerMag < 7)
+		else if (6 <= averageMag && averageMag < 7)
 			risk_averagerMag = 3;
 		else
 			risk_averagerMag = 4;

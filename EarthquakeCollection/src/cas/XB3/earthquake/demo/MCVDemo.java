@@ -1,3 +1,9 @@
+/**
+ * The MCVDemo class shows how the project work
+ * 
+ * @author Ye Fang
+ * Revised: April 9, 2020
+ */
 package cas.XB3.earthquake.demo;
 
 import java.io.File;
@@ -15,28 +21,25 @@ import cas.XB3.earthquake.view.DispalyByMagnitude;
 import cas.XB3.earthquake.view.DisplayByDistance;
 
 public class MCVDemo {
-	private static RedBlackBST<Double, EarthquakeT> earthquakeTree = new RedBlackBST<Double, EarthquakeT>();
+	private static RedBlackBST<Double, EarthquakeT> bst = new RedBlackBST<Double, EarthquakeT>();
 	private static GeoCollection geoCollection = new GeoCollection();
 	private static ArrayList<CityPostT> cityPostList = new ArrayList<>();
 	private static CityGraph graph = new CityGraph();
 
 	public static void main(String[] args) {
 		Controller controller = new Controller();
-		
-		if (earthquakeTree.size() == 0) {
-			controller.init(earthquakeTree, geoCollection, cityPostList);
-		}
 
+		if (bst.size() == 0) {
+			controller.init(bst, geoCollection, cityPostList);
+		}
 
 		try {
 			File file = new File("./input.txt");
-			//read the input from input.txt
+			// read the input from input.txt
 			Scanner input = new Scanner(file);
-			
-			//read the input from keyboard
+
+			// read the input from keyboard
 //			Scanner input = new Scanner(System.in);
-
-
 
 			System.out.println("Please enter the latidude, the number should be between 41.0 to 84.0: \n");
 			double lat = input.nextDouble();
@@ -47,19 +50,19 @@ public class MCVDemo {
 			int choice = -1;
 			PointT location = new PointT(lat, longi);
 
-			controller.search(earthquakeTree, location, radius);
+			controller.search(bst, location, radius);
 
 			while (choice != 0) {
 				System.out.println("Please choose the display option:");
 				System.out.println(
-						"Display by Magnitude, choose 1; Display by time, choose 2; Display risk rating, choose 3; exit, choose 0\n");
+						"Display by magnitude, choose 1; Display by distance, choose 2; Display risk rating, choose 3; exit, choose 0\n");
 				choice = input.nextInt();
 				if (choice == 1) {
 					controller.updateViewOfList(new DispalyByMagnitude());
 				} else if (choice == 2) {
 					controller.updateViewOfList(new DisplayByDistance());
 				} else if (choice == 3) {
-					controller.updateViewOfRisk(earthquakeTree, location, cityPostList, graph);
+					controller.updateViewOfRisk(bst, location, cityPostList, graph);
 				}
 			}
 			input.close();
