@@ -5,9 +5,11 @@ public class PointT {
 	private double y;
 
 	/**
-	 * Constructor of PointT ADT.
+	 * @details Constructor of PointT ADT. longitude will be normalized.
 	 * @param x Double, the latitude.
 	 * @param y Double, the longitude.
+	 * @exception RuntimeException when the latitude is greater than 90 or less
+	 * than -90, RuntimeException will raise.
 	 */
 	public PointT(double x, double y) {
 		if(x > 90 || x < -90)
