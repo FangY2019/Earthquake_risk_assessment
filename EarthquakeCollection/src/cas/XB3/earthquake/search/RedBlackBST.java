@@ -1,3 +1,9 @@
+/**
+ * Description: Modified RedBlackBST to include a LinkedList at each node
+ * Original Description: A symbol table implemented using a left-leaning red-black BST.
+ *                       This is the 2-3 version.
+ * Link: https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/RedBlackBST.java.html
+ */
 package cas.XB3.earthquake.search;
 
 import java.util.LinkedList;

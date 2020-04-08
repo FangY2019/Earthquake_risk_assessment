@@ -1,3 +1,7 @@
+/**
+ * Original Description: A generic queue, implemented using a linked list.
+ * Link: https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/Queue.java.html
+ */
 package cas.XB3.earthquake.search;
 
 import java.util.Iterator;
