@@ -10,8 +10,11 @@ public class PointT {
 	 * @param y Double, the longitude.
 	 */
 	public PointT(double x, double y) {
+		if(x > 90 || x < -90)
+			throw new RuntimeException("Invalid Latitude: "+x);
 		this.x = x;
-		this.y = y;
+		this.y = (y+540)%360-180;
+		
 	}
 
 	/**

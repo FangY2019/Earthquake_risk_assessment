@@ -10,47 +10,67 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cas.XB3.earthquake.ADT.PointT;
-import cas.XB3.earthquake.collection.EarthquakeBag;
-import cas.XB3.earthquake.collection.EarthquakeT;
-import cas.XB3.earthquake.collection.EarthquakeT.ColorRating;
-import cas.XB3.earthquake.collection.EarthquakeT.MagType;
+import cas.XB3.earthquake.search.RedBlackBST;
+import cas.XB3.earthquake.ADT.EarthquakeT;
+import cas.XB3.earthquake.ADT.EarthquakeT.ColorRating;
+import cas.XB3.earthquake.ADT.EarthquakeT.MagType;
 
 public class RiskAssessmentTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
-	public void testCalculateRiskRating() {
-		EarthquakeBag<EarthquakeT> earthquakebag = new EarthquakeBag<>();
+	public void testgetRisk() {
+		RedBlackBST<Double, EarthquakeT> bst = new RedBlackBST<>();
 		PointT p1 = new PointT(0, 0);
-		assertEquals(RiskAssessment.calculateRiskRating(earthquakebag,p1),0);
+		assertEquals(new RiskAssessment(bst,p1).getRisk(),0);
 	}
 
 	@Test
-	public void testGetCityName() {
-		fail("Not yet implemented");
+	public void testGetCity() {
+		RedBlackBST<Double, EarthquakeT> bst = new RedBlackBST<>();
+		PointT p1 = new PointT(0, 0);
+		assertEquals(new RiskAssessment(bst,p1).getCity(),null);
 	}
-
+	
+	@Test
+	public void testGetFrequency() {
+		RedBlackBST<Double, EarthquakeT> bst = new RedBlackBST<>();
+		PointT p1 = new PointT(0, 0);
+		assertEquals(new RiskAssessment(bst,p1).getFrequency(),0);
+	}
+	
+	@Test
+	public void testGetPopulationDensity() {
+		RedBlackBST<Double, EarthquakeT> bst = new RedBlackBST<>();
+		PointT p1 = new PointT(0, 0);
+		assertEquals(new RiskAssessment(bst,p1).getPopulationDensity(),0,0.0000001);
+	}
+	
+	@Test
+	public void testOverallRating() {
+		RedBlackBST<Double, EarthquakeT> bst = new RedBlackBST<>();
+		PointT p1 = new PointT(0, 0);
+		assertEquals(new RiskAssessment(bst,p1).OverallRating(0,0,0),0,0.0000001);
+	}
+	
+	//the method to get population is turned private.
+	/**
 	@Test
 	public void testGetPopulation() {
 		assertEquals(RiskAssessment.getPopulation("NOSUCHCITY"),0,0.0001);
 	}
+	*/
 
+	// method to get frequency is turned private
+	/*
 	@Test
 	public void testFrequencyCase1() {
 		ArrayList<EarthquakeT> list1 = new ArrayList<>();
 		LocalDateTime d = LocalDateTime.now();
-		EarthquakeT e1 = new EarthquakeT("place",d, 72, 63, 20, 2.7, MagType.M5, ColorRating.ZERO);
-		EarthquakeT e2 = new EarthquakeT("place2",d, 72, 63, 20, 2.9, MagType.M5, ColorRating.ZERO);
+		EarthquakeT e1 = new EarthquakeT("place","PA",d, 72, 63, 20, 2.7, MagType.M5, ColorRating.ZERO);
+		EarthquakeT e2 = new EarthquakeT("place2","PA",d, 72, 63, 20, 2.9, MagType.M5, ColorRating.ZERO);
 		list1.add(e1);
 		list1.add(e2);
-		assertEquals(RiskAssessment.Frequency(list1), 2);
+		assertEquals(RiskAssessment.getFrequency(list1), 2);
 	}
 	
 	@Test
@@ -59,13 +79,16 @@ public class RiskAssessmentTest {
 		LocalDateTime d = LocalDateTime.now();
 		//EarthquakeT e1 = new EarthquakeT("place",d, 72, 63, 20, 2.7, MagType.M5, ColorRating.ZERO);
 		//EarthquakeT e2 = new EarthquakeT("place2",d, 72, 63, 20, 2.9, MagType.M5, ColorRating.ZERO);
-		assertEquals(RiskAssessment.Frequency(list1), 0);
+		assertEquals(RiskAssessment.getFrequency(list1), 0);
 	}
+	*/
 
+	// method to get average magnitude is turned private
+	/*
 	@Test
 	public void testAverageMangenitudeCase1() {
 		ArrayList<EarthquakeT> list1 = new ArrayList<>();
-		assertEquals(RiskAssessment.AverageMagnitude(list1), 0, 0.0000001);
+		assertEquals(RiskAssessment.getAverageMagnitude(list1), 0, 0.0000001);
 	}
 	
 
@@ -73,32 +96,33 @@ public class RiskAssessmentTest {
 	public void testAverageMangenitudeCase2() {
 		ArrayList<EarthquakeT> list1 = new ArrayList<>();
 		LocalDateTime d = LocalDateTime.now();
-		EarthquakeT e1 = new EarthquakeT("place",d, 72, 63, 20, 2.8, MagType.M5, ColorRating.ZERO);
+		EarthquakeT e1 = new EarthquakeT("place","PA",d, 72, 63, 20, 2.8, MagType.M5, ColorRating.ZERO);
 		list1.add(e1);
-		assertEquals(RiskAssessment.AverageMagnitude(list1), 2.8, 0.0000001);
+		assertEquals(RiskAssessment.getAverageMagnitude(list1), 2.8, 0.0000001);
 	}
 	
 	@Test
 	public void testAverageMangenitudeCase3() {
 		ArrayList<EarthquakeT> list1 = new ArrayList<>();
 		LocalDateTime d = LocalDateTime.now();
-		EarthquakeT e1 = new EarthquakeT("place",d, 72, 63, 20, 2.8, MagType.M5, ColorRating.ZERO);
-		EarthquakeT e2 = new EarthquakeT("place2",d, 72, 63, 20, 2.8, MagType.M5, ColorRating.ZERO);
+		EarthquakeT e1 = new EarthquakeT("place","PA",d, 72, 63, 20, 2.8, MagType.M5, ColorRating.ZERO);
+		EarthquakeT e2 = new EarthquakeT("place2","PA",d, 72, 63, 20, 2.8, MagType.M5, ColorRating.ZERO);
 		list1.add(e1);
 		list1.add(e2);
-		assertEquals(RiskAssessment.AverageMagnitude(list1), 2.8, 0.0000001);
+		assertEquals(RiskAssessment.getAverageMagnitude(list1), 2.8, 0.0000001);
 	}
 	
 	@Test
 	public void testAverageMangenitudeCase4() {
 		ArrayList<EarthquakeT> list1 = new ArrayList<>();
 		LocalDateTime d = LocalDateTime.now();
-		EarthquakeT e1 = new EarthquakeT("place",d, 72, 63, 20, 2.7, MagType.M5, ColorRating.ZERO);
-		EarthquakeT e2 = new EarthquakeT("place2",d, 72, 63, 20, 2.9, MagType.M5, ColorRating.ZERO);
+		EarthquakeT e1 = new EarthquakeT("place","PA",d, 72, 63, 20, 2.7, MagType.M5, ColorRating.ZERO);
+		EarthquakeT e2 = new EarthquakeT("place2","PA",d, 72, 63, 20, 2.9, MagType.M5, ColorRating.ZERO);
 		list1.add(e1);
 		list1.add(e2);
-		assertEquals(RiskAssessment.AverageMagnitude(list1), 2.8, 0.0000001);
+		assertEquals(RiskAssessment.getAverageMagnitude(list1), 2.8, 0.0000001);
 	}
+	*/
 	
 	@Test
 	public void testFrequencyRatingCase1() {
