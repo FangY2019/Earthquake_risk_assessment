@@ -8,6 +8,11 @@ import java.util.HashMap;
 public class GeoCollection {
 	private HashMap<String, ArrayList<CityT>> cityHashMap = new HashMap<>();
 
+	/**
+	 * @details add a CityT object to HashMap, the key is the first letter of
+	 * the city.
+	 * @param city Should be a CityT object
+	 */
     public void add(CityT city){
     	ArrayList<CityT> temp = new ArrayList<>();
     	String firstCityLetter = getFirstCityLetter(city);
@@ -22,14 +27,28 @@ public class GeoCollection {
     	}
     }
 
+    /**
+     * @details check if the HashMap is empty.
+     * @return a boolean, true if the HashMap is empty.
+     */
     public boolean isEmpty(){
         return cityHashMap.isEmpty();
     }
     
+    /**
+     * 
+     * @param firstLetter a String which indicate the first letter of the city.
+     * @return an arrayList<CityT> consisting all cities that start with the
+     * given first letter.
+     */
     public ArrayList<CityT> getCityArrayList(String firstLetter) {
     	return cityHashMap.get(firstLetter);
     }
     
+    /**
+     * @details get the HashMap.
+     * @return the HashMap cityHashMap.
+     */
     public HashMap<String, ArrayList<CityT>> getCityHashMap(){
     	return cityHashMap;
     }
