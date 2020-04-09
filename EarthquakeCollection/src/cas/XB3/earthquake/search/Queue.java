@@ -35,26 +35,7 @@ public class Queue<Item> implements Iterable<Item> {
     public boolean isEmpty() {
         return first == null;
     }
-
-    /**
-     * Returns the number of items in this queue.
-     *
-     * @return the number of items in this queue
-     */
-    public int size() {
-        return n;
-    }
-
-    /**
-     * Returns the item least recently added to this queue.
-     *
-     * @return the item least recently added to this queue
-     * @throws NoSuchElementException if this queue is empty
-     */
-    public Item peek() {
-        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
-        return first.item;
-    }
+    
 
     /**
      * Adds the item to this queue.
@@ -69,21 +50,6 @@ public class Queue<Item> implements Iterable<Item> {
         if (isEmpty()) first = last;
         else           oldlast.next = last;
         n++;
-    }
-
-    /**
-     * Removes and returns the item on this queue that was least recently added.
-     *
-     * @return the item on this queue that was least recently added
-     * @throws NoSuchElementException if this queue is empty
-     */
-    public Item dequeue() {
-        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
-        Item item = first.item;
-        first = first.next;
-        n--;
-        if (isEmpty()) last = null;   // to avoid loitering
-        return item;
     }
 
     /**
