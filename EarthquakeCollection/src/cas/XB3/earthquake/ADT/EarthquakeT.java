@@ -142,14 +142,14 @@ public class EarthquakeT implements Comparable<EarthquakeT>{
     	return magnitudeType == that.getMagitudeType() && color == that.getColor();
     }
 
-    /*
-    ColorRating is assigned based on 6 earthquake magnitude classes; The magnitude is in brackets below:
-    RED: Great (8 or more)
-         Major (7 - 7.9)
-         Strong (6 - 6.9)
-         Moderate (5 - 5.9)
-         Light (4 - 4.9)
-    PURPLE: Minor (3 - 3.9)
+    /**
+    * ColorRating is assigned based on 6 earthquake magnitude classes; The magnitude is in brackets below:
+    * RED: Great (8 or more)
+    * ORANGE: Major (7 - 7.9)
+    * YELLOW: Strong (6 - 6.9)
+    * GREEN: Moderate (5 - 5.9)
+    * BLUE: Light (4 - 4.9)
+    * PURPLE: Minor (3 - 3.9)
     */
     public enum ColorRating{
         NOCOLOR, ZERO, PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED
