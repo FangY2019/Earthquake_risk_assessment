@@ -11,8 +11,6 @@
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{listings}
-\usepackage{tikz}
-\usetikzlibrary{automata,positioning,arrows}
 
 \oddsidemargin -10mm
 \evensidemargin -10mm
@@ -149,7 +147,7 @@ None
 
 \noindent isEmpty():
 \begin{itemize}
-\item output: $out := (n = 0) \Rightarrow True | False$
+\item output: $out := (n = 0) \Rightarrow True | True \Rightarrow False$
 \item exception: None
 \end{itemize}
 
@@ -186,7 +184,7 @@ $i: \mathbb{N}$\\
 \subsubsection* {Considerations}
 
 When an instance of Queue is iterated in a loop, an iterator consisting of these two methods is returned, 
-and the start method is call initially, and for the successive iterations next method is call.\\
+and the start() method is call initially, and for the successive iterations next() method is call.\\
 
 \newpage
 
@@ -198,7 +196,7 @@ RedBlackBST(T with Comparable(T), V)
 
 \subsection* {Uses}
 
-None
+Queue
 
 \subsection* {Syntax}
 
@@ -230,19 +228,19 @@ RedBlackBST & ~ & RedBlackBST & \\
 \hline
 size & ~ & $\mathbb{N}$ & ~\\
 \hline
-isEmpty & ~ & $\mathbb{N}$ & ~\\
+isEmpty & ~ & $\mathbb{B}$ & ~\\
 \hline
-get & ~ & $\mathbb{N}$ & ~\\
+get & T & seq of V & ~\\
 \hline
-put & ~ & $\mathbb{N}$ & ~\\
+put & T, V & ~ & ~\\
 \hline
-min & ~ & $\mathbb{N}$ & ~\\
+min & ~ & T & ~\\
 \hline
-max & ~ & $\mathbb{N}$ & ~\\
+max & ~ & T & ~\\
 \hline
-keys & ~ & $\mathbb{N}$ & ~\\
+keys & ~ & Queue of T & ~\\
 \hline
-keys & ~ & $\mathbb{N}$ & ~\\
+keys & $\mathbb{R}, \mathbb{R}$ & Queue of T & ~\\
 \hline
 \end{tabular}
 
@@ -250,11 +248,14 @@ keys & ~ & $\mathbb{N}$ & ~\\
 
 \subsubsection* {State Variables}
 
-root: Node
+root: Node\\
+RED: $\mathbb{B}$\\
+BLACK: $\mathbb{B}$
 
 \subsubsection* {State Invariant}
 
-None
+RED = True\\
+BLACK = False
 
 \subsubsection* {Assumptions}
 
@@ -277,43 +278,48 @@ RedBlackBST():
 
 \noindent isEmpty():
 \begin{itemize}
-\item output: $out := r$
+\item output: $out := (root = null) \Rightarrow True | True \Rightarrow False$
 \item exception: None
 \end{itemize}
 
-\noindent get():
+\noindent get(key):
 \begin{itemize}
-\item output: $out := cl$
+\item output: $out$ := L such that $ \langle x, L \rangle : \text{seq of V} |
+  \langle x, L \rangle \in RedBlackBST : (x.key = \mathit{key})$
 \item exception: None
 \end{itemize}
 
-\noindent put():
+\noindent put(key, val):
 \begin{itemize}
-\item output: $out := cl$
+\item transition: $\{ \langle x, L \rangle : \text{seq of V} |
+  \langle x, L \rangle \in RedBlackBST : (x.key = \mathit{key} \Rightarrow \langle x, L || [val] \rangle
+   | \text{True} \Rightarrow \langle key, L || [val] \rangle) \}$
+
 \item exception: None
 \end{itemize}
 
 \noindent min():
 \begin{itemize}
-\item output: $out := cl$
+\item output: $out$ := smallest key in the RedBlackBST
 \item exception: None
 \end{itemize}
 
 \noindent max():
 \begin{itemize}
-\item output: $out := cl$
+\item output: $out$ := largest key in the RedBlackBST
 \item exception: None
 \end{itemize}
 
 \noindent keys():
 \begin{itemize}
-\item output: $out := cl$
+\item output: $out := out || (\forall \langle x, L \rangle : \text{seq of V} | \langle x, L \rangle \in RedBlackBST : x.key)$
 \item exception: None
 \end{itemize}
 
-\noindent keys():
+\noindent keys(lo, hi):
 \begin{itemize}
-\item output: $out := cl$
+\item output: $out := out || (\forall \langle x, L \rangle : \text{seq of V} | \langle x, L \rangle \in RedBlackBST \wedge\\
+lo \le x.key \le hi : x.key)$
 \item exception: None
 \end{itemize}
 
@@ -608,7 +614,7 @@ None
 
 \noindent fullProvName(nameP):
 \begin{itemize}
-\item output: a new provice name similar to the following table.
+\item output: a new province name similar to the following table.
 
 \begin{tabular}{|p{3cm}|p{3.5cm}|l|}
 \hhline{~|-|-|}
