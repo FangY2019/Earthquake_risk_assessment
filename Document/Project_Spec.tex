@@ -231,7 +231,9 @@ max & ~ & T & ~\\
 \hline
 keys & ~ & Queue of T & ~\\
 \hline
-keys & $\mathbb{R}, \mathbb{R}$ & Queue of T & ~\\
+keys &  T, T & Queue of T & ~\\
+\hline
+values & T, T & Queue of V & ~\\
 \hline
 \end{tabular}
 
@@ -313,6 +315,13 @@ RedBlackBST():
 \begin{itemize}
 \item output: $out := out || (\forall \langle x, L \rangle : \langle T, V \rangle | \langle x, L \rangle \in s \wedge
 lo \le x.key \le hi : x.key)$
+\item exception: None
+\end{itemize}
+
+\noindent values(lo, hi):
+\begin{itemize}
+\item output: $out := out || (\forall \langle x, L \rangle : \langle T, V \rangle | \langle x, L \rangle \in s \wedge
+lo \le x.key \le hi : L)$
 \item exception: None
 \end{itemize}
 
@@ -584,38 +593,38 @@ None
 
 \noindent readEarthquakes(filename, bag):
 \begin{itemize}
-\item transition: $\mbox{currentM} := \mbox{cM.toString()}$
+\item transition: Read each line of the earthquake csv file and convert to EarthquakeT object, which is stored in a EarthquakeBag.
 \item exception: None
 \end{itemize}
 
 \noindent readEarthquakesBST(filename, bst):
 \begin{itemize}
-\item transition: \\ $\mbox{currentM} := ` ` \,  " \\
-\mbox{currentM} := \mbox{cM.toString()}$
+\item transition: Read each line of the earthquake csv file and convert to EarthquakeT object, which is stored in a RedBlackBST.
 \item exception: None
 \end{itemize}
 
 \noindent readPopulation(filename, geoCollec):
 \begin{itemize}
-\item transition: $\mbox{currentM} := ` ` \,  "$
+\item transition: Read each line of the population csv file and convert to CityT object, which is stored in a GeoCollection HashMap.
 \item exception: None
 \end{itemize}
 
 \noindent readCityPosition(filename, cityPostList):
 \begin{itemize}
-\item transition: $\mbox{currentM} := ` ` \,  "$
+\item transition: Read each line of the city coordinates csv file and convert to CityPostT object,
+ which is stored in a list of cities.
 \item exception: None
 \end{itemize}
 
 \noindent rmFirstLastQuote(cell):
 \begin{itemize}
-\item transition: $\mbox{currentM} := ` ` \,  "$
+\item transition: Remove first and last double quotations from a string.
 \item exception: None
 \end{itemize}
 
 \noindent generateColorRating(cell4):
 \begin{itemize}
-\item transition: $\mbox{currentM} := ` ` \,  "$
+\item transition: Generate an enum ColorRating type based on the magnitude of earthquake.
 \item exception: None
 \end{itemize}
 
