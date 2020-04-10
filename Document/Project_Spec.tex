@@ -21,7 +21,8 @@
 \pagestyle {plain}
 \pagenumbering{arabic}
 
-\newcounter{stepnum}
+%\newcounter{stepnum}
+\setcounter{page}{2}
 
 %% Comments
 
@@ -44,9 +45,814 @@
 
 \begin {document}
 
-\maketitle
-This Module Interface Specification (MIS) document contains four main modules; Queue, RedBlackBST, EarthquakeT,
-and CSVreader. It also contains a utility EarthquakeBag module.
+
+
+
+\newpage
+
+\section* {CSVreader Module}
+
+\subsection* {Module}
+
+CSVreader
+
+\subsection* {Uses}
+
+CityPostT, CityT, EarthquakeT,\\
+EarthquakeT.ColorRating, EarthquakeT.MagType,\\
+EarthquakeBag, GeoCollection, RedBlackBST
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+readEarthquakes & String, EarthquakeBag & ~ & ~\\
+\hline
+readEarthquakesBST & String, RedBlackBST & ~ & ~\\
+\hline
+readPopulation & String, GeoCollection & ~ & ~\\
+\hline
+readCityPosition & String, seq of CityPostT & ~ & ~\\
+\hline
+rmFirstLastQuote & String & String & ~\\
+\hline
+generateColorRating & $\mathbb{R}$ & ColorRating & ~\\
+\hline
+fullProvName & String & String & ~\\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environment Variables}
+
+None
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+None
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent readEarthquakes(filename, bag):
+\begin{itemize}
+\item transition: Read each line of the earthquake csv file and convert to EarthquakeT object, which is stored in a EarthquakeBag.
+\item exception: None
+\end{itemize}
+
+\noindent readEarthquakesBST(filename, bst):
+\begin{itemize}
+\item transition: Read each line of the earthquake csv file and convert to EarthquakeT object, which is stored in a RedBlackBST.
+\item exception: None
+\end{itemize}
+
+\noindent readPopulation(filename, geoCollec):
+\begin{itemize}
+\item transition: Read each line of the population csv file and convert to CityT object, which is stored in a GeoCollection HashMap.
+\item exception: None
+\end{itemize}
+
+\noindent readCityPosition(filename, cityPostList):
+\begin{itemize}
+\item transition: Read each line of the city coordinates csv file and convert to CityPostT object,
+ which is stored in a list of cities.
+\item exception: None
+\end{itemize}
+
+\noindent rmFirstLastQuote(cell):
+\begin{itemize}
+\item transition: Remove first and last double quotations from a string.
+\item exception: None
+\end{itemize}
+
+\noindent generateColorRating(cell4):
+\begin{itemize}
+\item transition: Generate an enum ColorRating type based on the magnitude of earthquake.
+\item exception: None
+\end{itemize}
+
+\noindent fullProvName(nameP):
+\begin{itemize}
+\item output: a new province name similar to the following table.
+
+\begin{tabular}{|p{3cm}|p{3.5cm}|l|}
+\hhline{~|-|-|}
+\multicolumn{1}{l|}{} & nameP $=$ & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|-|}
+$|\mbox{nameP}| = 2$ & ON & Ontario\\
+\hhline{|~|-|-|}
+ & QC, PQ & Quebec\\
+\hhline{|~|-|-|}
+ & NS & Nova Scotia\\
+\hhline{|~|-|-|}
+ & NB & New Brunswick\\
+\hhline{|~|-|-|}
+ & MB & Manitoba\\
+\hhline{|~|-|-|}
+ & BC & British Columbia\\
+\hhline{|~|-|-|}
+ & PE & Prince Edward Island\\
+\hhline{|~|-|-|}
+ & SK & Saskatchewan\\
+\hhline{|~|-|-|}
+ & AB & Alberta\\
+\hhline{|~|-|-|}
+ & NL & Newfoundland and Labrador\\
+\hhline{|~|-|-|}
+ & NU & Nunavut\\
+\hhline{|~|-|-|}
+ & NT & Northwest Territories\\
+\hhline{|~|-|-|}
+ & YT & Yukon\\
+\hhline{|~|-|-|}
+ & AK & Alaska\\
+\hhline{|~|-|-|}
+ & WA & Washington\\
+\hhline{|~|-|-|}
+ & default & UNLOCATED\\
+\hhline{|-|-|-|}
+$|\mbox{nameP}| \neq 2$ & VANCOUVER ISLAND & British Columbia\\
+\hhline{|~|-|-|}
+& SOUTHERN QUEBEC & Quebec\\
+\hhline{|~|-|-|}
+& default & UNLOCATED\\
+\hhline{|-|-|-|}
+\end{tabular}\\\\
+
+\item exception: None
+\end{itemize}
+
+\subsubsection* {Considerations}
+
+There are a number of different variations of geolocation names in the earthquake csv file, for these an appropriate province name
+should be assigned. For any that could not be matched to a province name, UNLOCATED should be assigned.\\
+
+
+
+\newpage
+
+\section* {Point ADT Module}
+
+\subsection* {Template Module}
+
+PointT
+
+\subsection* {Uses}
+
+N/A
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+PointT = ?
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+new PointT & real, real & PointT & RuntimeException\\
+\hline
+getLat & ~ & real & \\
+\hline
+getLong &~ & real & \\
+\hline
+distance & PointT & real & \\
+\hline
+latFilter & real & $<real, real>$ & \\
+\hline
+equals & PointT & boolean & \\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{x}: \mathbb{R}$\\
+$\mathit{y}: \mathbb{R}$\\
+
+
+\subsubsection* {Access Routine Semantics}
+
+PointT($lat, long$):
+\begin{itemize}
+\item transition: $x,y := lat, long$ 
+\item output: $\mathit{out} := \mathit{self}$
+\item exception: $exc := ((lat > 90 \lor lat < -90) \Rightarrow \mbox{IndexOutOfBoundsException})$
+\end{itemize}
+
+
+\noindent getLat():
+\begin{itemize}
+\item output: $\mathit{out} := x$ 
+\end{itemize}
+
+\noindent getLong():
+\begin{itemize}
+\item output: $\mathit{out} := y$
+\end{itemize}
+
+\noindent distanceTo(that):
+\begin{itemize}
+\item output: $\mathit{out}$ := d such that d is the distance(in km) between current point and that
+\end{itemize}
+
+\noindent latFilter(radius):
+\begin{itemize}
+\item output: $\mathit{out} := <minLat, maxLat> \mbox{ such that } \forall (p: PointT| 
+  distanceTo(p) \le radius : p.getLat() \ge minLat \land p.getLat() \le maxLat$
+\end{itemize}
+
+\noindent equals(that):
+\begin{itemize}
+\item output: $\mathit{out} := (x = that.getLat()) \land (y = that.Long())$
+\end{itemize}
+
+
+
+
+
+
+
+
+\newpage
+
+\section* {City ADT Module}
+
+\subsection* {Template Module}
+
+CityT
+
+\subsection* {Uses}
+
+N/A
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+CityT = ?
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+new CityT & string, string, real & CityT & \\
+\hline
+getCityName & ~ & string & \\
+\hline
+getProvince &~ & string & \\
+\hline
+getPopDensity & ~ & real & \\
+\hline
+equals & CityT & boolean & \\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{cityName}: \text{String}$\\
+$\mathit{province}: \text{String}$\\
+$\mathit{popDensity}: \mathbb{R}$\\
+
+
+\subsubsection* {Access Routine Semantics}
+
+CityT($city, pro, pop$):
+\begin{itemize}
+\item transition: $cityName, province, popDensity := city, pro, pop$ 
+
+\item output: $\mathit{out} := \mathit{self}$
+\end{itemize}
+
+
+\noindent getCityName():
+\begin{itemize}
+\item output: $\mathit{out} := cityName$ 
+\end{itemize}
+
+\noindent getProvince():
+\begin{itemize}
+\item output: $\mathit{out} := province$
+\end{itemize}
+
+\noindent getPopDensity():
+\begin{itemize}
+\item output: $\mathit{out} := popDensity$
+\end{itemize}
+
+
+\noindent equals(that):
+\begin{itemize}
+\item output: $\mathit{out} := (cityName = that.getCityName()) \land (province = that.getProvince()) \land (popDensity = that.getPopDensity())$
+\end{itemize}
+
+
+
+
+
+\newpage
+
+\section* {City Position ADT Module}
+
+\subsection* {Template Module}
+
+CityPostT
+
+\subsection* {Uses}
+
+PointT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+CityPostT = ?
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+new CityPostT & string, real, real & CityPostT & \\
+\hline
+getPoint & ~ & PointT & \\
+\hline
+getCityName &~ & string & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{cityName}: \text{String}$\\
+$\mathit{point}: \text{PointT}$\\
+
+\subsubsection* {Access Routine Semantics}
+
+CityT($city, lat, lon$):
+\begin{itemize}
+\item transition: $cityName, point := city, new PointT(lat,lon)$ 
+
+\item output: $\mathit{out} := \mathit{self}$
+\end{itemize}
+
+
+\noindent getPoint():
+\begin{itemize}
+\item output: $\mathit{out} := point$ 
+\end{itemize}
+
+\noindent getCityName():
+\begin{itemize}
+\item output: $\mathit{out} := cityName$
+\end{itemize}
+
+
+
+
+
+\newpage
+
+\section* { CityT collection Module}
+
+\subsection* {Template Module}
+
+GeoCollection
+
+\subsection* {Uses}
+
+CityT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+GeoCollection = ?
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+add & CityT &  & \\
+\hline
+getCities & string & sequence of CityT & \\
+\hline
+getAllCities &  & set of tuple of(string, sequence of CityT)& \\
+\hline
+isEmpty &  & boolean& \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{s}$ : set of tuple of (string, sequence of CityT) \\
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent add(city):
+\begin{itemize}
+\item transition: $s := \{<str,cities> : <String, \mbox{ sequence of CityT} > \;|\: <str, cities> \;\in s: (str = getFirstCityLetter(city) \Rightarrow <str, cities || [city]> \;|\: true \Rightarrow <str, cities> )\}$ 
+\end{itemize}
+
+\noindent isEmpty():
+\begin{itemize}
+\item output: $\mathit{out} := (|s| = 0 \Rightarrow true \;|\; true \Rightarrow false)$
+\end{itemize}
+
+
+\noindent getCities(firstLetter):
+\begin{itemize}
+\item output: $\mathit{out} := \{<str,cities> : <String, \mbox{ sequence of CityT} > \;|\: <str, cities> \;\in s \land str = firstLetter :cites \}$ 
+\end{itemize}
+
+\noindent getAllCities():
+\begin{itemize}
+\item output: $\mathit{out} := s$ 
+\end{itemize}
+
+\subsection*{Local Functions}
+
+\noindent $\text{getFirstCityLetter}: \text{string} \rightarrow \text{string}$\\
+\noindent $\text{getFirstCityLetter}(city) \equiv city[0]$\\
+
+
+
+
+\newpage
+
+\section* {EarthquakeT Module}
+
+\subsection* {Template Module}
+
+EarthquakeT
+
+\subsection* {Uses}
+
+LocalDateTime, PointT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+EarthquakeT = ?\\
+
+\noindent ColorRating = \{ NOCOLOR, ZERO, PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED \}\\
+
+\noindent MagType = \{ M5, mb, MB, Mb, MC, Mc, mc, ML, MLSn, MN, MS, MW, Ms, Mw, BLANK \}\\
+
+\noindent \textit{\# EarthquakeT implements Comparable(EarthquakeT)}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+EarthquakeT & String, String, LocalDateTime, & EarthquakeT &\\
+\hhline{|~|~|~|}
+~ &$\mathbb{R}, \mathbb{R}, \mathbb{R}, \mathbb{R}$, MagType, ColorRating & ~ &\\
+\hline
+getNameOfProv & ~ & String & \\
+\hline
+getPlace & ~ & String & \\
+\hline
+getPointT & ~ & PointT & \\
+\hline
+getMag & ~ & $\mathbb{R}$ & \\
+\hline
+getDph & ~ & $\mathbb{R}$ & \\
+\hline
+getMagitudeType & ~ & MagType & \\
+\hline
+getDate & ~ & LocalDateTime & \\
+\hline
+getColor & ~ & ColorRating & \\
+\hline
+compareTo & EarthquakeT & $\mathbb{Z}$ & \\
+\hline
+equals & EarthquakeT & $\mathbb{B}$ & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+place: String\\ 
+nameOfProv: String\\
+date: LocalDateTime\\
+lat: $\mathbb{R}$\\
+lng: $\mathbb{R}$\\
+dph: $\mathbb{R}$\\
+mag: $\mathbb{R}$\\
+magnitudeType: MagType\\
+color: ColorRating
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+Two earthquakes are not the same if they happened to have two different dates or two different places recorded.
+
+\medskip
+
+\subsubsection* {Access Routine Semantics}
+
+EarthquakeT(place, prov, date, lat, lng, dph, mag, mgT, color):
+\begin{itemize}
+\item transition: \\ lat, lng, place, nameOfProv, date, dph, mag, magnitudeType, color :=\\
+  lat, lng, place, prov, date, dph, mag, mgT, color
+\item output: $\mathit{out} := \mathit{self}$
+\item exception: None
+\end{itemize}
+
+\noindent getNameOfProv():
+\begin{itemize}
+\item output: $out$ := nameOfProv
+\item exception: None
+\end{itemize}
+
+\noindent getPlace():
+\begin{itemize}
+\item output: $out$ := place
+\item exception: None
+\end{itemize}
+
+\noindent getPointT():
+\begin{itemize}
+\item output: $out$ := PointT(lat, lng)
+\item exception: None
+\end{itemize}
+
+\noindent getMag():
+\begin{itemize}
+\item output: $out$ := mag
+\item exception: None
+\end{itemize}
+
+\noindent getDph():
+\begin{itemize}
+\item output: $out$ := dph
+\item exception: None
+\end{itemize}
+
+\noindent getMagitudeType():
+\begin{itemize}
+\item output: $out$ := magnitudeType
+\item exception: None
+\end{itemize}
+
+\noindent getDate():
+\begin{itemize}
+\item output: $out$ := date
+\item exception: None
+\end{itemize}
+
+\noindent getColor():
+\begin{itemize}
+\item output: $out$ := color
+\item exception: None
+\end{itemize}
+
+\noindent compareTo(eq):
+\begin{itemize}
+\item output: $out$ := an integer value according to the following table.\\
+
+\begin{tabular}{|p{4cm}|r|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+$this.\mbox{mag} < \mbox{eq.mag}$ & -1 \\
+\hhline{|-|-|}
+$this.\mbox{mag} > \mbox{eq.mag}$ & 1 \\
+\hhline{|-|-|}
+$this.\mbox{mag} = \mbox{eq.mag}$ & 0 \\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}
+
+\noindent equals(that):
+\begin{itemize}
+\item output: $out := ( \mbox{sameDate} \wedge \mbox{samePoint} \wedge \mbox{samePlace}\\
+ \wedge \mbox{sameDepth} \wedge \mbox{sameMagValue} \wedge \mbox{sameMagType} \wedge \\
+\mbox{sameEqClass}) \Rightarrow True | True \Rightarrow False$
+\item exception: None
+\end{itemize}
+
+\newpage
+
+\subsection*{Local Functions}
+
+\noindent sameDate: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameDate}(d) \equiv (d.\mbox{date}) = (this.\mbox{date})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same date as the current.}\\
+
+\noindent samePoint: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{samePoint}(d) \equiv (d.\mbox{Point}) = (this.\mbox{Point})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same Point as the current.}\\
+
+\noindent samePlace: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{samePlace}(d) \equiv (d.\mbox{place}) = (this.\mbox{place})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same place as the current.}\\
+
+\noindent sameDepth: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameDepth}(d) \equiv |d.\mbox{dph} - this.\mbox{dph}| < 0.0000001$\\
+\noindent \wss{returns true if the given EarthquakeT object has the same depth value\\
+ as the current within the tolerance.}\\
+
+\noindent sameMagValue: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameMagValue}(d) \equiv |d.\mbox{mag} - this.\mbox{mag}| < 0.0000001$\\
+\noindent \wss{returns true if the given EarthquakeT object has the same magnitude value\\
+ as the current within the tolerance.}\\
+
+\noindent sameMagType: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameMagType}(d) \equiv (d.\mbox{magnitudeType}) = (this.\mbox{magnitudeType})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same magnitude type\\
+ as the current.}\\
+
+\noindent sameEqClass: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameEqClass}(d) \equiv (d.\mbox{color}) = (this.\mbox{color})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same class as the current.}\\
+
+
+
+
+\newpage
+
+\section* {Edge Module}
+
+\subsection* {Template Module}
+
+Edge
+
+\subsection* {Uses}
+
+N/A
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+Edge = ?
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+new Edge & String, String, $\mathbb{Z}$ & Edge & \\
+\hline
+weight & ~ & $\mathbb{Z}$ & \\
+\hline
+from & ~ & String & \\
+\hline
+to & ~ & String & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{v}: \text{String}$\\
+$\mathit{w}: \text{PointT}$\\
+$\mathit{weight}: \mathbb{Z}$\\
+
+\subsubsection* {Access Routine Semantics}
+
+Edge($from, to, w$):
+\begin{itemize}
+\item transition: $v, w, weight := from, to, w$ 
+
+\item output: $\mathit{out} := \mathit{self}$
+\end{itemize}
+
+
+\noindent weight():
+\begin{itemize}
+\item output: $\mathit{out} := weight$
+\end{itemize}
+
+\noindent from():
+\begin{itemize}
+\item output: $\mathit{out} := v$
+\end{itemize}
+
+\noindent to():
+\begin{itemize}
+\item output: $\mathit{out} := w$
+\end{itemize}
+
+
+
+
+\newpage
+
+\section* {Graph Module}
+
+\subsection* {Template Module}
+
+Graph
+
+\subsection* {Uses}
+
+Edge
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+Graph = ?
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+new Graph &  & Graph & \\
+\hline
+addEdge & Edge &  & \\
+\hline
+adj & string & sequence of Edge & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{adj}$ : set of tuple of (string, sequence of Edge) \\
+
+
+\subsubsection* {Access Routine Semantics}
+
+CityGraph():
+\begin{itemize}
+\item transition: $adj := \{\}$ 
+
+\item output: $\mathit{out} := \mathit{self}$
+\end{itemize}
+
+
+\noindent addEdge(e):
+\begin{itemize}
+\item transition: $adj := \{<str, edges>: <String, \mbox{ sequence of Edge}> \;|\; <str, edges> \in adj : (str = e.from() \Rightarrow <str, edges || [e]> \;|\; true \Rightarrow <str, edges>)\}$ 
+
+\end{itemize}
+
+\noindent adj(v):
+\begin{itemize}
+\item output: $\mathit{out} := \{<str, edges>: <String, \mbox{ sequence of Edge}> \;|\; <str, edges> \in adj \land str = v: edges\}$
+\end{itemize}
+
 
 \newpage
 
@@ -55,6 +861,8 @@ and CSVreader. It also contains a utility EarthquakeBag module.
 \subsection*{Template Module}
 
 EarthquakeBag is seq of EarthquakeT
+
+
 
 \newpage
 
@@ -325,63 +1133,34 @@ lo \le x.key \le hi : L)$
 \item exception: None
 \end{itemize}
 
+
+
 \newpage
 
-\section* {EarthquakeT Module}
+\section* {Search Earthquakes Module}
 
-\subsection* {Template Module}
+\subsection* {Module}
 
-EarthquakeT
+SearchEarthquakes
 
 \subsection* {Uses}
 
-LocalDateTime, PointT
+RedBlackBST, PointT
 
 \subsection* {Syntax}
 
 \subsubsection* {Exported Types}
 
-EarthquakeT = ?\\
-
-\noindent ColorRating = \{ NOCOLOR, ZERO, PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED \}\\
-
-\noindent MagType = \{ M5, mb, MB, Mb, MC, Mc, mc, ML, MLSn, MN, MS, MW, Ms, Mw, BLANK \}\\
-
-\noindent \textit{\# EarthquakeT implements Comparable(EarthquakeT)}
-
-\subsubsection* {Exported Constants}
-
 None
+
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | l |}
+\begin{tabular}{| l | l | l | p{2cm} |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-EarthquakeT & String, String, LocalDateTime, & EarthquakeT &\\
-\hhline{|~|~|~|}
-~ &$\mathbb{R}, \mathbb{R}, \mathbb{R}, \mathbb{R}$, MagType, ColorRating & ~ &\\
-\hline
-getNameOfProv & ~ & String & \\
-\hline
-getPlace & ~ & String & \\
-\hline
-getPointT & ~ & PointT & \\
-\hline
-getMag & ~ & $\mathbb{R}$ & \\
-\hline
-getDph & ~ & $\mathbb{R}$ & \\
-\hline
-getMagitudeType & ~ & MagType & \\
-\hline
-getDate & ~ & LocalDateTime & \\
-\hline
-getColor & ~ & ColorRating & \\
-\hline
-compareTo & EarthquakeT & $\mathbb{Z}$ & \\
-\hline
-equals & EarthquakeT & $\mathbb{B}$ & \\
+searchEarthquakeInCircle & RedBlackBST, PointT, $\mathbb{R}$ & sequence of EarthquakeT & \\
 \hline
 \end{tabular}
 
@@ -389,300 +1168,453 @@ equals & EarthquakeT & $\mathbb{B}$ & \\
 
 \subsubsection* {State Variables}
 
-place: String\\ 
-nameOfProv: String\\
-date: LocalDateTime\\
-lat: $\mathbb{R}$\\
-lng: $\mathbb{R}$\\
-dph: $\mathbb{R}$\\
-mag: $\mathbb{R}$\\
-magnitudeType: MagType\\
-color: ColorRating
+N/A
 
-\subsubsection* {State Invariant}
-
-None
-
-\subsubsection* {Assumptions}
-
-Two earthquakes are not the same if they happened to have two different dates or two different places recorded.
-
-\medskip
 
 \subsubsection* {Access Routine Semantics}
 
-EarthquakeT(place, prov, date, lat, lng, dph, mag, mgT, color):
+\noindent searchEarthquakeInCircleh(bst, location, radius):
 \begin{itemize}
-\item transition: \\ lat, lng, place, nameOfProv, date, dph, mag, magnitudeType, color :=\\
-  lat, lng, place, prov, date, dph, mag, mgT, color
-\item output: $\mathit{out} := \mathit{self}$
-\item exception: None
+\item output: $\mathit{out} := \{e : EarthquakeT \;|\; e \in bst \land location.distanceTo(e.getPointT()) \le radius : e \}$
 \end{itemize}
 
-\noindent getNameOfProv():
+
+
+
+
+\newpage
+
+\section* {Sort Module}
+
+\subsection* {Module}
+
+Sort
+
+\subsection* {Uses}
+
+PointT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+N/A
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{2cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+sortByDistance & PointT, sequence of EarthquakeT &  & \\
+\hline
+sortByMagnitude & sequence of EarthquakeT &  & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+N/A
+
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent sortByDistance(location, eqList):
 \begin{itemize}
-\item output: $out$ := nameOfProv
-\item exception: None
+\item transition: $\mathit{eqList} := eqList  
+\mbox{ such that } \forall (i : \mathbb{N} \;|\; i \in [0..|eqLisi| - 2] :$ \\
+ $location.distanceTo(eqList[i].getPointT()) < location.distanceTo(eqList[i + 1].getPointT()))$
 \end{itemize}
 
-\noindent getPlace():
+\noindent sortByMagnitude(eqList):
 \begin{itemize}
-\item output: $out$ := place
-\item exception: None
+\item transition: $\mathit{eqList} := eqList  
+\mbox{ such that } \forall (i : \mathbb{N} \;|\; i \in [0..|eqLisi| - 2] :eqList[i] > eqList[i + 1]$
 \end{itemize}
 
-\noindent getPointT():
+
+
+
+
+
+\newpage
+
+\section* { Risk Assessemnt Module}
+
+\subsection* {Template Module}
+
+RiskAssessment
+
+\subsection* {Uses}
+
+SearchEarthquakes, GeoCollection, cityGraph, CityPostT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+RiskAssessment = ?
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+new RiskAssessment & RedBlackBST, PointT &  & \\
+\hline
+getRisk &  & $\mathbb{Z}$ & \\
+\hline
+getCity &  & String& \\
+\hline
+getFrequency &  & $\mathbb{Z}$ & \\
+\hline
+getMag &  & $\mathbb{R}$ & \\
+\hline
+getPoplationDensity &  & $\mathbb{R}$ & \\
+\hline
+nearestLowerRiskCity & CityGraph & string & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{earthquakeTree} : RedBlackBST<Double, EarthquakeT>$ \\
+$\mathit{cityProv} : <>$ \\
+$\mathit{frequency} : \mathbb{Z}$ \\
+$\mathit{averageMag} : \mathbb{R}$ \\
+$\mathit{populationDensity} : \mathbb{R}$ \\
+$\mathit{rating} : \mathbb{Z}$ \\
+
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent RiskAssessment(bst, location):
 \begin{itemize}
-\item output: $out$ := PointT(lat, lng)
-\item exception: None
+\item transition: earthquakeTree := bst,\\
+ cityPov := getCityProv(location, SearchEarthquakes.searchEarthquakeInCircle(bst, location, 100)),\\
+ frequency :=getFrequency(), \\
+ averageMag :=getAverageManitude(), \\
+ populationDensity :=    getPopulation() ,\\ 
+ rating := OverallRating(frequency, averageMag, populationDensity) \\
+\end{itemize}
+
+\noindent getRisk():
+\begin{itemize}
+\item output: $\mathit{out} := rating$
+\end{itemize}
+
+
+\noindent getCity():
+\begin{itemize}
+\item output: $\mathit{out} := cityProv[0]$ 
+\end{itemize}
+
+\noindent getFrequency():
+\begin{itemize}
+\item output: $\mathit{out} := frequency$ 
 \end{itemize}
 
 \noindent getMag():
 \begin{itemize}
-\item output: $out$ := mag
-\item exception: None
+\item output: $\mathit{out} := averageMag$ 
 \end{itemize}
 
-\noindent getDph():
+\noindent getPoplationDensity():
 \begin{itemize}
-\item output: $out$ := dph
-\item exception: None
+\item output: $\mathit{out} := populationDensity$ 
 \end{itemize}
 
-\noindent getMagitudeType():
+\noindent nearestLowerRiskCity(graph):
 \begin{itemize}
-\item output: $out$ := magnitudeType
-\item exception: None
+\item output: $\mathit{out} := min.to() \mbox{ such that } min \in graph.adj(getCity) \land RiskAssessment(earthquakeTree,$\\ $getLocation(min.to()).getRisk() < rating \land  \forall (e : Edge \;|\; e \in graph.adj(getCity) \land 
+RiskAssessment(earthquakeTree, getLocation(e.to()).getRisk() < rating : e.weight \ge min.weight)$ 
 \end{itemize}
 
-\noindent getDate():
-\begin{itemize}
-\item output: $out$ := date
-\item exception: None
-\end{itemize}
 
-\noindent getColor():
-\begin{itemize}
-\item output: $out$ := color
-\item exception: None
-\end{itemize}
 
-\noindent compareTo(eq):
-\begin{itemize}
-\item output: $out$ := an integer value according to the following table.\\
 
-\begin{tabular}{|p{4cm}|r|}
-\hhline{~|-|}
-\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
-\hhline{|-|-|}
-$this.\mbox{mag} < \mbox{eq.mag}$ & -1 \\
-\hhline{|-|-|}
-$this.\mbox{mag} > \mbox{eq.mag}$ & 1 \\
-\hhline{|-|-|}
-$this.\mbox{mag} = \mbox{eq.mag}$ & 0 \\
-\hhline{|-|-|}
-\end{tabular}
-
-\item exception: None
-\end{itemize}
-
-\noindent equals(that):
-\begin{itemize}
-\item output: $out := ( \mbox{sameDate} \wedge \mbox{samePoint} \wedge \mbox{samePlace}\\
- \wedge \mbox{sameDepth} \wedge \mbox{sameMagValue} \wedge \mbox{sameMagType} \wedge \\
-\mbox{sameEqClass}) \Rightarrow True | True \Rightarrow False$
-\item exception: None
-\end{itemize}
-
-\newpage
 
 \subsection*{Local Functions}
+\noindent $\text{getLocation}: \text{string} \rightarrow \text{PointT}$\\
+\noindent $\text{getLocation}(city) \equiv cityPost.getPoint() \mbox{ such that } \forall (c: CityPostT \;|\; c \in \mbox{ sequence of CityPostT } \land c.getCityName = city: cityPost = c ) $\\
 
-\noindent sameDate: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
-$\mbox{sameDate}(d) \equiv (d.\mbox{date}) = (this.\mbox{date})$\\
-\noindent \wss{Returns true if the given EarthquakeT object has the same date as the current.}\\
+\noindent $\text{getCityProv}: \text{PointT, sequence of EarthquakeT} \rightarrow \text{tuple of (string, string)}$\\
+\noindent $\text{getCityProv}(location, eqList) \equiv <eq.getPlace(), eq.getNameOfProv()> \mbox{ such that } \forall (e: EarthquakeT \;|\; c \in eqList: location.distanceTo(e.getPointT()) \ge location.distanceTo(eq.getPointT()))$\\
 
-\noindent samePoint: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
-$\mbox{samePoint}(d) \equiv (d.\mbox{Point}) = (this.\mbox{Point})$\\
-\noindent \wss{Returns true if the given EarthquakeT object has the same Point as the current.}\\
+\noindent $\text{getPopulation}: $\\
+\noindent $\text{getPopulation} \equiv city.getPopDensity() \mbox{ such that } \forall (c: CityT \;|\; c \in \mbox{ sequence of CityT } \land c.getCityName = cityProv[0] \land c.getProvince = cityProv[1]: city = c ) $\\
 
-\noindent samePlace: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
-$\mbox{samePlace}(d) \equiv (d.\mbox{place}) = (this.\mbox{place})$\\
-\noindent \wss{Returns true if the given EarthquakeT object has the same place as the current.}\\
+\noindent $\text{getFrequency}: \text{sequence of EarthquakeT} \rightarrow \mathbb{Z}$\\
+\noindent $\text{getFrequency}(s) \equiv |s| $\\
 
-\noindent sameDepth: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
-$\mbox{sameDepth}(d) \equiv |d.\mbox{dph} - this.\mbox{dph}| < 0.0000001$\\
-\noindent \wss{returns true if the given EarthquakeT object has the same depth value\\
- as the current within the tolerance.}\\
 
-\noindent sameMagValue: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
-$\mbox{sameMagValue}(d) \equiv |d.\mbox{mag} - this.\mbox{mag}| < 0.0000001$\\
-\noindent \wss{returns true if the given EarthquakeT object has the same magnitude value\\
- as the current within the tolerance.}\\
+\noindent $\text{getAverageMagnitude}: \text{sequence of EarthquakeT} \rightarrow \mathbb{R}$\\
+\noindent $\text{getAverageMagnitude}(s) \equiv +(e: EarthquakeT \;|\; e \in s: e.getMag()) / |s| $\\
 
-\noindent sameMagType: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
-$\mbox{sameMagType}(d) \equiv (d.\mbox{magnitudeType}) = (this.\mbox{magnitudeType})$\\
-\noindent \wss{Returns true if the given EarthquakeT object has the same magnitude type\\
- as the current.}\\
 
-\noindent sameEqClass: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
-$\mbox{sameEqClass}(d) \equiv (d.\mbox{color}) = (this.\mbox{color})$\\
-\noindent \wss{Returns true if the given EarthquakeT object has the same class as the current.}\\
+\noindent $\text{frequencyRating}: \mathbb{R} \rightarrow \mathbb{Z}$\\
+\noindent $\text{frequencyRating}(frequency) \equiv (frequence < 1 \Rightarrow 0 \;|\; frequence \ge 1 \land frequence < 10 \Rightarrow 1 \;|\; frequence \ge 10 \land frequence < 100 \Rightarrow 2\;|\; frequence \ge 100 \land frequence < 1000 \Rightarrow 3\;|\; frequence \ge 1000  \Rightarrow 4) $\\
+
+
+\noindent $\text{magnitudeRating}: \mathbb{R} \rightarrow \mathbb{Z}$\\
+\noindent $\text{magnitudeRating}(averageMag) \equiv (averageMag < 1 \Rightarrow 0 \;|\; averageMag \ge 1 \land averageMag < 4 \Rightarrow 1 \;|\; averageMag \ge 4 \land averageMag < 6 \Rightarrow 2\;|\; averageMag \ge 6 \land averageMag < 7 \Rightarrow 3\;|\; averageMag \ge 7 \Rightarrow 4) $\\
+
+\noindent $\text{populationdensityRating}: \mathbb{R} \rightarrow \mathbb{Z}$\\
+\noindent $\text{populationdensityRating}(populationdensity) \equiv (populationdensity < 1000 \Rightarrow 0 \;|\; populationdensity \ge 1000 \land populationdensity < 5000 \Rightarrow 1 \;|\;populationdensity \ge 5000 \Rightarrow 2) $\\
+
+\noindent $\text{ overallRating}: \mathbb{Z}, \mathbb{R}, \mathbb{R} \rightarrow \mathbb{Z}$\\
+\noindent $\text{overallRating}(f, a, p) \equiv frequencyRating(f) + magnitudeRating(a) + populationdensityRating(p)$\\
+
+
+
+
+
 
 \newpage
 
-\section* {CSVreader Module}
+\section* {View Interface Module}
 
-\subsection* {Module}
+\subsection* {Interface Module}
 
-CSVreader
+ViewList
 
 \subsection* {Uses}
 
-CityPostT, CityT, EarthquakeT,\\
-EarthquakeT.ColorRating, EarthquakeT.MagType,\\
-EarthquakeBag, GeoCollection, RedBlackBST
+PointT
 
 \subsection* {Syntax}
 
-\subsubsection* {Exported Constants}
+\subsubsection* {Exported Types}
 
 None
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | l |}
+\begin{tabular}{| l | l | l | p{6cm} |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-readEarthquakes & String, EarthquakeBag & ~ & ~\\
+display & sequence of EarthquakeT, PointT &  &  ~\\
 \hline
-readEarthquakesBST & String, RedBlackBST & ~ & ~\\
+\end{tabular}
+
+
+
+
+\newpage
+
+\section* {display by magnitude Module}
+
+\subsection* {Module inherits ViewList}
+
+DisplayByMagnitude
+
+\subsection* {Uses}
+
+PointT, Sort
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
 \hline
-readPopulation & String, GeoCollection & ~ & ~\\
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-readCityPosition & String, seq of CityPostT & ~ & ~\\
-\hline
-rmFirstLastQuote & String & String & ~\\
-\hline
-generateColorRating & $\mathbb{R}$ & ColorRating & ~\\
-\hline
-fullProvName & String & String & ~\\
+display & sequence of EarthquakeT, PointT &  &  ~\\
 \hline
 \end{tabular}
 
 \subsection* {Semantics}
 
-\subsubsection* {Environment Variables}
-
-None
-
 \subsubsection* {State Variables}
 
-None
+N/A
 
-\subsubsection* {State Invariant}
-
-None
-
-\subsubsection* {Assumptions}
-
-None
 
 \subsubsection* {Access Routine Semantics}
 
-\noindent readEarthquakes(filename, bag):
+\noindent display(eqList, location):
 \begin{itemize}
-\item transition: Read each line of the earthquake csv file and convert to EarthquakeT object, which is stored in a EarthquakeBag.
-\item exception: None
+\item print(e.getMag(), e.getColor(), e.getDate().getYear(), e.getPlace())\\  
+for all e $\in$ Sort.sortByMagnitude(eqList)
 \end{itemize}
 
-\noindent readEarthquakesBST(filename, bst):
+
+
+
+
+\newpage
+
+\section* {display by distance Module}
+
+\subsection* {Module inherits ViewList}
+
+DisplayByDistance
+
+\subsection* {Uses}
+
+PointT, Sort
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+None
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+display & sequence of EarthquakeT, PointT &  &  ~\\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+N/A
+
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent display(eqList, location):
 \begin{itemize}
-\item transition: Read each line of the earthquake csv file and convert to EarthquakeT object, which is stored in a RedBlackBST.
-\item exception: None
+\item print(location.distanceTo(e.getPointT()), e.getMag(),e.getColor(), e.getDate().getYear(), e.getPlace()) for all e $\in$ Sort.sortByMagnitude(location, eqList)
 \end{itemize}
 
-\noindent readPopulation(filename, geoCollec):
+
+
+
+\newpage
+
+\section* {view risk assessment Module}
+
+\subsection* {Module}
+
+ViewRisk
+
+\subsection* {Uses}
+
+RiskAssessment, RedBlackBST, PointT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+showRisk & sequence of EarthquakeT, PointT &  &  ~\\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+N/A
+
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent display(eqList, location):
 \begin{itemize}
-\item transition: Read each line of the population csv file and convert to CityT object, which is stored in a GeoCollection HashMap.
-\item exception: None
+\item print(ra.getRisk(), ra.getCity(),ra.getFrequency(), ra.getMag(), ra.getPoplationDensity(), ra.nearestLowerRiskCity(graph)) such that ra = RiskAssessment(eqList, location)\\
 \end{itemize}
 
-\noindent readCityPosition(filename, cityPostList):
+\subsection*{Local Functions}
+\noindent $\text{initGraph}: RiskAssessment, sequence of CityPostT, CityGraph \rightarrow CityGraph$\\
+\noindent initGraph(ra, s, graph) $\equiv$ graph.addEdge(e) such that e = Edge(ra.getCity(), cityPost.getCityName, ra.getCity().getPoint().distanceTo(cityPost.getCityName.getPoint())) for all cityPost $\in$ s and ra.getCity().getPoint().distanceTo(cityPost.getCityName.getPoint()) $<$ 100\\
+
+
+
+
+\newpage
+
+\section* {Controller Module}
+
+\subsection* {Module}
+
+Controller
+
+\subsection* {Uses}
+
+CSVreader, SearchEarthquakes, ViewList, ViewRisk
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+Controller = ?
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{2.3cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+init & RedBlackBST, GeoCollection, sequence of CityPostT &  &  ~\\
+\hline
+search & RedBlackBST, PointT, real &  &  ~\\
+\hline
+updateViewOfList & ViewList &  &  ~\\
+\hline
+updateViewOfRisk & RedBlackBST, PointT, sequence of CityPostT, CityGraph &  &  ~\\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+$\mathit{location} : PointT$ \\
+$\mathit{eqList} : sequence of EarthquakeT$ \\
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent init(bst, geoCollection, cityPostList):
 \begin{itemize}
-\item transition: Read each line of the city coordinates csv file and convert to CityPostT object,
- which is stored in a list of cities.
-\item exception: None
+\item transition: \\
+The states of bst, geoCollection, cityPostLists are modified by accessing the routes of readEarthquakesBST, readPopulation, and readCityPosition  in CSVreader module.
 \end{itemize}
 
-\noindent rmFirstLastQuote(cell):
+\noindent search(bst, loc, radius):
 \begin{itemize}
-\item transition: Remove first and last double quotations from a string.
-\item exception: None
+\item transition: location := loc,\\
+The states of variable eqList is modified by accessing the route of searchEarthquakeInCircle in SearchEarthquakes module.
 \end{itemize}
 
-\noindent generateColorRating(cell4):
+
+\noindent updateViewOfList(view):
 \begin{itemize}
-\item transition: Generate an enum ColorRating type based on the magnitude of earthquake.
-\item exception: None
+\item print the list of earthquakes by accessing the route of display in ViewList module.
 \end{itemize}
 
-\noindent fullProvName(nameP):
+\noindent updateViewOfRisk(bst, loc, list, graph ):
 \begin{itemize}
-\item output: a new province name similar to the following table.
-
-\begin{tabular}{|p{3cm}|p{3.5cm}|l|}
-\hhline{~|-|-|}
-\multicolumn{1}{l|}{} & nameP $=$ & \multicolumn{1}{l|}{$out :=$}\\
-\hhline{|-|-|-|}
-$|\mbox{nameP}| = 2$ & ON & Ontario\\
-\hhline{|~|-|-|}
- & QC, PQ & Quebec\\
-\hhline{|~|-|-|}
- & NS & Nova Scotia\\
-\hhline{|~|-|-|}
- & NB & New Brunswick\\
-\hhline{|~|-|-|}
- & MB & Manitoba\\
-\hhline{|~|-|-|}
- & BC & British Columbia\\
-\hhline{|~|-|-|}
- & PE & Prince Edward Island\\
-\hhline{|~|-|-|}
- & SK & Saskatchewan\\
-\hhline{|~|-|-|}
- & AB & Alberta\\
-\hhline{|~|-|-|}
- & NL & Newfoundland and Labrador\\
-\hhline{|~|-|-|}
- & NU & Nunavut\\
-\hhline{|~|-|-|}
- & NT & Northwest Territories\\
-\hhline{|~|-|-|}
- & YT & Yukon\\
-\hhline{|~|-|-|}
- & AK & Alaska\\
-\hhline{|~|-|-|}
- & WA & Washington\\
-\hhline{|~|-|-|}
- & default & UNLOCATED\\
-\hhline{|-|-|-|}
-$|\mbox{nameP}| \neq 2$ & VANCOUVER ISLAND & British Columbia\\
-\hhline{|~|-|-|}
-& SOUTHERN QUEBEC & Quebec\\
-\hhline{|~|-|-|}
-& default & UNLOCATED\\
-\hhline{|-|-|-|}
-\end{tabular}\\\\
-
-\item exception: None
+\item print the the risk assessment result by accessing the route of showRisk in ViewRisk module.
 \end{itemize}
 
-\subsubsection* {Considerations}
-
-There are a number of different variations of geolocation names in the earthquake csv file, for these an appropriate province name
-should be assigned. For any that could not be matched to a province name, UNLOCATED should be assigned.\\
 
 
 \end {document}
