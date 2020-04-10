@@ -1,0 +1,688 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hhline}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\oddsidemargin -10mm
+\evensidemargin -10mm
+\textwidth 160mm
+\textheight 200mm
+\renewcommand\baselinestretch{1.0}
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+%% Comments
+
+\usepackage{color}
+
+\newif\ifcomments\commentstrue
+
+\ifcomments
+\newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\else
+\newcommand{\authornote}[3]{}
+\newcommand{\todo}[1]{}
+\fi
+
+\newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
+
+\title{Specification}
+\author{COMPSCI 2ME3}
+
+\begin {document}
+
+\maketitle
+This Module Interface Specification (MIS) document contains three main modules, DotT, Model,
+and View. And, a DotType module that provides the different-colored dot types required by both DotT 
+and Model modules. The Model is constructed using a customizable row, column, and target size.
+The methods of the Model module allow the user to delete a matching line of 
+dots from the Model. The deleted dots are replaced by dots located above.\\
+
+\noindent The game over condition will satisfy one of the following conditions.
+\begin{itemize}
+\item The user deletes a selection of same-colored dots that matches or exceeds a given target size.
+\item The user reaches the allowed number of delete moves per a game. Which is 18.
+\end{itemize}
+In other words, the game is set to finish either when the user accomplishes a same-colored dots 
+deletion of target size or when the number of delete moves reaches 18.
+
+\newpage
+
+\section* {EarthquakeBag Module}
+
+\subsection*{Template Module}
+
+EarthquakeBag is seq of EarthquakeT
+
+\newpage
+
+\section* {Generic Queue Module}
+
+\subsection*{Generic Template Module inherits Iterable(T)}
+
+Queue(T)
+
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+Queue = ?
+
+\subsubsection* {Internal Types}
+
+Node = ?\\
+
+\noindent \textit{\# Internal Node type has a link to next item in the queue.}
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Queue & ~ & Queue & ~\\
+\hline
+isEmpty & ~ & $\mathbb{B}$ & ~\\
+\hline
+enqueue & T & ~ & ~\\
+\hline
+toString & ~ & String & ~\\
+\hline
+start & ~ & ~ & ~\\
+\hline
+next & ~ & T & NoSuchElementException\\
+\hline
+\end{tabular}
+
+\newpage
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+first: Node\\
+last: Node\\
+$n: \mathbb{N}$\\
+\underline{$s$: seq of T}\\
+
+\noindent \textit{\# For simplification, the linked-node structure is represented by seq of T.}\\
+\noindent \textit{\# s[1] is the first Node.}\\
+\noindent \textit{\# s[$n$] is the last Node.}
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+None
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent Queue():
+\begin{itemize}
+\item transition: first, last, n := null, null, 0
+\item output: $out := \mbox{self}$
+\item exception: none
+\end{itemize}
+
+\noindent isEmpty():
+\begin{itemize}
+\item output: $out := (n = 0) \Rightarrow True | True \Rightarrow False$
+\item exception: None
+\end{itemize}
+
+\noindent enqueue(item):
+\begin{itemize}
+\item output: $out := s || \mbox{item}$
+\item exception: None
+\end{itemize}
+
+\noindent toString():
+\begin{itemize}
+\item output: $out := out || (\forall\, i: \mathbb{N}| i\in[1..n] : s[i])$
+\item exception: None
+\end{itemize}
+
+\medskip
+
+\noindent \underline{Iterator Methods}:\\
+
+$i: \mathbb{N}$\\
+
+\noindent start():
+\begin{itemize}
+\item transition: $i := 0$
+\item exception: none
+\end{itemize}
+
+\noindent next():
+\begin{itemize}
+\item transition-output: $i, out := i + 1, s[i]$
+\item exception: $( i > n) \Rightarrow \text{NoSuchElementException}$
+\end{itemize}
+
+\subsubsection* {Considerations}
+
+When an instance of Queue is iterated in a loop, an iterator consisting of these two methods is returned, 
+and the start() method is call initially, and for the successive iterations next() method is call.\\
+
+\newpage
+
+\section* {Generic RedBlackBST Module}
+
+\subsection*{Generic Template Module}
+
+RedBlackBST(T with Comparable(T), V)
+
+\subsection* {Uses}
+
+Queue
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+RedBlackBST = ?
+
+\subsubsection* {Internal Types}
+
+Node = ?
+
+\noindent State Variables of Node:\\
+key: Key,
+\underline {lst: seq of V},
+left: Node,
+right: Node,
+color: B,
+size: N\\
+
+\noindent \textit{\# Internal Node type was modified to store a seq of V.}
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+RedBlackBST & ~ & RedBlackBST & \\
+\hline
+size & ~ & $\mathbb{N}$ & ~\\
+\hline
+isEmpty & ~ & $\mathbb{B}$ & ~\\
+\hline
+get & T & seq of V & ~\\
+\hline
+put & T, V & ~ & ~\\
+\hline
+min & ~ & T & ~\\
+\hline
+max & ~ & T & ~\\
+\hline
+keys & ~ & Queue of T & ~\\
+\hline
+keys & $\mathbb{R}, \mathbb{R}$ & Queue of T & ~\\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+root: Node\\
+RED: $\mathbb{B}$\\
+BLACK: $\mathbb{B}$
+
+\subsubsection* {State Invariant}
+
+RED = True\\
+BLACK = False
+
+\subsubsection* {Assumptions}
+
+None
+
+\subsubsection* {Access Routine Semantics}
+
+RedBlackBST():
+\begin{itemize}
+\item transition: None
+\item output: $out := \mathit{self}$
+\item exception: None
+\end{itemize}
+
+\noindent size():
+\begin{itemize}
+\item output: $out := root.size$
+\item exception: None
+\end{itemize}
+
+\noindent isEmpty():
+\begin{itemize}
+\item output: $out := (root = null) \Rightarrow True | True \Rightarrow False$
+\item exception: None
+\end{itemize}
+
+\noindent get(key):
+\begin{itemize}
+\item output: $out$ := L such that $ \langle x, L \rangle : \text{seq of V} |
+  \langle x, L \rangle \in RedBlackBST : (x.key = \mathit{key})$
+\item exception: None
+\end{itemize}
+
+\noindent put(key, val):
+\begin{itemize}
+\item transition: $\{ \langle x, L \rangle : \text{seq of V} |
+  \langle x, L \rangle \in RedBlackBST : (x.key = \mathit{key} \Rightarrow \langle x, L || [val] \rangle
+   | \text{True} \Rightarrow \langle key, L || [val] \rangle) \}$
+
+\item exception: None
+\end{itemize}
+
+\noindent min():
+\begin{itemize}
+\item output: $out$ := smallest key in the RedBlackBST
+\item exception: None
+\end{itemize}
+
+\noindent max():
+\begin{itemize}
+\item output: $out$ := largest key in the RedBlackBST
+\item exception: None
+\end{itemize}
+
+\noindent keys():
+\begin{itemize}
+\item output: $out := out || (\forall \langle x, L \rangle : \text{seq of V} | \langle x, L \rangle \in RedBlackBST : x.key)$
+\item exception: None
+\end{itemize}
+
+\noindent keys(lo, hi):
+\begin{itemize}
+\item output: $out := out || (\forall \langle x, L \rangle : \text{seq of V} | \langle x, L \rangle \in RedBlackBST \wedge\\
+lo \le x.key \le hi : x.key)$
+\item exception: None
+\end{itemize}
+
+\newpage
+
+\section* {EarthquakeT Module}
+
+\subsection* {Template Module}
+
+EarthquakeT
+
+\subsection* {Uses}
+
+LocalDateTime, PointT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+EarthquakeT = ?\\
+
+\noindent ColorRating = \{ NOCOLOR, ZERO, PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED \}\\
+
+\noindent MagType = \{ M5, mb, MB, Mb, MC, Mc, mc, ML, MLSn, MN, MS, MW, Ms, Mw, BLANK \}\\
+
+\noindent \textit{\# EarthquakeT implements Comparable(EarthquakeT)}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+EarthquakeT & String, String, LocalDateTime, & EarthquakeT &\\
+\hhline{|~|~|~|}
+~ &$\mathbb{R}, \mathbb{R}, \mathbb{R}, \mathbb{R}$, MagType, ColorRating & ~ &\\
+\hline
+getNameOfProv & ~ & String & \\
+\hline
+getPlace & ~ & String & \\
+\hline
+getPointT & ~ & PointT & \\
+\hline
+getMag & ~ & $\mathbb{R}$ & \\
+\hline
+getDph & ~ & $\mathbb{R}$ & \\
+\hline
+getMagitudeType & ~ & MagType & \\
+\hline
+getDate & ~ & LocalDateTime & \\
+\hline
+getColor & ~ & ColorRating & \\
+\hline
+compareTo & EarthquakeT & $\mathbb{Z}$ & \\
+\hline
+equals & EarthquakeT & $\mathbb{B}$ & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+place: String\\ 
+nameOfProv: String\\
+date: LocalDateTime\\
+lat: $\mathbb{R}$\\
+lng: $\mathbb{R}$\\
+dph: $\mathbb{R}$\\
+mag: $\mathbb{R}$\\
+magnitudeType: MagType\\
+color: ColorRating
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+Two earthquakes are not the same if they happened to have two different dates or two different places recorded.
+
+\medskip
+
+\subsubsection* {Access Routine Semantics}
+
+EarthquakeT(place, prov, date, lat, lng, dph, mag, mgT, color):
+\begin{itemize}
+\item transition: \\ lat, lng, place, nameOfProv, date, dph, mag, magnitudeType, color :=\\
+  lat, lng, place, prov, date, dph, mag, mgT, color
+\item output: $\mathit{out} := \mathit{self}$
+\item exception: None
+\end{itemize}
+
+\noindent getNameOfProv():
+\begin{itemize}
+\item output: $out$ := nameOfProv
+\item exception: None
+\end{itemize}
+
+\noindent getPlace():
+\begin{itemize}
+\item output: $out$ := place
+\item exception: None
+\end{itemize}
+
+\noindent getPointT():
+\begin{itemize}
+\item output: $out$ := PointT(lat, lng)
+\item exception: None
+\end{itemize}
+
+\noindent getMag():
+\begin{itemize}
+\item output: $out$ := mag
+\item exception: None
+\end{itemize}
+
+\noindent getDph():
+\begin{itemize}
+\item output: $out$ := dph
+\item exception: None
+\end{itemize}
+
+\noindent getMagitudeType():
+\begin{itemize}
+\item output: $out$ := magnitudeType
+\item exception: None
+\end{itemize}
+
+\noindent getDate():
+\begin{itemize}
+\item output: $out$ := date
+\item exception: None
+\end{itemize}
+
+\noindent getColor():
+\begin{itemize}
+\item output: $out$ := color
+\item exception: None
+\end{itemize}
+
+\noindent compareTo(eq):
+\begin{itemize}
+\item output: $out$ := an integer value according to the following table.\\
+
+\begin{tabular}{|p{4cm}|r|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+$this.\mbox{mag} < \mbox{eq.mag}$ & -1 \\
+\hhline{|-|-|}
+$this.\mbox{mag} > \mbox{eq.mag}$ & 1 \\
+\hhline{|-|-|}
+$this.\mbox{mag} = \mbox{eq.mag}$ & 0 \\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}
+
+\noindent equals(that):
+\begin{itemize}
+\item output: $out := ( \mbox{sameDate} \wedge \mbox{samePoint} \wedge \mbox{samePlace}\\
+ \wedge \mbox{sameDepth} \wedge \mbox{sameMagValue} \wedge \mbox{sameMagType} \wedge \\
+\mbox{sameEqClass}) \Rightarrow True | True \Rightarrow False$
+\item exception: None
+\end{itemize}
+
+\newpage
+
+\subsection*{Local Functions}
+
+\noindent sameDate: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameDate}(d) \equiv (d.\mbox{date}) = (this.\mbox{date})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same date as the current.}\\
+
+\noindent samePoint: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{samePoint}(d) \equiv (d.\mbox{Point}) = (this.\mbox{Point})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same Point as the current.}\\
+
+\noindent samePlace: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{samePlace}(d) \equiv (d.\mbox{place}) = (this.\mbox{place})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same place as the current.}\\
+
+\noindent sameDepth: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameDepth}(d) \equiv |d.\mbox{dph} - this.\mbox{dph}| < 0.0000001$\\
+\noindent \wss{returns true if the given EarthquakeT object has the same depth value\\
+ as the current within the tolerance.}\\
+
+\noindent sameMagValue: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameMagValue}(d) \equiv |d.\mbox{mag} - this.\mbox{mag}| < 0.0000001$\\
+\noindent \wss{returns true if the given EarthquakeT object has the same magnitude value\\
+ as the current within the tolerance.}\\
+
+\noindent sameMagType: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameMagType}(d) \equiv (d.\mbox{magnitudeType}) = (this.\mbox{magnitudeType})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same magnitude type\\
+ as the current.}\\
+
+\noindent sameEqClass: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameEqClass}(d) \equiv (d.\mbox{color}) = (this.\mbox{color})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same class as the current.}\\
+
+\newpage
+
+\section* {CSVreader Module}
+
+\subsection* {Module}
+
+CSVreader
+
+\subsection* {Uses}
+
+CityPostT, CityT, EarthquakeT,\\
+EarthquakeT.ColorRating, EarthquakeT.MagType,\\
+EarthquakeBag, GeoCollection, RedBlackBST
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+readEarthquakes & String, EarthquakeBag & ~ & ~\\
+\hline
+readEarthquakesBST & String, RedBlackBST & ~ & ~\\
+\hline
+readPopulation & String, GeoCollection & ~ & ~\\
+\hline
+readCityPosition & String, seq of CityPostT & ~ & ~\\
+\hline
+rmFirstLastQuote & String & String & ~\\
+\hline
+generateColorRating & $\mathbb{R}$ & ColorRating & ~\\
+\hline
+fullProvName & String & String & ~\\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environment Variables}
+
+None
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+None
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent readEarthquakes(filename, bag):
+\begin{itemize}
+\item transition: $\mbox{currentM} := \mbox{cM.toString()}$
+\item exception: None
+\end{itemize}
+
+\noindent readEarthquakesBST(filename, bst):
+\begin{itemize}
+\item transition: \\ $\mbox{currentM} := ` ` \,  " \\
+\mbox{currentM} := \mbox{cM.toString()}$
+\item exception: None
+\end{itemize}
+
+\noindent readPopulation(filename, geoCollec):
+\begin{itemize}
+\item transition: $\mbox{currentM} := ` ` \,  "$
+\item exception: None
+\end{itemize}
+
+\noindent readCityPosition(filename, cityPostList):
+\begin{itemize}
+\item transition: $\mbox{currentM} := ` ` \,  "$
+\item exception: None
+\end{itemize}
+
+\noindent rmFirstLastQuote(cell):
+\begin{itemize}
+\item transition: $\mbox{currentM} := ` ` \,  "$
+\item exception: None
+\end{itemize}
+
+\noindent generateColorRating(cell4):
+\begin{itemize}
+\item transition: $\mbox{currentM} := ` ` \,  "$
+\item exception: None
+\end{itemize}
+
+\noindent fullProvName(nameP):
+\begin{itemize}
+\item output: a new province name similar to the following table.
+
+\begin{tabular}{|p{3cm}|p{3.5cm}|l|}
+\hhline{~|-|-|}
+\multicolumn{1}{l|}{} & nameP $=$ & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|-|}
+$|\mbox{nameP}| = 2$ & ON & Ontario\\
+\hhline{|~|-|-|}
+ & QC, PQ & Quebec\\
+\hhline{|~|-|-|}
+ & NS & Nova Scotia\\
+\hhline{|~|-|-|}
+ & NB & New Brunswick\\
+\hhline{|~|-|-|}
+ & MB & Manitoba\\
+\hhline{|~|-|-|}
+ & BC & British Columbia\\
+\hhline{|~|-|-|}
+ & PE & Prince Edward Island\\
+\hhline{|~|-|-|}
+ & SK & Saskatchewan\\
+\hhline{|~|-|-|}
+ & AB & Alberta\\
+\hhline{|~|-|-|}
+ & NL & Newfoundland and Labrador\\
+\hhline{|~|-|-|}
+ & NU & Nunavut\\
+\hhline{|~|-|-|}
+ & NT & Northwest Territories\\
+\hhline{|~|-|-|}
+ & YT & Yukon\\
+\hhline{|~|-|-|}
+ & AK & Alaska\\
+\hhline{|~|-|-|}
+ & WA & Washington\\
+\hhline{|~|-|-|}
+ & default & UNLOCATED\\
+\hhline{|-|-|-|}
+$|\mbox{nameP}| \neq 2$ & VANCOUVER ISLAND & British Columbia\\
+\hhline{|~|-|-|}
+& SOUTHERN QUEBEC & Quebec\\
+\hhline{|~|-|-|}
+& default & UNLOCATED\\
+\hhline{|-|-|-|}
+\end{tabular}\\\\
+
+\item exception: None
+\end{itemize}
+
+\subsubsection* {Considerations}
+
+There are a number of different variations of geolocation names in the earthquake csv file, for these an appropriate province name
+should be assigned. For any that could not be matched to a province name, UNLOCATED should be assigned.\\
+
+
+\end {document}

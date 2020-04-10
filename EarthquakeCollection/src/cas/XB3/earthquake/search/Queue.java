@@ -35,7 +35,7 @@ public class Queue<Item> implements Iterable<Item> {
     public boolean isEmpty() {
         return first == null;
     }
-    
+
 
     /**
      * Adds the item to this queue.
