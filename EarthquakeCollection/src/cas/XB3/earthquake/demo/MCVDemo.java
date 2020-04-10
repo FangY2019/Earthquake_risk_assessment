@@ -34,12 +34,12 @@ public class MCVDemo {
 		}
 
 		try {
-			//File file = new File("./input.txt");
+			File file = new File("./input.txt");
 			// read the input from input.txt
-			//Scanner input = new Scanner(file);
+			Scanner input = new Scanner(file);
 
 			// read the input from keyboard
-			Scanner input = new Scanner(System.in);
+//			Scanner input = new Scanner(System.in);
 
 			System.out.println("Please enter the latidude, the number should be between 41.0 to 84.0: \n");
 			double lat = input.nextDouble();
@@ -66,7 +66,7 @@ public class MCVDemo {
 				} else if (choice == 3) {
 					controller.updateViewOfRisk(bst, location, cityPostList, graph);
 				}
-			} while (choice > 3);
+			} while (input.hasNext() || choice > 3);
 			input.close();
 		} catch (Exception e) {
 			e.printStackTrace();
