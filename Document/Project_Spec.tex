@@ -40,24 +40,13 @@
 \newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
 
 \title{Specification}
-\author{COMPSCI 2ME3}
+\author{COMPSCI 2XB3}
 
 \begin {document}
 
 \maketitle
-This Module Interface Specification (MIS) document contains three main modules, DotT, Model,
-and View. And, a DotType module that provides the different-colored dot types required by both DotT 
-and Model modules. The Model is constructed using a customizable row, column, and target size.
-The methods of the Model module allow the user to delete a matching line of 
-dots from the Model. The deleted dots are replaced by dots located above.\\
-
-\noindent The game over condition will satisfy one of the following conditions.
-\begin{itemize}
-\item The user deletes a selection of same-colored dots that matches or exceeds a given target size.
-\item The user reaches the allowed number of delete moves per a game. Which is 18.
-\end{itemize}
-In other words, the game is set to finish either when the user accomplishes a same-colored dots 
-deletion of target size or when the number of delete moves reaches 18.
+This Module Interface Specification (MIS) document contains three main modules; Queue, RedBlackBST, EarthquakeT,
+and CSVreader. It also contains a small EarthquakeBag module.
 
 \newpage
 
@@ -252,7 +241,10 @@ keys & $\mathbb{R}, \mathbb{R}$ & Queue of T & ~\\
 
 root: Node\\
 RED: $\mathbb{B}$\\
-BLACK: $\mathbb{B}$
+BLACK: $\mathbb{B}$\\
+\underline{$s$: set of $\langle T, V \rangle$}\\
+
+\noindent \textit{\# For simplification, the linked-node structure is represented by set of $\langle T, V \rangle$.}\\
 
 \subsubsection* {State Invariant}
 
@@ -286,41 +278,40 @@ RedBlackBST():
 
 \noindent get(key):
 \begin{itemize}
-\item output: $out$ := L such that $ \langle x, L \rangle : \text{seq of V} |
-  \langle x, L \rangle \in RedBlackBST : (x.key = \mathit{key})$
+\item output: $out$ := L where $\langle x, L \rangle \in s \wedge (x.key = \mathit{key})$
 \item exception: None
 \end{itemize}
 
 \noindent put(key, val):
 \begin{itemize}
-\item transition: $\{ \langle x, L \rangle : \text{seq of V} |
-  \langle x, L \rangle \in RedBlackBST : (x.key = \mathit{key} \Rightarrow \langle x, L || [val] \rangle
-   | \text{True} \Rightarrow \langle key, L || [val] \rangle) \}$
+\item transition: $s := \{ \langle x, L \rangle : \langle T, V \rangle |
+  \langle x, L \rangle \in s : (x.key = \mathit{key} \Rightarrow \langle x, L || [val] \rangle
+   | \text{True} \Rightarrow \langle x, L \rangle) \}$
 
 \item exception: None
 \end{itemize}
 
 \noindent min():
 \begin{itemize}
-\item output: $out$ := smallest key in the RedBlackBST
+\item output: $out$ := smallest key in $s$
 \item exception: None
 \end{itemize}
 
 \noindent max():
 \begin{itemize}
-\item output: $out$ := largest key in the RedBlackBST
+\item output: $out$ := largest key in $s$
 \item exception: None
 \end{itemize}
 
 \noindent keys():
 \begin{itemize}
-\item output: $out := out || (\forall \langle x, L \rangle : \text{seq of V} | \langle x, L \rangle \in RedBlackBST : x.key)$
+\item output: $out := out || (\forall \langle x, L \rangle : \langle T, V \rangle | \langle x, L \rangle \in s : x.key)$
 \item exception: None
 \end{itemize}
 
 \noindent keys(lo, hi):
 \begin{itemize}
-\item output: $out := out || (\forall \langle x, L \rangle : \text{seq of V} | \langle x, L \rangle \in RedBlackBST \wedge\\
+\item output: $out := out || (\forall \langle x, L \rangle : \langle T, V \rangle | \langle x, L \rangle \in s \wedge
 lo \le x.key \le hi : x.key)$
 \item exception: None
 \end{itemize}
