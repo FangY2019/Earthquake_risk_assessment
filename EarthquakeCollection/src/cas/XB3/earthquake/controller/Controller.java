@@ -30,9 +30,9 @@ public class Controller {
 	 * @param cityPostList a list of CityPostT objects
 	 */
 	public void init(RedBlackBST<Double, EarthquakeT> bst, GeoCollection GeoCollection, ArrayList<CityPostT> cityPostList) {
-		CSVreader.readEarthquakesBST("./eqarchive-en.csv",bst);
-		CSVreader.readPopulation("./T301EN.CSV", GeoCollection);
-		CSVreader.readCityPosition("./City_Coordinates.CSV", cityPostList);	
+		CSVreader.readEarthquakesBST("EarthquakeCollection/eqarchive-en.csv",bst);
+		CSVreader.readPopulation("EarthquakeCollection/T301EN.CSV", GeoCollection);
+		CSVreader.readCityPosition("EarthquakeCollection/City_Coordinates.CSV", cityPostList);	
 	}
 
 	/**

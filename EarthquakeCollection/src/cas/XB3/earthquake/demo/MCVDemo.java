@@ -34,7 +34,7 @@ public class MCVDemo {
 		}
 
 		try {
-			File file = new File("./input.txt");
+			File file = new File("EarthquakeCollection/input.txt");
 			// read the input from input.txt
 			Scanner input = new Scanner(file);
 

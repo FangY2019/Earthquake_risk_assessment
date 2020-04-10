@@ -143,7 +143,7 @@ public class RiskAssessment {
 	private PointT getLocation(String city) {
 		PointT location = null;
 		ArrayList<CityPostT> cityPostList = new ArrayList<>();
-		CSVreader.readCityPosition("./City_Coordinates.CSV", cityPostList);
+		CSVreader.readCityPosition("EarthquakeCollection/City_Coordinates.CSV", cityPostList);
 		for (CityPostT cityPost : cityPostList) {
 			if (cityPost.getCityName().equals(city))
 				location = cityPost.getPoint();
@@ -182,7 +182,7 @@ public class RiskAssessment {
 		}
 		if (this.cityProv[0] != null) {
 			GeoCollection GeoCollection = new GeoCollection();
-			CSVreader.readPopulation("./T301EN.CSV", GeoCollection);
+			CSVreader.readPopulation("EarthquakeCollection/T301EN.CSV", GeoCollection);
 			if (GeoCollection.getCityHashMap().keySet().contains(String.valueOf(this.cityProv[0].charAt(0)))) {
 				ArrayList<CityT> listOfCity = GeoCollection
 						.getCityArrayList(String.valueOf(this.cityProv[0].charAt(0)));
