@@ -182,7 +182,7 @@ public class RiskAssessment {
 		}
 		if (this.cityProv[0] != null) {
 			GeoCollection GeoCollection = new GeoCollection();
-			CSVreader.readPopulation("EarthquakeCollection/T301EN.CSV", GeoCollection);
+			CSVreader.readPopulation("./T301EN.CSV", GeoCollection);
 			if (GeoCollection.getCityHashMap().keySet().contains(String.valueOf(this.cityProv[0].charAt(0)))) {
 				ArrayList<CityT> listOfCity = GeoCollection
 						.getCityArrayList(String.valueOf(this.cityProv[0].charAt(0)));
