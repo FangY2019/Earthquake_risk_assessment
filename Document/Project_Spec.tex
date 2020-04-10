@@ -1525,7 +1525,7 @@ None
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-showRisk & sequence of EarthquakeT, PointT &  &  ~\\
+showRisk & RedBlackBST, sequence of CityPostT, PointT, CityGraph &  &  ~\\
 \hline
 \end{tabular}
 
@@ -1538,9 +1538,9 @@ N/A
 
 \subsubsection* {Access Routine Semantics}
 
-\noindent display(eqList, location):
+\noindent display(bst, loc, s, graph):
 \begin{itemize}
-\item print(ra.getRisk(), ra.getCity(),ra.getFrequency(), ra.getMag(), ra.getPoplationDensity(), ra.nearestLowerRiskCity(graph)) such that ra = RiskAssessment(eqList, location)\\
+\item print(ra.getRisk(), ra.getCity(),ra.getFrequency(), ra.getMag(), ra.getPoplationDensity(), ra.nearestLowerRiskCity(graph)) such that ra = RiskAssessment(bst, loc)\\
 \end{itemize}
 
 \subsection*{Local Functions}
@@ -1610,7 +1610,7 @@ The states of variable eqList is modified by accessing the route of searchEarthq
 \item print the list of earthquakes by accessing the route of display in ViewList module.
 \end{itemize}
 
-\noindent updateViewOfRisk(bst, loc, list, graph ):
+\noindent updateViewOfRisk(bst, loc, s, graph ):
 \begin{itemize}
 \item print the the risk assessment result by accessing the route of showRisk in ViewRisk module.
 \end{itemize}
