@@ -115,6 +115,8 @@ next & ~ & T & NoSuchElementException\\
 \hline
 \end{tabular}
 
+\newpage
+
 \subsection* {Semantics}
 
 \subsubsection* {State Variables}
@@ -383,8 +385,6 @@ equals & EarthquakeT & $\mathbb{B}$ & \\
 \hline
 \end{tabular}
 
-\newpage
-
 \subsection* {Semantics}
 
 \subsubsection* {State Variables}
@@ -405,11 +405,7 @@ None
 
 \subsubsection* {Assumptions}
 
-\begin{itemize}
-\item The 0th row is at the top of the grid and the 0th column
-  is at the leftmost side of the grid.
-\item Once a Dot is removed, above Dots move down to replace the Dot that was removed.
-\end{itemize}
+Two earthquakes are not the same if they happened to have two different dates or two different places recorded.
 
 \medskip
 
@@ -473,45 +469,65 @@ EarthquakeT(place, prov, date, lat, lng, dph, mag, mgT, color):
 
 \noindent compareTo(eq):
 \begin{itemize}
-\item output: $out$ := selectedDots $||$ DotT(d.row, d.col)
-\item exception: $exc := (\neg \mbox{validPoint}(d) \Rightarrow \mbox{IndexOutOfBoundsException})$
+\item output: $out$ := an integer value according to the following table.\\
+
+\begin{tabular}{|p{4cm}|r|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+$this.\mbox{mag} < \mbox{eq.mag}$ & -1 \\
+\hhline{|-|-|}
+$this.\mbox{mag} > \mbox{eq.mag}$ & 1 \\
+\hhline{|-|-|}
+$this.\mbox{mag} = \mbox{eq.mag}$ & 0 \\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: None
 \end{itemize}
 
 \noindent equals(that):
 \begin{itemize}
-\item output: $out$ := selectedDots $||$ DotT(d.row, d.col)
-\item exception: $exc := (\neg \mbox{validPoint}(d) \Rightarrow \mbox{IndexOutOfBoundsException})
-\wedge (\neg \mbox{sameColor}(d) \vee \neg \mbox{validSelect}(d) \Rightarrow \mbox{InvalidObjectException})$
+\item output: $out := ( \mbox{sameDate} \wedge \mbox{samePoint} \wedge \mbox{samePlace}\\
+ \wedge \mbox{sameDepth} \wedge \mbox{sameMagValue} \wedge \mbox{sameMagType} \wedge \\
+\mbox{sameEqClass}) \Rightarrow True | True \Rightarrow False$
+\item exception: None
 \end{itemize}
 
 \newpage
 
 \subsection*{Local Functions}
 
-\noindent removeDot: $\mbox{DotT} \rightarrow \mathbb{B}$\\
-$\mbox{removeDot}(d) \equiv  d = \mbox{Null}$\\
-\noindent \wss{Remove the Dot from the grid by setting it to null}\\
+\noindent sameDate: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameDate}(d) \equiv (d.\mbox{date}) = (this.\mbox{date})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same date as the current.}\\
 
-\noindent sameColor: $\mbox{DotT} \rightarrow \mathbb{B}$\\
-$\mbox{sameColor}(d) \equiv  d.cl = \mbox{selectedDots[0]}.cl$\\
-\noindent \wss{returns true if the next selection is the same color as the first dot on selectedDots list.}\\
+\noindent samePoint: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{samePoint}(d) \equiv (d.\mbox{Point}) = (this.\mbox{Point})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same Point as the current.}\\
 
-\noindent validSelect: $\mbox{DotT} \rightarrow \mathbb{B}$\\
-$\mbox{validSelect}(d) \equiv  (d.row = \mbox{selectedDots}[|\mbox{selectedDots}| - 1].row) \vee \\ 
-(d.col = \mbox{selectedDots}[|\mbox{selectedDots}| - 1].col)$\\
-\noindent \wss{returns true if the next selection is the same row or column of the grid.}\\
+\noindent samePlace: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{samePlace}(d) \equiv (d.\mbox{place}) = (this.\mbox{place})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same place as the current.}\\
 
-\noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
-$\mbox{validRow}(i) \equiv 0 \leq i \leq (\mbox{ROWS} - 1)$\\
-\noindent \wss{returns true if the given natural number is a valid row number.}\\
+\noindent sameDepth: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameDepth}(d) \equiv |d.\mbox{dph} - this.\mbox{dph}| < 0.0000001$\\
+\noindent \wss{returns true if the given EarthquakeT object has the same depth value\\
+ as the current within the tolerance.}\\
 
-\noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
-$\mbox{validCol}(j) \equiv 0 \leq j \leq (\mbox{COLS} - 1)$\\
-\noindent \wss{returns true if the given natural number is a valid column number.}\\
+\noindent sameMagValue: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameMagValue}(d) \equiv |d.\mbox{mag} - this.\mbox{mag}| < 0.0000001$\\
+\noindent \wss{returns true if the given EarthquakeT object has the same magnitude value\\
+ as the current within the tolerance.}\\
 
-\noindent validDot: $\mbox{DotT} \rightarrow \mathbb{B}$\\
-$\mbox{validPoint}(d) \equiv \mbox{validRow}(d.\mbox{row}) \wedge \mbox{validCol}(d.\mbox{col})$\\
-\noindent \wss{Returns true if the given point lies within the boundaries of the grid.}\\
+\noindent sameMagType: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameMagType}(d) \equiv (d.\mbox{magnitudeType}) = (this.\mbox{magnitudeType})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same magnitude type\\
+ as the current.}\\
+
+\noindent sameEqClass: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
+$\mbox{sameEqClass}(d) \equiv (d.\mbox{color}) = (this.\mbox{color})$\\
+\noindent \wss{Returns true if the given EarthquakeT object has the same class as the current.}\\
 
 \newpage
 
