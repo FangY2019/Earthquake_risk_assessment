@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.ADT;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.ADT.EarthquakeT.ColorRating;
 import cas.XB3.earthquake.ADT.EarthquakeT.MagType;

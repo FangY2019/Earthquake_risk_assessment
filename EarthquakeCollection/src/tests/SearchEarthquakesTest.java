@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.search;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import cas.XB3.earthquake.ADT.PointT;
 import cas.XB3.earthquake.search.RedBlackBST;
+import cas.XB3.earthquake.search.SearchEarthquakes;
 import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.EarthquakeT.ColorRating;
 import cas.XB3.earthquake.ADT.EarthquakeT.MagType;

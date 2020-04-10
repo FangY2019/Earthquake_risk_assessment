@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.search;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import cas.XB3.earthquake.search.RedBlackBST;
 
 public class RedBlackBSTTest {
 	private RedBlackBST bst;

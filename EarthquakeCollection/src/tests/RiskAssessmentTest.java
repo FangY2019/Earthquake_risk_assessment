@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.riskAssessment;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -14,6 +14,7 @@ import cas.XB3.earthquake.search.RedBlackBST;
 import cas.XB3.earthquake.ADT.EarthquakeT;
 import cas.XB3.earthquake.ADT.EarthquakeT.ColorRating;
 import cas.XB3.earthquake.ADT.EarthquakeT.MagType;
+import cas.XB3.earthquake.riskAssessment.RiskAssessment;
 
 public class RiskAssessmentTest {
 

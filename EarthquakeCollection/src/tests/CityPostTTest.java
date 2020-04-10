@@ -1,4 +1,4 @@
-package cas.XB3.earthquake.ADT;
+package tests;
 
 import static org.junit.Assert.*;
 

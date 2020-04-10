@@ -1,9 +1,11 @@
-package cas.XB3.earthquake.search;
+package tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import cas.XB3.earthquake.search.Queue;
 
 public class QueueTest {
 	private Queue q;
