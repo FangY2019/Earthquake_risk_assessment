@@ -10,3 +10,9 @@ Student Number     Name                   Role in the Project
 
 We electronically sign and date that the work being submitted is our group work. 
 April 9, 2020
+
+Notes:
+1. You can run MCVDemo class in package demo to see how the project works. 
+The program will take the input from the input.txt by default. 
+Or you can uncomment the line(Scanner input = new Scanner(System.in);) to
+take the input from keyboard.
