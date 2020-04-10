@@ -266,4 +266,38 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         if (cmphi > 0) keys(x.right, queue, lo, hi);
     }
 
+    /**
+     * Returns all values in the symbol table in the given range,
+     * as an {@code Iterable}.
+     * @param lo minimum endpoint
+     * @param hi maximum endpoint
+     * @return all values in the symbol table between {@code lo}
+     *    (inclusive) and {@code hi} (inclusive) as an {@code Iterable}
+     * @throws IllegalArgumentException if either {@code lo} or {@code hi}
+     *    is {@code null}
+     */
+    public Iterable<Value> values(Key lo, Key hi) {
+        if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
+        if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
+
+        Queue<Value> queue = new Queue<Value>();
+        if (isEmpty() || lo.compareTo(hi) > 0) return queue;
+        values(root, queue, lo, hi);
+        return queue;
+    }
+
+    // add the values between lo and hi in the subtree rooted at x
+    // to the queue
+    private void values(Node x, Queue<Value> queue, Key lo, Key hi) {
+        if (x == null) return;
+        int cmplo = lo.compareTo(x.key);
+        int cmphi = hi.compareTo(x.key);
+        if (cmplo < 0) values(x.left, queue, lo, hi);
+        if (cmplo <= 0 && cmphi >= 0) {
+            for (Value v : x.lst)
+                queue.enqueue(v);
+        }
+        if (cmphi > 0) values(x.right, queue, lo, hi);
+    }
+
 }

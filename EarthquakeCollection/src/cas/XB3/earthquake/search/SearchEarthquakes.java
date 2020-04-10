@@ -34,11 +34,9 @@ public class SearchEarthquakes {
 		// gets the keys between min latitude and max latitude and gets the earthquakeT
 		// according the keys, then add the earthquake to the list if its distance to
 		// the given location is less than the given radius
-		for (Double latitude : bst.keys(latRange[0], latRange[1])) {
-			for (EarthquakeT earthquake : bst.get(latitude)) {
-				if (location.distanceTo(earthquake.getPointT()) <= radius) {
-					earthquakeList.add(earthquake);
-				}
+		for (EarthquakeT earthquake : bst.values(latRange[0], latRange[1])) {
+			if (location.distanceTo(earthquake.getPointT()) <= radius) {
+				earthquakeList.add(earthquake);
 			}
 		}
 		return earthquakeList;
