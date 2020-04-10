@@ -20,7 +20,7 @@ public class ExperimentsSearch {
 
 		int[] radius = { 10, 100, 200, 300,1000, 4000};
 		
-		System.out.println("execution time of earthquake bag");
+		System.out.println("Execution time of earthquake bag");
 		for (int i = 0; i < radius.length; i++) {
 			double startTime = System.currentTimeMillis();
 			ArrayList<EarthquakeT> eqList = SearchEarthquakes.searchInEarthquakeBag(Earthquakebag, location, radius[i]);
@@ -28,7 +28,7 @@ public class ExperimentsSearch {
 			System.out.printf("Radius: %d, Total execution time: %.5f, size of the list: %d \n", radius[i], (endTime - startTime) / 1000.0, eqList.size());
 		}		
 
-		System.out.println("\n execution time of earthquake tree");
+		System.out.println("\nExecution time of earthquake tree");
 		for (int i = 0; i < radius.length; i++) {
 			double startTime = System.currentTimeMillis();
 			ArrayList<EarthquakeT> eqList2 = SearchEarthquakes.searchEarthquakeInCircle(earthquakeTree, location, radius[i]);
