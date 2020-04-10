@@ -34,12 +34,12 @@ public class MCVDemo {
 		}
 
 		try {
-			File file = new File("./input.txt");
+			//File file = new File("./input.txt");
 			// read the input from input.txt
-			Scanner input = new Scanner(file);
+			//Scanner input = new Scanner(file);
 
 			// read the input from keyboard
-//			Scanner input = new Scanner(System.in);
+			Scanner input = new Scanner(System.in);
 
 			System.out.println("Please enter the latidude, the number should be between 41.0 to 84.0: \n");
 			double lat = input.nextDouble();
@@ -52,19 +52,21 @@ public class MCVDemo {
 
 			controller.search(bst, location, radius);
 
-			while (choice != 0) {
+			do{
 				System.out.println("Please choose the display option:");
 				System.out.println(
 						"Display by magnitude, choose 1; Display by distance, choose 2; Display risk rating, choose 3; exit, choose 0\n");
 				choice = input.nextInt();
-				if (choice == 1) {
+				if (choice == 0){
+					break;
+				} else if (choice == 1) {
 					controller.updateViewOfList(new DispalyByMagnitude());
 				} else if (choice == 2) {
 					controller.updateViewOfList(new DisplayByDistance());
 				} else if (choice == 3) {
 					controller.updateViewOfRisk(bst, location, cityPostList, graph);
 				}
-			}
+			} while (choice > 3);
 			input.close();
 		} catch (Exception e) {
 			e.printStackTrace();
