@@ -718,9 +718,8 @@ $\mbox{sameMagType}(d) \equiv (d.\mbox{magnitudeType}) = (this.\mbox{magnitudeTy
 
 \noindent sameEqClass: $\mbox{EarthquakeT} \rightarrow \mathbb{B}$\\
 $\mbox{sameEqClass}(d) \equiv (d.\mbox{color}) = (this.\mbox{color})$\\
-\noindent \textit{\#Returns true if the given EarthquakeT object has the same earthquake class as the current.}\\
-
-
+\noindent \textit{\#Returns true if the given EarthquakeT object has the same earthquake class\\
+as the current.}
 
 
 \newpage
@@ -1039,11 +1038,11 @@ min & ~ & T & ~\\
 \hline
 max & ~ & T & ~\\
 \hline
-keys & ~ & Queue of T & ~\\
+keys & ~ & seq of T & ~\\
 \hline
-keys &  T, T & Queue of T & ~\\
+keys &  T, T & seq of T & ~\\
 \hline
-values & T, T & Queue of V & ~\\
+values & T, T & seq of V & ~\\
 \hline
 \end{tabular}
 
@@ -1175,7 +1174,7 @@ N/A
 
 \subsubsection* {Access Routine Semantics}
 
-\noindent searchEarthquakeInCircleh(bst, location, radius):
+\noindent searchEarthquakeInCircle(bst, location, radius):
 \begin{itemize}
 \item output: $\mathit{out} := \{e : EarthquakeT \;|\; e \in bst \land location.distanceTo(e.getPointT()) \le radius : e \}$
 \end{itemize}
