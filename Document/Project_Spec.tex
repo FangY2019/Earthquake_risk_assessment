@@ -139,7 +139,7 @@ The input file by filename will match the specific format required by the read m
 
 \noindent rmFirstLastQuote(cell):
 \begin{itemize}
-\item transition: Remove first and last double quotations from a string.
+\item transition: Remove first and last double quotations from a string value.
 \item exception: None
 \end{itemize}
 
@@ -228,21 +228,21 @@ PointT = ?
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-new PointT & real, real & PointT & RuntimeException\\
+new PointT & $\mathbb{R}, \mathbb{R}$ & PointT & RuntimeException\\
 \hline
-getLat & ~ & real & \\
+getLat & ~ & $\mathbb{R}$ & \\
 \hline
-getLong &~ & real & \\
+getLong &~ & $\mathbb{R}$ & \\
 \hline
-distance & PointT & real & \\
+distance & PointT & $\mathbb{R}$ & \\
 \hline
-latFilter & real & $<real, real>$ & \\
+latFilter & $\mathbb{R}$ & $<\mathbb{R}, \mathbb{R}>$ & \\
 \hline
-equals & PointT & boolean & \\
+equals & PointT & $\mathbb{B}$ & \\
 \hline
 
 \end{tabular}
@@ -252,7 +252,7 @@ equals & PointT & boolean & \\
 \subsubsection* {State Variables}
 
 $\mathit{x}: \mathbb{R}$\\
-$\mathit{y}: \mathbb{R}$\\
+$\mathit{y}: \mathbb{R}$
 
 
 \subsubsection* {Access Routine Semantics}
@@ -319,22 +319,23 @@ CityT = ?
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-new CityT & string, string, real & CityT & \\
+new CityT & String, String, $\mathbb{R}$ & CityT & \\
 \hline
-getCityName & ~ & string & \\
+getCityName & ~ & String & \\
 \hline
-getProvince &~ & string & \\
+getProvince &~ & String & \\
 \hline
-getPopDensity & ~ & real & \\
+getPopDensity & ~ & $\mathbb{R}$ & \\
 \hline
-equals & CityT & boolean & \\
+equals & CityT & $\mathbb{B}$ & \\
 \hline
-
 \end{tabular}
+
+\newpage
 
 \subsection* {Semantics}
 
@@ -342,7 +343,7 @@ equals & CityT & boolean & \\
 
 $\mathit{cityName}: \text{String}$\\
 $\mathit{province}: \text{String}$\\
-$\mathit{popDensity}: \mathbb{R}$\\
+$\mathit{popDensity}: \mathbb{R}$
 
 
 \subsubsection* {Access Routine Semantics}
@@ -401,15 +402,15 @@ CityPostT = ?
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-new CityPostT & string, real, real & CityPostT & \\
+new CityPostT & String, $\mathbb{R}, \mathbb{R}$ & CityPostT & \\
 \hline
 getPoint & ~ & PointT & \\
 \hline
-getCityName &~ & string & \\
+getCityName &~ & String & \\
 \hline
 \end{tabular}
 
@@ -418,7 +419,7 @@ getCityName &~ & string & \\
 \subsubsection* {State Variables}
 
 $\mathit{cityName}: \text{String}$\\
-$\mathit{point}: \text{PointT}$\\
+$\mathit{point}: \text{PointT}$
 
 \subsubsection* {Access Routine Semantics}
 
@@ -465,31 +466,33 @@ GeoCollection = ?
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
 add & CityT &  & \\
 \hline
-getCities & string & sequence of CityT & \\
+getCities & String & seq of CityT & \\
 \hline
-getAllCities &  & set of tuple of(string, sequence of CityT)& \\
+getAllCities &  & set of tuple of(String, seq of CityT)& \\
 \hline
-isEmpty &  & boolean& \\
+isEmpty &  & $\mathbb{B}$ & \\
 \hline
 \end{tabular}
+
+\newpage
 
 \subsection* {Semantics}
 
 \subsubsection* {State Variables}
 
-$\mathit{s}$ : set of tuple of (string, sequence of CityT) \\
+$\mathit{s}$ : set of tuple of (String, seq of CityT)
 
 \subsubsection* {Access Routine Semantics}
 
 \noindent add(city):
 \begin{itemize}
-\item transition: $s := \{<str,cities> : <String, \mbox{ sequence of CityT} > \;|\: <str, cities> \;\in s: (str = getFirstCityLetter(city) \Rightarrow <str, cities || [city]> \;|\: true \Rightarrow <str, cities> )\}$ 
+\item transition: $s := \{<str,cities> : <String, \mbox{seq of CityT} > \;|\: <str, cities> \;\in s: (str = getFirstCityLetter(city) \Rightarrow <str, cities || [city]> \;|\: true \Rightarrow <str, cities> )\}$ 
 \end{itemize}
 
 \noindent isEmpty():
@@ -500,7 +503,7 @@ $\mathit{s}$ : set of tuple of (string, sequence of CityT) \\
 
 \noindent getCities(firstLetter):
 \begin{itemize}
-\item output: $\mathit{out} := \{<str,cities> : <String, \mbox{ sequence of CityT} > \;|\: <str, cities> \;\in s \land str = firstLetter :cites \}$ 
+\item output: $\mathit{out} := \{<str,cities> : <String, \mbox{ seq of CityT} > \;|\: <str, cities> \;\in s \land str = firstLetter :cites \}$ 
 \end{itemize}
 
 \noindent getAllCities():
@@ -510,7 +513,7 @@ $\mathit{s}$ : set of tuple of (string, sequence of CityT) \\
 
 \subsection*{Local Functions}
 
-\noindent $\text{getFirstCityLetter}: \text{string} \rightarrow \text{string}$\\
+\noindent $\text{getFirstCityLetter}: \text{String} \rightarrow \text{String}$\\
 \noindent $\text{getFirstCityLetter}(city) \equiv city[0]$\\
 
 
@@ -724,7 +727,7 @@ as the current.}
 
 \newpage
 
-\section* {Edge Module}
+\section* {Edge ADT Module}
 
 \subsection* {Template Module}
 
@@ -743,7 +746,7 @@ Edge = ?
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
@@ -757,13 +760,15 @@ to & ~ & String & \\
 \hline
 \end{tabular}
 
+\newpage
+
 \subsection* {Semantics}
 
 \subsubsection* {State Variables}
 
 $\mathit{v}: \text{String}$\\
 $\mathit{w}: \text{String}$\\
-$\mathit{weight}: \mathbb{Z}$\\
+$\mathit{weight}: \mathbb{Z}$
 
 \subsubsection* {Access Routine Semantics}
 
@@ -814,7 +819,7 @@ CityGraph = ?
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
@@ -822,36 +827,37 @@ new CityGraph &  & CityGraph & \\
 \hline
 addEdge & Edge &  & \\
 \hline
-adj & string & sequence of Edge & \\
+adj & String & seq of Edge & \\
 \hline
 \end{tabular}
+
+\newpage
 
 \subsection* {Semantics}
 
 \subsubsection* {State Variables}
 
-$\mathit{adj}$ : set of tuple of (string, sequence of Edge) \\
+$\mathit{adj}$ : set of tuple of (String, seq of Edge)
 
 
 \subsubsection* {Access Routine Semantics}
 
 CityGraph():
 \begin{itemize}
-\item transition: $adj := \{\}$ 
-
+\item transition: $adj := \{\}$
 \item output: $\mathit{out} := \mathit{self}$
 \end{itemize}
 
 
 \noindent addEdge(e):
 \begin{itemize}
-\item transition: $adj := \{<str, edges>: <String, \mbox{ sequence of Edge}> \;|\; <str, edges> \in adj : (str = e.from() \Rightarrow <str, edges || [e]> \;|\; true \Rightarrow <str, edges>)\}$ 
+\item transition: $adj := \{<str, edges>: <String, \mbox{ seq of Edge}> \;|\; <str, edges> \in adj : (str = e.from() \Rightarrow <str, edges || [e]> \;|\; true \Rightarrow <str, edges>)\}$ 
 
 \end{itemize}
 
 \noindent adj(v):
 \begin{itemize}
-\item output: $\mathit{out} := \{<str, edges>: <String, \mbox{ sequence of Edge}> \;|\; <str, edges> \in adj \land str = v: edges\}$
+\item output: $\mathit{out} := \{<str, edges>: <String, \mbox{ seq of Edge}> \;|\; <str, edges> \in adj \land str = v: edges\}$
 \end{itemize}
 
 
@@ -863,7 +869,10 @@ CityGraph():
 
 EarthquakeBag is seq of EarthquakeT
 
+\medskip
 
+\noindent \textit{\# Used only for testing time performance against RedBlackBST module.}\\
+\noindent \textit{\# This module is not part of the actual application.}
 
 \newpage
 
@@ -1055,7 +1064,7 @@ RED: $\mathbb{B}$\\
 BLACK: $\mathbb{B}$\\
 \underline{$s$: set of $\langle T, V \rangle$}\\
 
-\noindent \textit{\# For simplification, the linked-node structure is represented by set of $\langle T, V \rangle$.}\\
+\noindent \textit{\# For simplification, the linked-node structure is represented by set of $\langle T, V \rangle$.}
 
 \subsubsection* {State Invariant}
 
@@ -1157,11 +1166,11 @@ None
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{2cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-searchEarthquakeInCircle & RedBlackBST, PointT, $\mathbb{R}$ & sequence of EarthquakeT & \\
+searchEarthquakeInCircle & RedBlackBST, PointT, $\mathbb{R}$ & seq of EarthquakeT & \\
 \hline
 \end{tabular}
 
@@ -1204,13 +1213,13 @@ N/A
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{2cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-sortByDistance & PointT, sequence of EarthquakeT &  & \\
+sortByDistance & PointT, seq of EarthquakeT &  & \\
 \hline
-sortByMagnitude & sequence of EarthquakeT &  & \\
+sortByMagnitude & seq of EarthquakeT &  & \\
 \hline
 \end{tabular}
 
@@ -1243,7 +1252,7 @@ N/A
 
 \newpage
 
-\section* {Risk Assessemnt Module}
+\section* {Risk Assessment Module}
 
 \subsection* {Template Module}
 
@@ -1262,7 +1271,7 @@ RiskAssessment = ?
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
@@ -1278,7 +1287,7 @@ getMag &  & $\mathbb{R}$ & \\
 \hline
 getPoplationDensity &  & $\mathbb{R}$ & \\
 \hline
-nearestLowerRiskCity & CityGraph & string & \\
+nearestLowerRiskCity & CityGraph & String & \\
 \hline
 \end{tabular}
 
@@ -1286,12 +1295,12 @@ nearestLowerRiskCity & CityGraph & string & \\
 
 \subsubsection* {State Variables}
 
-$\mathit{earthquakeTree} : RedBlackBST<Double, EarthquakeT>$ \\
+$\mathit{earthquakeTree} : \mbox{RedBlackBST}<\mathbb{R}, \mbox{EarthquakeT}>$ \\
 $\mathit{cityProv} : <>$ \\
 $\mathit{frequency} : \mathbb{Z}$ \\
 $\mathit{averageMag} : \mathbb{R}$ \\
 $\mathit{populationDensity} : \mathbb{R}$ \\
-$\mathit{rating} : \mathbb{Z}$ \\
+$\mathit{rating} : \mathbb{Z}$
 
 
 \subsubsection* {Access Routine Semantics}
@@ -1338,25 +1347,23 @@ $\mathit{rating} : \mathbb{Z}$ \\
 RiskAssessment(earthquakeTree, getLocation(e.to()).getRisk() < rating : e.weight \ge min.weight)$ 
 \end{itemize}
 
-
-
-
+\newpage
 
 \subsection*{Local Functions}
-\noindent $\text{getLocation}: \text{string} \rightarrow \text{PointT}$\\
-\noindent $\text{getLocation}(city) \equiv cityPost.getPoint() \mbox{ such that } \forall (c: CityPostT \;|\; c \in \mbox{ sequence of CityPostT } \land c.getCityName = city: cityPost = c ) $\\
+\noindent $\text{getLocation}: \text{String} \rightarrow \text{PointT}$\\
+\noindent $\text{getLocation}(city) \equiv cityPost.getPoint() \mbox{ such that } \forall (c: CityPostT \;|\; c \in \mbox{ seq of CityPostT } \land c.getCityName = city: cityPost = c ) $\\
 
-\noindent $\text{getCityProv}: \text{PointT, sequence of EarthquakeT} \rightarrow \text{tuple of (string, string)}$\\
+\noindent $\text{getCityProv}: \text{PointT, seq of EarthquakeT} \rightarrow \text{tuple of (String, String)}$\\
 \noindent $\text{getCityProv}(location, eqList) \equiv <eq.getPlace(), eq.getNameOfProv()> \mbox{ such that } \forall (e: EarthquakeT \;|\; c \in eqList: location.distanceTo(e.getPointT()) \ge location.distanceTo(eq.getPointT()))$\\
 
 \noindent $\text{getPopulation}: $\\
-\noindent $\text{getPopulation} \equiv city.getPopDensity() \mbox{ such that } \forall (c: CityT \;|\; c \in \mbox{ sequence of CityT } \land c.getCityName = cityProv[0] \land c.getProvince = cityProv[1]: city = c ) $\\
+\noindent $\text{getPopulation} \equiv city.getPopDensity() \mbox{ such that } \forall (c: CityT \;|\; c \in \mbox{ seq of CityT } \land c.getCityName = cityProv[0] \land c.getProvince = cityProv[1]: city = c ) $\\
 
-\noindent $\text{getFrequency}: \text{sequence of EarthquakeT} \rightarrow \mathbb{Z}$\\
+\noindent $\text{getFrequency}: \text{seq of EarthquakeT} \rightarrow \mathbb{Z}$\\
 \noindent $\text{getFrequency}(s) \equiv |s| $\\
 
 
-\noindent $\text{getAverageMagnitude}: \text{sequence of EarthquakeT} \rightarrow \mathbb{R}$\\
+\noindent $\text{getAverageMagnitude}: \text{seq of EarthquakeT} \rightarrow \mathbb{R}$\\
 \noindent $\text{getAverageMagnitude}(s) \equiv +(e: EarthquakeT \;|\; e \in s: e.getMag()) / |s| $\\
 
 
@@ -1370,7 +1377,7 @@ RiskAssessment(earthquakeTree, getLocation(e.to()).getRisk() < rating : e.weight
 \noindent $\text{populationdensityRating}: \mathbb{R} \rightarrow \mathbb{Z}$\\
 \noindent $\text{populationdensityRating}(populationdensity) \equiv (populationdensity < 1000 \Rightarrow 0 \;|\; populationdensity \ge 1000 \land populationdensity < 5000 \Rightarrow 1 \;|\;populationdensity \ge 5000 \Rightarrow 2) $\\
 
-\noindent $\text{ overallRating}: \mathbb{Z}, \mathbb{R}, \mathbb{R} \rightarrow \mathbb{Z}$\\
+\noindent $\text{overallRating}: \mathbb{Z}, \mathbb{R}, \mathbb{R} \rightarrow \mathbb{Z}$\\
 \noindent $\text{overallRating}(f, a, p) \equiv frequencyRating(f) + magnitudeRating(a) + populationdensityRating(p)$\\
 
 
@@ -1398,11 +1405,11 @@ None
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-display & sequence of EarthquakeT, PointT &  &  ~\\
+display & seq of EarthquakeT, PointT & ~ &  ~\\
 \hline
 \end{tabular}
 
@@ -1429,11 +1436,11 @@ None
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-display & sequence of EarthquakeT, PointT &  &  ~\\
+display & seq of EarthquakeT, PointT & ~ &  ~\\
 \hline
 \end{tabular}
 
@@ -1477,11 +1484,11 @@ None
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-display & sequence of EarthquakeT, PointT &  &  ~\\
+display & seq of EarthquakeT, PointT & ~ &  ~\\
 \hline
 \end{tabular}
 
@@ -1522,11 +1529,11 @@ None
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{6cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-showRisk & RedBlackBST, sequence of CityPostT, PointT, CityGraph &  &  ~\\
+showRisk & RedBlackBST, seq of CityPostT, PointT, CityGraph & ~ &  ~\\
 \hline
 \end{tabular}
 
@@ -1545,7 +1552,7 @@ N/A
 \end{itemize}
 
 \subsection*{Local Functions}
-\noindent $\text{initGraph}: RiskAssessment, sequence of CityPostT, CityGraph \rightarrow CityGraph$\\
+\noindent $\text{initGraph}: RiskAssessment, seq of CityPostT, CityGraph \rightarrow CityGraph$\\
 \noindent initGraph(ra, s, graph) $\equiv$ graph.addEdge(e) such that e = Edge(ra.getCity(), cityPost.getCityName, ra.getCity().getPoint().distanceTo(cityPost.getCityName.getPoint())) for all cityPost $\in$ s and ra.getCity().getPoint().distanceTo(cityPost.getCityName.getPoint()) $<$ 100\\
 
 
@@ -1571,25 +1578,27 @@ Controller = ?
 
 \subsubsection* {Exported Access Programs}
 
-\begin{tabular}{| l | l | l | p{2.3cm} |}
+\begin{tabular}{| l | l | l | l |}
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-init & RedBlackBST, GeoCollection, sequence of CityPostT &  &  ~\\
+init & RedBlackBST, GeoCollection, seq of CityPostT &  &  ~\\
 \hline
-search & RedBlackBST, PointT, real &  &  ~\\
+search & RedBlackBST, PointT, $\mathbb{R}$ &  &  ~\\
 \hline
 updateViewOfList & ViewList &  &  ~\\
 \hline
-updateViewOfRisk & RedBlackBST, PointT, sequence of CityPostT, CityGraph &  &  ~\\
+updateViewOfRisk & RedBlackBST, PointT, seq of CityPostT, CityGraph &  &  ~\\
 \hline
 \end{tabular}
+
+\newpage
 
 \subsection* {Semantics}
 
 \subsubsection* {State Variables}
-$\mathit{location} : PointT$ \\
-$\mathit{eqList} : sequence of EarthquakeT$ \\
+$\mathit{location} : \mbox{PointT}$ \\
+$\mathit{eqList} : \mbox{seq of EarthquakeT}$
 
 \subsubsection* {Access Routine Semantics}
 
