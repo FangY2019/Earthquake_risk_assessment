@@ -74,13 +74,13 @@ None
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-readEarthquakes & String, EarthquakeBag & ~ & ~\\
+readEarthquakes & String, EarthquakeBag & ~ & IOException\\
 \hline
-readEarthquakesBST & String, RedBlackBST & ~ & ~\\
+readEarthquakesBST & String, RedBlackBST & ~ & IOException\\
 \hline
-readPopulation & String, GeoCollection & ~ & ~\\
+readPopulation & String, GeoCollection & ~ & IOException\\
 \hline
-readCityPosition & String, seq of CityPostT & ~ & ~\\
+readCityPosition & String, seq of CityPostT & ~ & IOException\\
 \hline
 rmFirstLastQuote & String & String & ~\\
 \hline
@@ -112,27 +112,27 @@ None
 
 \noindent readEarthquakes(filename, bag):
 \begin{itemize}
-\item transition: Read each line of the earthquake csv file and convert to EarthquakeT object, which is stored in a EarthquakeBag.
-\item exception: None
+\item transition: Read each line of the earthquake csv file and convert to a EarthquakeT object, which is stored in a EarthquakeBag.
+\item exception: If the file by filename does not exist, produces IOException.
 \end{itemize}
 
 \noindent readEarthquakesBST(filename, bst):
 \begin{itemize}
-\item transition: Read each line of the earthquake csv file and convert to EarthquakeT object, which is stored in a RedBlackBST.
-\item exception: None
+\item transition: Read each line of the earthquake csv file and convert to a EarthquakeT object, which is stored in a RedBlackBST.
+\item exception: If the file by filename does not exist, produces IOException.
 \end{itemize}
 
 \noindent readPopulation(filename, geoCollec):
 \begin{itemize}
-\item transition: Read each line of the population csv file and convert to CityT object, which is stored in a GeoCollection HashMap.
-\item exception: None
+\item transition: Read each line of the population csv file and convert to a CityT object, which is stored in a GeoCollection HashMap.
+\item exception: If the file by filename does not exist, produces IOException.
 \end{itemize}
 
 \noindent readCityPosition(filename, cityPostList):
 \begin{itemize}
-\item transition: Read each line of the city coordinates csv file and convert to CityPostT object,
+\item transition: Read each line of the city coordinates csv file and convert to a CityPostT object,
  which is stored in a list of cities.
-\item exception: None
+\item exception: If the file by filename does not exist, produces IOException.
 \end{itemize}
 
 \noindent rmFirstLastQuote(cell):
@@ -516,7 +516,7 @@ $\mathit{s}$ : set of tuple of (string, sequence of CityT) \\
 
 \newpage
 
-\section* {EarthquakeT ADT Module}
+\section* {Earthquake ADT Module}
 
 \subsection* {Template Module}
 
@@ -1610,7 +1610,7 @@ The states of variable eqList is modified by accessing the route of searchEarthq
 \item print the list of earthquakes by accessing the route of display in ViewList module.
 \end{itemize}
 
-\noindent updateViewOfRisk(bst, loc, s, graph ):
+\noindent updateViewOfRisk(bst, loc, s, graph):
 \begin{itemize}
 \item print the the risk assessment result by accessing the route of showRisk in ViewRisk module.
 \end{itemize}
