@@ -1,5 +1,8 @@
 /**
  * The MCVDemo class shows how the project work
+ * The program takes the input from keyboard or file and output the corresponding result.
+ * The program shows the correct results when user enter a location within Canada based on the dataset's constraints. 
+ * We assume that the user always enter the correct inputs. 
  * 
  * @author Ye Fang
  * Revised: April 9, 2020
