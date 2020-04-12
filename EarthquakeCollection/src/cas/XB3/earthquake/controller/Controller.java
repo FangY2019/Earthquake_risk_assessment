@@ -32,7 +32,7 @@ public class Controller {
 	public void init(RedBlackBST<Double, EarthquakeT> bst, GeoCollection GeoCollection, ArrayList<CityPostT> cityPostList) {
 		CSVreader.readEarthquakesBST("./eqarchive-en.csv",bst);
 		CSVreader.readPopulation("./T301EN.CSV", GeoCollection);
-		CSVreader.readCityPosition("./City_Coordinates.CSV", cityPostList);	
+		CSVreader.readCityPosition("./City_Coordinates.csv", cityPostList);	
 	}
 
 	/**

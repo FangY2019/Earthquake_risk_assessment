@@ -1,5 +1,8 @@
 /**
- * A DisplayByMagnitude implements ViewList interface   
+ * The MCVDemo class shows how the project work
+ * The program takes the input from keyboard or file and output the corresponding result.
+ * The program shows the correct results when user enter a location within Canada based on the dataset's constraints. 
+ * We assume that the user always enter the correct inputs.   
  * 
  * @author Ye Fang
  * Revised: April 9, 2020
@@ -23,7 +26,7 @@ public class DispalyByMagnitude implements ViewList {
 	public void display(ArrayList<EarthquakeT> earthquakeList, PointT location) {
 		Sort.sortByMagnitude(earthquakeList);
 		if (earthquakeList.size() == 0)
-			System.out.println("There's no earthquake!");
+			System.out.println("There's no earthquake in the given location and radius!\n");
 		else {
 			System.out.println("The earthquakes are displayed in the descending order based on the magnitude:");
 			System.out.printf("%-15s%-20s%-15s%-40s\n", "Magnitude", "Earthquake class", "Date", "City");

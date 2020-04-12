@@ -30,7 +30,7 @@ public class ViewRisk {
 		int rating = riskAssessment.getRisk();
 
 		if (riskAssessment.getFrequency() == 0) {
-			System.out.printf("The risk rating for the location (%.2f , %.2f) is : % d\n", location.getLat(),
+			System.out.printf("The risk rating for the location (%.2f , %.2f) is : % d\n\n", location.getLat(),
 					location.getLong(), rating);
 		} else {
 

@@ -24,7 +24,7 @@ public class DisplayByDistance implements ViewList {
 	public void display(ArrayList<EarthquakeT> earthquakeList, PointT location) {
 		Sort.sortByDistance(location, earthquakeList);
 		if (earthquakeList.size() == 0)
-			System.out.println("There's no earthquake!");
+			System.out.println("There's no earthquake in the given location and radius!\n");
 		else {
 			System.out.println(
 					"The earthquakes are displayed in the ascending order based on the distance from the input location:");
